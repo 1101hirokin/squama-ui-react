@@ -13,9 +13,14 @@
         "allowImportingTsExtensions": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "moduleDetection": "force",
-        "noEmit": true,
+        // "noEmit": true,
         "jsx": "react-jsx",
+        "emitDeclarationOnly": true,
+        "declaration": true,
+        "declarationMap": true,
+        "declarationDir": "./dist-types",
+        "outDir": "./dist-types",
+        "rootDir": "./src",
 
         /* Linting */
         "strict": true,
@@ -23,5 +28,6 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true
     },
-    "include": ["src"]
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist", "./src/main.tsx"]
 }
