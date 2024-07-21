@@ -1,0 +1,4 @@
+.component {
+    position: relative;
+    isolation: isolate;
+}
