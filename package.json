@@ -24,10 +24,12 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "chroma-js": "^2.4.2",
         "react": "^18.3.1",
         "react-dom": "^18.3.1"
     },
     "devDependencies": {
+        "@types/chroma-js": "^2.4.4",
         "@types/node": "^20.14.11",
         "@types/react": "^18.3.3",
         "@types/react-dom": "^18.3.0",
