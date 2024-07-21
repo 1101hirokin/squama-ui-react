@@ -68,10 +68,25 @@ export class Color {
         return color;
     }
 
-    public getMixedColor(target: Color, amount: number): Color {
-        const mixed = this._color.mix(target._color, amount).rgba();
-        const mixedColor = new Color(mixed[0], mixed[1], mixed[2], mixed[3]);
-
-        return mixedColor;
+    public getMixedColor(target: string | Color, amount: number): Color {
+        if (typeof target === "string") {
+            const mixed = this._color.mix(target, amount).rgba();
+            const mixedColor = new Color(
+                mixed[0],
+                mixed[1],
+                mixed[2],
+                mixed[3],
+            );
+            return mixedColor;
+        } else {
+            const mixed = this._color.mix(target._color, amount).rgba();
+            const mixedColor = new Color(
+                mixed[0],
+                mixed[1],
+                mixed[2],
+                mixed[3],
+            );
+            return mixedColor;
+        }
     }
 }
