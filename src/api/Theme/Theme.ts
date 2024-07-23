@@ -57,10 +57,11 @@ const defaultDarkTheme: Theme = {
     isLight: false,
     shape: "rounded",
     app: {
-        background: Colors.gray[900],
+        background: "#101112",
         text: Colors.gray[50],
     },
     component: {
+        background: Colors.gray[900],
         border: Colors.gray[700],
     },
     system: Colors.blue[500],
