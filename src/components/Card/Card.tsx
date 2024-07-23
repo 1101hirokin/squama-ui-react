@@ -21,16 +21,12 @@ type CardProps = Modify<
 >;
 
 export const Card = (props: CardProps) => {
-    const {
-        shape = "rounded",
-        variant = "outlined",
-        elevation = 0,
-        ...rest
-    } = props;
+    const { shape, variant = "outlined", elevation = 0, ...rest } = props;
 
     const context = useSquamaContext();
     const theme = context.getCurrentTheme();
-    const borderRadius = getBorderRadiusByShape(shape);
+
+    const borderRadius = getBorderRadiusByShape(shape || theme.shape);
     const boxShadow = getBoxShadowByElevation(elevation);
 
     const style = {
