@@ -1,7 +1,14 @@
 {
-    "name": "squama-ui",
+    "name": "squama-ui-react",
     "private": true,
-    "version": "0.0.0",
+    "version": "0.0.0-alpha.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/1101hirokin/squama-ui-react"
+    },
+    "bugs": {
+        "url": "https://github.com/1101hirokin/squama-ui-react/issues"
+    },
     "type": "module",
     "main": "dist/index.umd.cjs",
     "module": "dist/index.js",
@@ -43,5 +50,12 @@
         "prettier": "^3.3.3",
         "typescript": "^5.2.2",
         "vite": "^5.3.4"
-    }
+    },
+    "keywords": [
+        "react",
+        "ui",
+        "component",
+        "squama",
+        "designsystem"
+    ]
 }
