@@ -1,0 +1,20 @@
+.Text {
+    font-size: var(--s-text--font-size, 16px);
+    font-family: var(--s-app--font-family--normal, "Arial");
+    color: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.heading {
+    font-weight: 500;
+    line-height: 1.667;
+}
+.subtitle {
+    font-weight: 500;
+    line-height: 1.667;
+}
+.body {
+    font-weight: 400;
+    line-height: 1.334;
+}
