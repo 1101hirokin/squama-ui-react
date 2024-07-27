@@ -2,6 +2,7 @@ import {
     getTextLevelByTypeScale,
     getTypographyFontSizeByLevel,
     SquamaComponentProps,
+    squamaComponentClass,
     TypeScale,
 } from "../../api";
 import { buildClassName, Modify } from "../../utils";
@@ -111,7 +112,12 @@ export const Text = (props: TextProps) => {
     return (
         <Element
             {...rest}
-            className={buildClassName(classNames, rest.className, styles.Text)}
+            className={buildClassName(
+                squamaComponentClass,
+                classNames,
+                rest.className,
+                styles.Text,
+            )}
             style={{
                 ...cssVars,
                 ...rest.style,

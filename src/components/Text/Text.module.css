@@ -8,13 +8,18 @@
 
 .heading {
     font-weight: 500;
-    line-height: 1.667;
+    line-height: 1.54;
 }
 .subtitle {
     font-weight: 500;
-    line-height: 1.667;
+    line-height: 1.54;
 }
 .body {
     font-weight: 400;
     line-height: 1.334;
+}
+
+.button {
+    font-weight: 500;
+    line-height: 1.667;
 }

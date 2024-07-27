@@ -41,8 +41,8 @@ export const getComponentColor = (
                 },
                 disabled: {
                     background: `transparent`,
-                    border: `1px solid ${isColorLight ? Colors.gray[200] : Colors.gray[400]}`,
-                    text: isColorLight ? Colors.gray[400] : Colors.gray[200],
+                    border: `1px solid ${isColorLight ? Colors.gray[300] : Colors.gray[400]}`,
+                    text: isColorLight ? Colors.gray[300] : Colors.gray[400],
                 },
             };
         case "text":
@@ -65,7 +65,7 @@ export const getComponentColor = (
                 disabled: {
                     background: `transparent`,
                     border: `transparent`,
-                    text: isColorLight ? Colors.gray[400] : Colors.gray[200],
+                    text: isColorLight ? Colors.gray[300] : Colors.gray[400],
                 },
             };
         default:
@@ -76,23 +76,25 @@ export const getComponentColor = (
                     text: isColorLight ? Colors.gray[900] : Colors.gray[50],
                 },
                 hover: {
-                    background: parsedColor.getMixedColor("white", 0.04)
-                        .cssString,
+                    background: isColorLight
+                        ? parsedColor.getMixedColor("black", 0.12).cssString
+                        : parsedColor.getMixedColor("white", 0.04).cssString,
                     border: `none`,
                     text: isColorLight ? Colors.gray[900] : Colors.gray[50],
                 },
                 active: {
-                    background: parsedColor.getMixedColor("white", 0.12)
-                        .cssString,
+                    background: isColorLight
+                        ? parsedColor.getMixedColor("black", 0.24).cssString
+                        : parsedColor.getMixedColor("white", 0.12).cssString,
                     border: `none`,
                     text: isColorLight ? Colors.gray[900] : Colors.gray[50],
                 },
                 disabled: {
                     background: isColorLight
-                        ? Colors.gray[200]
-                        : Colors.gray[400],
+                        ? Colors.gray[100]
+                        : Colors.gray[500],
                     border: `none`,
-                    text: isColorLight ? Colors.gray[400] : Colors.gray[200],
+                    text: isColorLight ? Colors.gray[300] : Colors.gray[300],
                 },
             };
     }

@@ -10,6 +10,11 @@
 
     --s-app--font-size--base: 16px;
 
+    --s-app--anime--dur--base: 0.144s;
+    --s-app--anime--easing--base: cubic-bezier(0.667, 0, 0.333, 1);
+    --s-app--anime--dur--impressive: 0.256s;
+    --s-app--anime--easing--impressive: cubic-bezier(0.667, 0, 0.333, 1);
+
     --s-app--color--red--50: #fff9f6;
     --s-app--color--red--100: #ffe9e1;
     --s-app--color--red--200: #ffc9b5;
@@ -109,7 +114,7 @@ body {
 
 body {
     margin: 0;
-    font-family: var(--s-app--font-family-normal);
+    font-family: var(--s-app--font-family--normal);
     font-size: var(--s-app--font-size--base, 14px);
 }
 

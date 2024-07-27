@@ -1,5 +1,5 @@
 import "./SquamaApp.css";
-import { SquamaComponentProps, squamaComponentStyles } from "../../api";
+import { SquamaComponentProps, squamaComponentClass } from "../../api";
 import { buildClassName, Modify } from "../../utils";
 import styles from "./SquamaApp.module.css";
 import { SquamaContextProvider } from "../SquamaContext/SquamaContext";
@@ -7,21 +7,18 @@ import { SquamaContextProvider } from "../SquamaContext/SquamaContext";
 type SquamaAppProps = Modify<SquamaComponentProps, {}>;
 
 export const SquamaApp = (props: SquamaAppProps) => {
-    const { id, className, style, children } = props;
+    const { ...rest } = props;
 
     return (
         <SquamaContextProvider>
             <div
-                id={id}
+                {...rest}
                 className={buildClassName(
                     styles.SquamaApp,
-                    className,
-                    squamaComponentStyles,
+                    rest.className,
+                    squamaComponentClass,
                 )}
-                style={style}
-            >
-                {children}
-            </div>
+            />
         </SquamaContextProvider>
     );
 };

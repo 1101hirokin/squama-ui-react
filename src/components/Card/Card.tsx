@@ -4,7 +4,7 @@ import {
     getBoxShadowByElevation,
     Shape,
     SquamaComponentProps,
-    squamaComponentStyles,
+    squamaComponentClass,
     Variant,
 } from "../../api";
 import { buildClassName, Modify } from "../../utils";
@@ -49,7 +49,7 @@ export const Card = (props: CardProps) => {
             className={buildClassName(
                 styles.Card,
                 rest.className,
-                squamaComponentStyles,
+                squamaComponentClass,
                 shape && styles[shape],
             )}
             style={{
