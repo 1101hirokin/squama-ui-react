@@ -1,0 +1,9 @@
+.Icon {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.Icon > .Icon__svg {
+  width: 100%;
+}
