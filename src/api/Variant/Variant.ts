@@ -1,7 +1,8 @@
 import { Color } from "../Color/Color";
 import { Colors } from "../Colors/Colors";
+import { Theme } from "../Theme/Theme";
 
-export type Variant = "filled" | "outlined" | "text" | "disabled";
+export type Variant = "filled" | "outlined" | "text";
 
 type ComponentColor = {
     background: string;
@@ -10,6 +11,7 @@ type ComponentColor = {
 };
 
 export const getComponentColor = (
+    theme: Theme,
     color: string,
     variant: Variant = "filled",
 ): {
@@ -41,8 +43,8 @@ export const getComponentColor = (
                 },
                 disabled: {
                     background: `transparent`,
-                    border: `1px solid ${isColorLight ? Colors.gray[300] : Colors.gray[400]}`,
-                    text: isColorLight ? Colors.gray[300] : Colors.gray[400],
+                    border: `1px solid ${theme.isLight ? Colors.gray[300] : Colors.gray[400]}`,
+                    text: theme.isLight ? Colors.gray[300] : Colors.gray[400],
                 },
             };
         case "text":
@@ -65,7 +67,7 @@ export const getComponentColor = (
                 disabled: {
                     background: `transparent`,
                     border: `transparent`,
-                    text: isColorLight ? Colors.gray[300] : Colors.gray[400],
+                    text: theme.isLight ? Colors.gray[300] : Colors.gray[400],
                 },
             };
         default:
@@ -90,11 +92,11 @@ export const getComponentColor = (
                     text: isColorLight ? Colors.gray[900] : Colors.gray[50],
                 },
                 disabled: {
-                    background: isColorLight
+                    background: theme.isLight
                         ? Colors.gray[100]
                         : Colors.gray[500],
                     border: `none`,
-                    text: isColorLight ? Colors.gray[300] : Colors.gray[300],
+                    text: theme.isLight ? Colors.gray[300] : Colors.gray[300],
                 },
             };
     }

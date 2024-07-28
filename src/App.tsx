@@ -3,6 +3,7 @@ import {
     Button,
     Card,
     Icon,
+    IconButton,
     Text,
     TextArea,
     TextInput,
@@ -219,6 +220,33 @@ const ComponentInApp = () => {
                             submit
                         </Button>
                     </form>
+                </div>
+
+                <div>
+                    <IconButton
+                        icon="send"
+                        size="m"
+                        color="#1b1b1b"
+                        style={{
+                            marginRight: "var(--s-app--spacer--1x, .4rem)",
+                        }}
+                    ></IconButton>
+                    <IconButton
+                        icon="send"
+                        size="m"
+                        color="#dadada"
+                        shape="circular"
+                        loading
+                        style={{
+                            marginRight: "var(--s-app--spacer--1x, .4rem)",
+                        }}
+                    ></IconButton>
+                    <IconButton
+                        icon="send"
+                        shape="square"
+                        size="m"
+                        disabled
+                    ></IconButton>
                 </div>
             </Card>
         </div>

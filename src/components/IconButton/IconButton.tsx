@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import styles from "./IconButton.module.css";
 import {
     Elevation,
     getBorderRadiusByShape,
@@ -10,14 +11,15 @@ import {
     Variant,
 } from "../../api";
 import { buildClassName, Modify } from "../../utils";
-import styles from "./Button.module.css";
-import { Text } from "../Text/Text";
-import { CircularLoader } from "../CircularLoader/CircularLoader";
+import { Icon, IconName } from "../Icon/Icon";
 import { useSquamaContext } from "../SquamaContext/SquamaContext";
+import { CircularLoader } from "../CircularLoader/CircularLoader";
 
-type ButtonProps = Modify<
+type IconButtonProps = Modify<
     SquamaComponentProps,
     {
+        icon: IconName;
+
         elevation?: Elevation;
         variant?: Variant;
         shape?: Shape;
@@ -33,11 +35,15 @@ type ButtonProps = Modify<
 
         onClick?: React.ComponentProps<"button">["onClick"];
         onClickInLoading?: React.ComponentProps<"button">["onClick"];
+
+        children?: never;
     }
 >;
 
-export const Button = (props: ButtonProps) => {
+export const IconButton = (props: IconButtonProps) => {
     const {
+        icon,
+
         elevation = 0,
         variant = "filled",
         shape = "rounded",
@@ -46,7 +52,6 @@ export const Button = (props: ButtonProps) => {
 
         type = "button",
 
-        children,
         disabled,
         block,
         loading = false,
@@ -62,7 +67,9 @@ export const Button = (props: ButtonProps) => {
         const boxShadow = disabled
             ? "none"
             : getBoxShadowByElevation(elevation);
+
         const borderRadius = getBorderRadiusByShape(shape ?? theme.shape);
+
         const componentStyle = getComponentColor(theme, color, variant);
 
         return {
@@ -93,7 +100,7 @@ export const Button = (props: ButtonProps) => {
             "--s-button--border--disabled": componentStyle.disabled.border,
             "--s-button--color--disabled": componentStyle.disabled.text,
         } as React.CSSProperties;
-    }, [color, variant, shape, elevation, disabled]);
+    }, [theme, color, variant]);
 
     const isOnLoadingProcess =
         loading === true || loading === "loading" || loading === "paused";
@@ -108,7 +115,7 @@ export const Button = (props: ButtonProps) => {
                 ...cssVars,
             }}
             className={buildClassName(
-                styles.Button,
+                styles.IconButton,
                 rest.className,
                 block && styles.block,
                 isOnLoadingProcess && styles.isOnLoadingProcess,
@@ -122,12 +129,11 @@ export const Button = (props: ButtonProps) => {
             onClick={isOnLoadingProcess ? onClickInLoading : onClick}
         >
             <div className={styles.mainLayer}>
-                <div className={styles.childTextContainer}>
-                    <Text typeScale="button" className={styles.childText}>
-                        {children}
-                    </Text>
+                <div className={styles.iconContainer}>
+                    <Icon name={icon} />
                 </div>
             </div>
+
             <div
                 className={buildClassName(
                     styles.circularLoaderContainer,
