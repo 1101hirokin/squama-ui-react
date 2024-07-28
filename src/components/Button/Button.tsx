@@ -1,9 +1,11 @@
 import React, { useMemo } from "react";
 import {
+    ComponentSize,
     Elevation,
     getBorderRadiusByShape,
     getBoxShadowByElevation,
     getComponentColor,
+    getPixelFromComponentSize,
     Shape,
     squamaComponentClass,
     SquamaComponentProps,
@@ -21,7 +23,7 @@ type ButtonProps = Modify<
         elevation?: Elevation;
         variant?: Variant;
         shape?: Shape;
-        size?: "s" | "m" | "l";
+        size?: Extract<ComponentSize, "s" | "m" | "l">;
 
         type?: "button" | "submit" | "reset";
         color?: string;
@@ -64,8 +66,10 @@ export const Button = (props: ButtonProps) => {
             : getBoxShadowByElevation(elevation);
         const borderRadius = getBorderRadiusByShape(shape ?? theme.shape);
         const componentStyle = getComponentColor(theme, color, variant);
+        const height = getPixelFromComponentSize(size);
 
         return {
+            "--s-button--height": height,
             "--s-button--box-shadow": boxShadow,
             "--s-button--border-radius": borderRadius,
 
@@ -112,11 +116,6 @@ export const Button = (props: ButtonProps) => {
                 rest.className,
                 block && styles.block,
                 isOnLoadingProcess && styles.isOnLoadingProcess,
-                size === "s"
-                    ? styles.small
-                    : size === "l"
-                      ? styles.large
-                      : undefined,
                 squamaComponentClass,
             )}
             onClick={isOnLoadingProcess ? onClickInLoading : onClick}

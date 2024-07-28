@@ -17,18 +17,11 @@
         color var(--s-app--anime--dur--base) var(--s-app--anime--easing--base),
         border var(--s-app--anime--dur--base) var(--s-app--anime--easing--base);
 
-    --size: 40px;
+    --size: var(--s-button--size, 40px);
     height: var(--size);
     width: var(--size);
 
     cursor: pointer;
-}
-
-.IconButton.small {
-    --size: 32px;
-}
-.IconButton.large {
-    --size: 48px;
 }
 
 /* Button states */

@@ -1,7 +1,9 @@
 import React, { forwardRef } from "react";
 import {
     Colors,
+    ComponentSize,
     getBorderRadiusByShape,
+    getPixelFromComponentSize,
     Shape,
     squamaComponentClass,
     SquamaComponentProps,
@@ -16,6 +18,7 @@ type TextInputProps = Modify<
     {
         labelText?: string;
         shape?: Shape;
+        height?: ComponentSize;
 
         leadingContents?: React.ReactNode;
         trailingContents?: React.ReactNode;
@@ -47,6 +50,7 @@ export const TextInput = forwardRef<HTMLDivElement, TextInputProps>(
         const {
             labelText,
             shape,
+            height = "m",
 
             inputId,
             inputRef,
@@ -80,8 +84,11 @@ export const TextInput = forwardRef<HTMLDivElement, TextInputProps>(
         const theme = context.getCurrentTheme();
 
         const borderRadius = getBorderRadiusByShape(shape ?? theme.shape);
+        const _height = getPixelFromComponentSize(height);
 
         const cssVars = {
+            "--s-textinput--height": _height,
+
             "--s-textinput--border-radius": borderRadius,
 
             "--s-textinput--border-color": theme.component.border,

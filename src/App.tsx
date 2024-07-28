@@ -130,6 +130,7 @@ const ComponentInApp = () => {
                         }}
                     >
                         <TextInput
+                            height="s"
                             inputRef={nameFieldRef}
                             name="user name"
                             required

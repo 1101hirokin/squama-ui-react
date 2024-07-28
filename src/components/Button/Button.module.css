@@ -15,18 +15,10 @@
         border var(--s-app--anime--dur--base) var(--s-app--anime--easing--base);
 
     height: auto;
-    min-height: 40px;
+    min-height: var(--s-button--height, 40px);
     padding: 0 16px;
 
     cursor: pointer;
-}
-.Button.small {
-    min-height: 32px;
-    padding: 0 12px;
-}
-.Button.large {
-    min-height: 48px;
-    padding: 0 20px;
 }
 
 /* Button states */

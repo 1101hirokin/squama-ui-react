@@ -9,7 +9,7 @@
 .mainContentsContainer {
     display: grid;
     width: 100%;
-    min-height: 40px;
+    min-height: var(--s-textinput--height, 40px);
 
     grid-template-rows: auto;
     grid-template-columns: auto 1fr auto;

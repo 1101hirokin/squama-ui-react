@@ -1,10 +1,12 @@
 import React, { useMemo } from "react";
 import styles from "./IconButton.module.css";
 import {
+    ComponentSize,
     Elevation,
     getBorderRadiusByShape,
     getBoxShadowByElevation,
     getComponentColor,
+    getPixelFromComponentSize,
     Shape,
     squamaComponentClass,
     SquamaComponentProps,
@@ -23,7 +25,7 @@ type IconButtonProps = Modify<
         elevation?: Elevation;
         variant?: Variant;
         shape?: Shape;
-        size?: "s" | "m" | "l";
+        size?: Extract<ComponentSize, "s" | "m" | "l">;
 
         type?: "button" | "submit" | "reset";
         color?: string;
@@ -69,10 +71,12 @@ export const IconButton = (props: IconButtonProps) => {
             : getBoxShadowByElevation(elevation);
 
         const borderRadius = getBorderRadiusByShape(shape ?? theme.shape);
-
         const componentStyle = getComponentColor(theme, color, variant);
+        const _size = getPixelFromComponentSize(size);
 
         return {
+            "--s-button--size": _size,
+
             "--s-button--box-shadow": boxShadow,
             "--s-button--border-radius": borderRadius,
 
@@ -119,11 +123,6 @@ export const IconButton = (props: IconButtonProps) => {
                 rest.className,
                 block && styles.block,
                 isOnLoadingProcess && styles.isOnLoadingProcess,
-                size === "s"
-                    ? styles.small
-                    : size === "l"
-                      ? styles.large
-                      : undefined,
                 squamaComponentClass,
             )}
             onClick={isOnLoadingProcess ? onClickInLoading : onClick}
