@@ -57,6 +57,11 @@
     font-family: var(--s-app--font-family--normal);
 
     resize: none;
+
+    cursor: text;
+}
+.TextArea.disabled .textareaContainer > .textarea {
+    cursor: not-allowed;
 }
 .textareaContainer > .textarea::placeholder {
     color: var(--s-textarea--placeholder-color, #000);

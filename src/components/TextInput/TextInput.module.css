@@ -54,6 +54,11 @@
     outline: none;
 
     font-family: var(--s-app--font-family--normal);
+
+    cursor: text;
+}
+.TextInput.disabled .inputContainer > .input {
+    cursor: not-allowed;
 }
 .inputContainer > .input::placeholder {
     color: var(--s-textinput--placeholder-color, #000);
