@@ -1,5 +1,9 @@
 .TextInput {
     width: 100%;
+    color: var(--s-textinput--text-color, #000);
+}
+.TextInput.disabled {
+    color: var(--s-textinput--text-color--disabled, #000);
 }
 
 .mainContentsContainer {
@@ -11,28 +15,30 @@
     grid-template-columns: auto 1fr auto;
     grid-template-areas: "leading input trailing";
 
-    border: 1px solid var(--s-text-input--border-color, "transparent");
-    color: var(--s-text-input--text-color, #000);
-    background-color: var(--s-text-input--background-color, #fff);
+    border: 1px solid var(--s-textinput--border-color, "transparent");
+    background-color: var(--s-textinput--background-color, #fff);
 
-    border-radius: var(--s-text-input--border-radius, 0px);
+    border-radius: var(--s-textinput--border-radius, 0px);
 }
 .mainContentsContainer:focus-within {
-    /* show system focus ring*/
     outline: -webkit-focus-ring-color auto 1px;
+}
+.TextInput.disabled .mainContentsContainer {
+    border: none;
+    background-color: var(--s-textinput--background-color--disabled, #fff);
 }
 
 .labelContainer {
     width: 100%;
 
-    margin: 0 0 var(--s-app--spacer--1x) 0;
+    margin: 0 0 var(--s-app--spacer--1x, 4px) 0;
 }
 
 .inputContainer {
     grid-area: input;
 
     width: 100%;
-    height: 40px;
+    height: 100%;
 }
 
 .inputContainer > .input {
@@ -46,15 +52,17 @@
 
     padding: 0 8px;
     outline: none;
+
+    font-family: var(--s-app--font-family--normal);
 }
 .inputContainer > .input::placeholder {
-    color: var(--s-text-input--placeholder-color, #000);
+    color: var(--s-textinput--placeholder-color, #000);
 }
 .inputContainer > .input:disabled::placeholder {
-    color: var(--s-text-input--placeholder-color--disabled, #000);
+    color: var(--s-textinput--placeholder-color--disabled, #000);
 }
 .requiredMessage {
-    color: var(--s-text-input--required-message--color, #000);
+    color: var(--s-textinput--required-message--color, #000);
 }
 
 .TextInput.hasLeading .inputContainer > .input {

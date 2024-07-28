@@ -8,10 +8,10 @@ import {
 } from "../../api";
 import { buildClassName, generateUUIDv4, Modify } from "../../utils";
 import { useSquamaContext } from "../SquamaContext/SquamaContext";
-import styles from "./TextInput.module.css";
+import styles from "./TextArea.module.css";
 import { Text } from "../Text/Text";
 
-type TextInputProps = Modify<
+type TextAreaProps = Modify<
     SquamaComponentProps,
     {
         labelText?: string;
@@ -20,32 +20,35 @@ type TextInputProps = Modify<
         leadingContents?: React.ReactNode;
         trailingContents?: React.ReactNode;
 
-        inputId?: string;
+        textAreaHeight?: React.CSSProperties["height"];
+
+        textareaId?: string;
         name?: string;
-        placeholder?: React.ComponentProps<"input">["placeholder"];
-        defaultValue?: React.ComponentProps<"input">["defaultValue"];
-        value?: React.ComponentProps<"input">["value"];
-        tabIndex?: React.ComponentProps<"input">["tabIndex"];
-        onChange?: React.ComponentProps<"input">["onChange"];
-        onFocus?: React.ComponentProps<"input">["onFocus"];
-        onBlur?: React.ComponentProps<"input">["onBlur"];
-        minLength?: React.ComponentProps<"input">["minLength"];
-        maxLength?: React.ComponentProps<"input">["maxLength"];
-        autoComplete?: React.ComponentProps<"input">["autoComplete"];
-        pattern?: React.ComponentProps<"input">["pattern"];
-        required?: React.ComponentProps<"input">["required"];
+        placeholder?: React.ComponentProps<"textarea">["placeholder"];
+        defaultValue?: React.ComponentProps<"textarea">["defaultValue"];
+        value?: string;
+        tabIndex?: React.ComponentProps<"textarea">["tabIndex"];
+        onChange?: React.ComponentProps<"textarea">["onChange"];
+        onFocus?: React.ComponentProps<"textarea">["onFocus"];
+        onBlur?: React.ComponentProps<"textarea">["onBlur"];
+        minLength?: React.ComponentProps<"textarea">["minLength"];
+        maxLength?: React.ComponentProps<"textarea">["maxLength"];
+        autoComplete?: React.ComponentProps<"textarea">["autoComplete"];
+        required?: React.ComponentProps<"textarea">["required"];
         requiredMessage?: string;
         disabled?: boolean;
         readOnly?: boolean;
     }
 >;
 
-export const TextInput = (props: TextInputProps) => {
+export const TextArea = (props: TextAreaProps) => {
     const {
         labelText,
         shape,
 
-        inputId,
+        textAreaHeight = 120,
+
+        textareaId,
         name,
         placeholder,
         defaultValue,
@@ -57,7 +60,6 @@ export const TextInput = (props: TextInputProps) => {
         minLength,
         maxLength,
         autoComplete,
-        pattern,
         required,
         requiredMessage = "*",
         disabled,
@@ -68,32 +70,32 @@ export const TextInput = (props: TextInputProps) => {
         ...rest
     } = props;
 
-    const _inputId = inputId ?? generateUUIDv4();
+    const _textareaId = textareaId ?? generateUUIDv4();
 
     const context = useSquamaContext();
     const theme = context.getCurrentTheme();
 
-    const borderRadius = getBorderRadiusByShape(shape ?? theme.shape);
+    const borederRadius = getBorderRadiusByShape(shape ?? theme.shape);
 
     const cssVars = {
-        "--s-textinput--border-radius": borderRadius,
+        "--s-textarea--border-radius": borederRadius,
 
-        "--s-textinput--border-color": theme.component.border,
+        "--s-textarea--border-color": theme.component.border,
 
-        "--s-textinput--text-color": theme.component.text ?? theme.app.text,
-        "--s-textinput--text-color--disabled": theme.isLight
+        "--s-textarea--text-color": theme.component.text ?? theme.app.text,
+        "--s-textarea--text-color--disabled": theme.isLight
             ? Colors.gray[300]
             : Colors.gray[700],
-        "--s-textinput--placeholder-color": Colors.gray[400],
-        "--s-textinput--placeholder-color--disabled": theme.isLight
+        "--s-textarea--placeholder-color": Colors.gray[400],
+        "--s-textarea--placeholder-color--disabled": theme.isLight
             ? Colors.gray[300]
             : Colors.gray[500],
-        "--s-textinput--background-color":
+        "--s-textarea--background-color":
             theme.component.background ?? theme.app.background,
-        "--s-textinput--background-color--disabled": theme.isLight
+        "--s-textarea--background-color--disabled": theme.isLight
             ? Colors.gray[100]
             : Colors.gray[900],
-        "--s-textinput--required-message--color": theme.isLight
+        "--s-textarea--required-message--color": theme.isLight
             ? Colors.red[500]
             : Colors.red[300],
     } as React.CSSProperties;
@@ -102,7 +104,7 @@ export const TextInput = (props: TextInputProps) => {
         <div
             {...rest}
             className={buildClassName(
-                styles.TextInput,
+                styles.TextArea,
                 rest.className,
                 disabled && styles.disabled,
                 readOnly && styles.readOnly,
@@ -111,13 +113,13 @@ export const TextInput = (props: TextInputProps) => {
                 squamaComponentClass,
             )}
             style={{
-                ...rest.style,
                 ...cssVars,
+                ...rest.style,
             }}
         >
             {labelText && (
                 <div className={styles.labelContainer}>
-                    <label htmlFor={_inputId}>
+                    <label htmlFor={_textareaId}>
                         <Text element="span" typeScale="overline">
                             {labelText}
                             {required && (
@@ -129,15 +131,20 @@ export const TextInput = (props: TextInputProps) => {
                     </label>
                 </div>
             )}
-            <div className={styles.mainContentsContainer}>
+
+            <div
+                className={styles.mainContentsContainer}
+                style={{
+                    height: textAreaHeight,
+                }}
+            >
                 <div className={styles.leadingContentsContainer}>
                     {leadingContents}
                 </div>
-                <div className={styles.inputContainer}>
-                    <input
-                        id={_inputId}
+                <div className={styles.textareaContainer}>
+                    <textarea
+                        id={_textareaId}
                         name={name}
-                        className={styles.input}
                         placeholder={placeholder}
                         defaultValue={defaultValue}
                         value={value}
@@ -148,10 +155,10 @@ export const TextInput = (props: TextInputProps) => {
                         minLength={minLength}
                         maxLength={maxLength}
                         autoComplete={autoComplete}
-                        pattern={pattern}
+                        required={required}
                         disabled={disabled}
                         readOnly={readOnly}
-                        required={required}
+                        className={styles.textarea}
                     />
                 </div>
                 <div className={styles.trailingContentsContainer}>

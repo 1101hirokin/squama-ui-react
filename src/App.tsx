@@ -4,6 +4,7 @@ import {
     Card,
     Icon,
     Text,
+    TextArea,
     TextInput,
     useSquamaContext,
 } from "./components";
@@ -124,7 +125,20 @@ const ComponentInApp = () => {
                             name="user name"
                             required
                             labelText="Name"
-                            pattern={"^[a-zA-Z]+$"}
+                            pattern={/^[a-zA-Z]+$/.source}
+                            onBlur={(e) => {
+                                const input = e.target as HTMLInputElement;
+
+                                const isValid = input.checkValidity();
+
+                                if (!isValid) {
+                                    if (input.validity.patternMismatch) {
+                                        input.setCustomValidity(
+                                            "Please enter only alphabets",
+                                        );
+                                    }
+                                }
+                            }}
                             placeholder="Enter your name"
                             leadingContents={
                                 <div
@@ -159,6 +173,32 @@ const ComponentInApp = () => {
                                     <Icon name="user" />
                                 </div>
                             }
+                        />
+                        <TextArea
+                            name="message"
+                            labelText="Message"
+                            placeholder="Enter your message"
+                            required
+                        />
+                        <TextArea
+                            name="I'm disabled"
+                            labelText="I'm disabled"
+                            placeholder="Enter your message"
+                            required
+                            leadingContents={
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        height: "100%",
+                                        padding: "0 .5rem",
+                                        justifyContent: "center",
+                                        alignContent: "center",
+                                    }}
+                                >
+                                    <Icon name="user" />
+                                </div>
+                            }
+                            disabled
                         />
                         <Button
                             color={theme.system}
