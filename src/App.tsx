@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
     Button,
     Card,
@@ -25,6 +25,8 @@ const ComponentInApp = () => {
     const theme = context.getCurrentTheme();
 
     const [isLoaderCheckerLoading, setIsLoaderCheckerLoading] = useState(true);
+
+    const nameFieldRef = useRef<HTMLInputElement>(null);
 
     return (
         <div
@@ -103,8 +105,13 @@ const ComponentInApp = () => {
                     block
                     elevation={1}
                     style={{ marginBottom: "1rem" }}
+                    onClick={() => {
+                        if (nameFieldRef.current) {
+                            nameFieldRef.current.focus();
+                        }
+                    }}
                 >
-                    hello
+                    focus Name field.
                 </Button>
 
                 <div>
@@ -122,6 +129,7 @@ const ComponentInApp = () => {
                         }}
                     >
                         <TextInput
+                            inputRef={nameFieldRef}
                             name="user name"
                             required
                             labelText="Name"

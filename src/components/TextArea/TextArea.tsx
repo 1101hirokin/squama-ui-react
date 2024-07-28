@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import {
     Colors,
     getBorderRadiusByShape,
@@ -23,6 +23,7 @@ type TextAreaProps = Modify<
         textAreaHeight?: React.CSSProperties["height"];
 
         textareaId?: string;
+        textareaRef?: React.ForwardedRef<HTMLTextAreaElement>;
         name?: string;
         placeholder?: React.ComponentProps<"textarea">["placeholder"];
         defaultValue?: React.ComponentProps<"textarea">["defaultValue"];
@@ -41,130 +42,135 @@ type TextAreaProps = Modify<
     }
 >;
 
-export const TextArea = (props: TextAreaProps) => {
-    const {
-        labelText,
-        shape,
+export const TextArea = forwardRef<HTMLDivElement, TextAreaProps>(
+    (props, ref) => {
+        const {
+            labelText,
+            shape,
 
-        textAreaHeight = 120,
+            textAreaHeight = 120,
 
-        textareaId,
-        name,
-        placeholder,
-        defaultValue,
-        value,
-        tabIndex,
-        onChange,
-        onFocus,
-        onBlur,
-        minLength,
-        maxLength,
-        autoComplete,
-        required,
-        requiredMessage = "*",
-        disabled,
-        readOnly,
+            textareaId,
+            textareaRef,
+            name,
+            placeholder,
+            defaultValue,
+            value,
+            tabIndex,
+            onChange,
+            onFocus,
+            onBlur,
+            minLength,
+            maxLength,
+            autoComplete,
+            required,
+            requiredMessage = "*",
+            disabled,
+            readOnly,
 
-        leadingContents,
-        trailingContents,
-        ...rest
-    } = props;
+            leadingContents,
+            trailingContents,
+            ...rest
+        } = props;
 
-    const _textareaId = textareaId ?? generateUUIDv4();
+        const _textareaId = textareaId ?? generateUUIDv4();
 
-    const context = useSquamaContext();
-    const theme = context.getCurrentTheme();
+        const context = useSquamaContext();
+        const theme = context.getCurrentTheme();
 
-    const borederRadius = getBorderRadiusByShape(shape ?? theme.shape);
+        const borederRadius = getBorderRadiusByShape(shape ?? theme.shape);
 
-    const cssVars = {
-        "--s-textarea--border-radius": borederRadius,
+        const cssVars = {
+            "--s-textarea--border-radius": borederRadius,
 
-        "--s-textarea--border-color": theme.component.border,
+            "--s-textarea--border-color": theme.component.border,
 
-        "--s-textarea--text-color": theme.component.text ?? theme.app.text,
-        "--s-textarea--text-color--disabled": theme.isLight
-            ? Colors.gray[300]
-            : Colors.gray[700],
-        "--s-textarea--placeholder-color": Colors.gray[400],
-        "--s-textarea--placeholder-color--disabled": theme.isLight
-            ? Colors.gray[300]
-            : Colors.gray[500],
-        "--s-textarea--background-color":
-            theme.component.background ?? theme.app.background,
-        "--s-textarea--background-color--disabled": theme.isLight
-            ? Colors.gray[100]
-            : Colors.gray[900],
-        "--s-textarea--required-message--color": theme.isLight
-            ? Colors.red[500]
-            : Colors.red[300],
-    } as React.CSSProperties;
+            "--s-textarea--text-color": theme.component.text ?? theme.app.text,
+            "--s-textarea--text-color--disabled": theme.isLight
+                ? Colors.gray[300]
+                : Colors.gray[700],
+            "--s-textarea--placeholder-color": Colors.gray[400],
+            "--s-textarea--placeholder-color--disabled": theme.isLight
+                ? Colors.gray[300]
+                : Colors.gray[500],
+            "--s-textarea--background-color":
+                theme.component.background ?? theme.app.background,
+            "--s-textarea--background-color--disabled": theme.isLight
+                ? Colors.gray[100]
+                : Colors.gray[900],
+            "--s-textarea--required-message--color": theme.isLight
+                ? Colors.red[500]
+                : Colors.red[300],
+        } as React.CSSProperties;
 
-    return (
-        <div
-            {...rest}
-            className={buildClassName(
-                styles.TextArea,
-                rest.className,
-                disabled && styles.disabled,
-                readOnly && styles.readOnly,
-                leadingContents && styles.hasLeading,
-                trailingContents && styles.hasTrailing,
-                squamaComponentClass,
-            )}
-            style={{
-                ...cssVars,
-                ...rest.style,
-            }}
-        >
-            {labelText && (
-                <div className={styles.labelContainer}>
-                    <label htmlFor={_textareaId}>
-                        <Text element="span" typeScale="overline">
-                            {labelText}
-                            {required && (
-                                <span className={styles.requiredMessage}>
-                                    {requiredMessage}
-                                </span>
-                            )}
-                        </Text>
-                    </label>
-                </div>
-            )}
-
+        return (
             <div
-                className={styles.mainContentsContainer}
+                {...rest}
+                ref={ref}
+                className={buildClassName(
+                    styles.TextArea,
+                    rest.className,
+                    disabled && styles.disabled,
+                    readOnly && styles.readOnly,
+                    leadingContents && styles.hasLeading,
+                    trailingContents && styles.hasTrailing,
+                    squamaComponentClass,
+                )}
                 style={{
-                    height: textAreaHeight,
+                    ...cssVars,
+                    ...rest.style,
                 }}
             >
-                <div className={styles.leadingContentsContainer}>
-                    {leadingContents}
-                </div>
-                <div className={styles.textareaContainer}>
-                    <textarea
-                        id={_textareaId}
-                        name={name}
-                        placeholder={placeholder}
-                        defaultValue={defaultValue}
-                        value={value}
-                        tabIndex={tabIndex}
-                        onChange={onChange}
-                        onFocus={onFocus}
-                        onBlur={onBlur}
-                        minLength={minLength}
-                        maxLength={maxLength}
-                        autoComplete={autoComplete}
-                        required={required}
-                        disabled={disabled}
-                        readOnly={readOnly}
-                        className={styles.textarea}
-                    />
-                </div>
-                <div className={styles.trailingContentsContainer}>
-                    {trailingContents}
+                {labelText && (
+                    <div className={styles.labelContainer}>
+                        <label htmlFor={_textareaId}>
+                            <Text element="span" typeScale="overline">
+                                {labelText}
+                                {required && (
+                                    <span className={styles.requiredMessage}>
+                                        {requiredMessage}
+                                    </span>
+                                )}
+                            </Text>
+                        </label>
+                    </div>
+                )}
+
+                <div
+                    className={styles.mainContentsContainer}
+                    style={{
+                        height: textAreaHeight,
+                    }}
+                >
+                    <div className={styles.leadingContentsContainer}>
+                        {leadingContents}
+                    </div>
+                    <div className={styles.textareaContainer}>
+                        <textarea
+                            id={_textareaId}
+                            name={name}
+                            ref={textareaRef}
+                            placeholder={placeholder}
+                            defaultValue={defaultValue}
+                            value={value}
+                            tabIndex={tabIndex}
+                            onChange={onChange}
+                            onFocus={onFocus}
+                            onBlur={onBlur}
+                            minLength={minLength}
+                            maxLength={maxLength}
+                            autoComplete={autoComplete}
+                            required={required}
+                            disabled={disabled}
+                            readOnly={readOnly}
+                            className={styles.textarea}
+                        />
+                    </div>
+                    <div className={styles.trailingContentsContainer}>
+                        {trailingContents}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
-};
+        );
+    },
+);
