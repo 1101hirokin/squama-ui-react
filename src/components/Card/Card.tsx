@@ -30,13 +30,10 @@ export const Card = (props: CardProps) => {
     const boxShadow = getBoxShadowByElevation(elevation);
 
     const style = {
-        "--s-card--background-color":
-            theme.component.background || theme.app.background,
         "--s-card--border":
             variant === "outlined"
                 ? `1px solid ${theme.component.border}`
                 : "none",
-        "--s-card--text-color": theme.component.text || theme.app.text,
 
         "--s-card--border-radius": borderRadius,
 

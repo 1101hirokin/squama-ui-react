@@ -102,6 +102,20 @@
     --s-app--color--gray--700: #485362;
     --s-app--color--gray--800: #3c4551;
     --s-app--color--gray--900: #313840;
+
+    --s-app--spacer--0x: 0;
+    --s-app--spacer--1x: 4px;
+    --s-app--spacer--2x: 8px;
+    --s-app--spacer--3x: 12px;
+    --s-app--spacer--4x: 16px;
+    --s-app--spacer--5x: 20px;
+    --s-app--spacer--6x: 24px;
+    --s-app--spacer--7x: 28px;
+    --s-app--spacer--8x: 32px;
+    --s-app--spacer--9x: 36px;
+    --s-app--spacer--10x: 40px;
+    --s-app--spacer--11x: 44px;
+    --s-app--spacer--12x: 48px;
 }
 
 * {

@@ -44,8 +44,9 @@ const defaultLightTheme: Theme = {
     },
     component: {
         border: Colors.gray[300],
+        background: Colors.gray[100],
     },
-    system: Colors.blue[500],
+    system: Colors.blue[600],
     semantic: {
         success: Colors.green,
         warning: Colors.orange,

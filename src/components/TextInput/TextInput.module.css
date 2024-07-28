@@ -1,0 +1,77 @@
+.TextInput {
+    width: 100%;
+}
+
+.mainContentsContainer {
+    display: grid;
+    width: 100%;
+    min-height: 40px;
+
+    grid-template-rows: auto;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "leading input trailing";
+
+    border: 1px solid var(--s-text-input--border-color, "transparent");
+    color: var(--s-text-input--text-color, #000);
+    background-color: var(--s-text-input--background-color, #fff);
+
+    border-radius: var(--s-text-input--border-radius, 0px);
+}
+.mainContentsContainer:focus-within {
+    /* show system focus ring*/
+    outline: -webkit-focus-ring-color auto 1px;
+}
+
+.labelContainer {
+    width: 100%;
+
+    margin: 0 0 var(--s-app--spacer--1x) 0;
+}
+
+.inputContainer {
+    grid-area: input;
+
+    width: 100%;
+    height: 40px;
+}
+
+.inputContainer > .input {
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+
+    border: none;
+    background: none;
+    color: inherit;
+
+    padding: 0 8px;
+    outline: none;
+}
+.inputContainer > .input::placeholder {
+    color: var(--s-text-input--placeholder-color, #000);
+}
+.inputContainer > .input:disabled::placeholder {
+    color: var(--s-text-input--placeholder-color--disabled, #000);
+}
+.requiredMessage {
+    color: var(--s-text-input--required-message--color, #000);
+}
+
+.TextInput.hasLeading .inputContainer > .input {
+    padding-left: 0px;
+}
+.TextInput.hasTrailing .inputContainer > .input {
+    padding-right: 0px;
+}
+
+.leadingContentsContainer {
+    grid-area: leading;
+
+    height: 100%;
+}
+
+.trailingContentsContainer {
+    grid-area: trailing;
+
+    height: 100%;
+}

@@ -2,9 +2,7 @@
     display: block flow-root;
     width: 100%;
 
-    background-color: var(--s-card--background-color, #fff);
     border: var(--s-card--border);
-    color: var(--s-card--text-color, #000);
 
     border-radius: var(--s-card--border-radius, 0px);
     box-shadow: var(--s-card--box-shadow, none);

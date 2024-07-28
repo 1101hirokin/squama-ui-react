@@ -13,6 +13,7 @@ import { buildClassName, Modify } from "../../utils";
 import styles from "./Button.module.css";
 import { Text } from "../Text/Text";
 import { CircularLoader } from "../CircularLoader/CircularLoader";
+import { useSquamaContext } from "../SquamaContext/SquamaContext";
 
 type ButtonProps = Modify<
     SquamaComponentProps,
@@ -22,6 +23,7 @@ type ButtonProps = Modify<
         shape?: Shape;
         size?: "s" | "m" | "l";
 
+        type?: "button" | "submit" | "reset";
         color?: string;
 
         disabled?: boolean;
@@ -41,6 +43,9 @@ export const Button = (props: ButtonProps) => {
         shape = "rounded",
         color = "#000",
         size = "m",
+
+        type = "button",
+
         children,
         disabled,
         block,
@@ -50,11 +55,14 @@ export const Button = (props: ButtonProps) => {
         ...rest
     } = props;
 
+    const context = useSquamaContext();
+    const theme = context.getCurrentTheme();
+
     const cssVars = useMemo<React.CSSProperties>(() => {
         const boxShadow = disabled
             ? "none"
             : getBoxShadowByElevation(elevation);
-        const borderRadius = getBorderRadiusByShape(shape);
+        const borderRadius = getBorderRadiusByShape(shape ?? theme.shape);
         const componentStyle = getComponentColor(color, variant);
 
         return {
@@ -93,10 +101,11 @@ export const Button = (props: ButtonProps) => {
     return (
         <button
             {...rest}
+            type={type}
             disabled={disabled}
             style={{
-                ...cssVars,
                 ...rest.style,
+                ...cssVars,
             }}
             className={buildClassName(
                 styles.Button,

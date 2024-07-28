@@ -1,9 +1,11 @@
 .Icon {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1;
+    display: block flex;
+    justify-content: center;
+    align-items: center;
+
+    width: var(--s-icon--size, 100%);
 }
 
 .Icon > .Icon__svg {
-  width: 100%;
+    width: 100%;
 }

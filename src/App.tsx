@@ -1,7 +1,13 @@
 import { useState } from "react";
-import { Button, Card, Text } from "./components";
+import {
+    Button,
+    Card,
+    Icon,
+    Text,
+    TextInput,
+    useSquamaContext,
+} from "./components";
 import { SquamaApp } from "./components/SquamaApp/SquamaApp";
-import { useSquamaContext } from "./components/SquamaContext/SquamaContext";
 
 const App = () => {
     return (
@@ -14,7 +20,8 @@ const App = () => {
 };
 
 const ComponentInApp = () => {
-    const squamaContext = useSquamaContext();
+    const context = useSquamaContext();
+    const theme = context.getCurrentTheme();
 
     const [isLoaderCheckerLoading, setIsLoaderCheckerLoading] = useState(true);
 
@@ -24,8 +31,8 @@ const ComponentInApp = () => {
                 width: "100%",
                 minHeight: "100lvh",
                 padding: "1rem",
-                backgroundColor: squamaContext.getCurrentTheme().app.background,
-                color: squamaContext.getCurrentTheme().app.text,
+                backgroundColor: context.getCurrentTheme().app.background,
+                color: context.getCurrentTheme().app.text,
             }}
         >
             <Card variant="outlined" shape="rounded.l" elevation={2}>
@@ -38,24 +45,22 @@ const ComponentInApp = () => {
                 </Text>
                 <div style={{ marginBottom: "1rem" }}>
                     <div style={{ marginBottom: ".4rem" }}>
-                        Current theme: {squamaContext.getCurrentThemeKey()}
+                        Current theme: {context.getCurrentThemeKey()}
                     </div>
-                    {squamaContext.getThemeKeys().map((themeKey, i) => (
+                    {context.getThemeKeys().map((themeKey, i) => (
                         <div key={themeKey} style={{ marginBottom: ".4rem" }}>
                             {themeKey}:{" "}
                             {
                                 <Button
-                                    onClick={(e) => {
-                                        squamaContext.updateCurrentTheme(
-                                            themeKey,
-                                        );
+                                    onClick={() => {
+                                        context.updateCurrentTheme(themeKey);
                                     }}
                                     color={i % 2 === 0 ? "#d9d9ed" : "#0050ff"}
                                     variant="filled"
                                     shape="rounded"
                                     disabled={
                                         themeKey ===
-                                        squamaContext.getCurrentThemeKey()
+                                        context.getCurrentThemeKey()
                                     }
                                     elevation={2}
                                     size="s"
@@ -92,9 +97,81 @@ const ComponentInApp = () => {
                 >
                     Check loader
                 </Button>
-                <Button color="#1b1b1b" block elevation={1}>
+                <Button
+                    color="#1b1b1b"
+                    block
+                    elevation={1}
+                    style={{ marginBottom: "1rem" }}
+                >
                     hello
                 </Button>
+
+                <div>
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+
+                            const userNameInput = (e.target as HTMLFormElement)[
+                                "user name"
+                            ] as HTMLInputElement;
+
+                            console.log(userNameInput.validity.patternMismatch);
+
+                            alert(`Hello, ${userNameInput.value}!`);
+                        }}
+                    >
+                        <TextInput
+                            name="user name"
+                            required
+                            labelText="Name"
+                            pattern={"^[a-zA-Z]+$"}
+                            placeholder="Enter your name"
+                            leadingContents={
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        height: "100%",
+                                        padding: "0 .5rem",
+                                        justifyContent: "center",
+                                        alignContent: "center",
+                                    }}
+                                >
+                                    <Icon name="mail" />
+                                </div>
+                            }
+                        />
+                        <TextInput
+                            name="disable example"
+                            labelText="Disabled"
+                            placeholder="I'm disabled"
+                            defaultValue="I'm disabled"
+                            disabled
+                            leadingContents={
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        height: "100%",
+                                        padding: "0 .5rem",
+                                        justifyContent: "center",
+                                        alignContent: "center",
+                                    }}
+                                >
+                                    <Icon name="user" />
+                                </div>
+                            }
+                        />
+                        <Button
+                            color={theme.system}
+                            block
+                            size="s"
+                            elevation={3}
+                            style={{ margin: ".4rem 0 1rem 0" }}
+                            type="submit"
+                        >
+                            submit
+                        </Button>
+                    </form>
+                </div>
             </Card>
         </div>
     );

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Icon.module.css";
 import { Modify, buildClassName } from "../../utils";
+import { squamaComponentClass, SquamaComponentProps } from "../../api";
 
 export type IconName =
     | "apps"
@@ -213,20 +214,25 @@ export type IconName =
     | "window_control.minimize";
 
 type IconProps = Modify<
-    React.HTMLAttributes<HTMLDivElement>,
-    { name: IconName; fill?: React.SVGAttributes<SVGElement>["fill"] }
+    SquamaComponentProps,
+    {
+        name: IconName;
+        fill?: React.SVGAttributes<SVGElement>["fill"];
+        size?: React.CSSProperties["width"];
+
+        children?: never;
+    }
 >;
 
-export const Icon: React.FC<IconProps> = ({ name, fill, ...rest }) => {
-    const InnerElement = ({
-        name,
-        fill,
-    }: {
+export const Icon = (props: IconProps) => {
+    const InnerElement = (props: {
         name: IconName;
         fill?: React.SVGAttributes<SVGElement>["fill"];
     }) => {
+        const { name, fill = "currentColor" } = props;
+
         const svgProps = {
-            className: buildClassName(styles.Icon__svg, rest.className),
+            className: buildClassName(styles.Icon__svg),
             fill: fill,
         } as React.SVGAttributes<SVGElement>;
 
@@ -1505,8 +1511,25 @@ export const Icon: React.FC<IconProps> = ({ name, fill, ...rest }) => {
         }
     };
 
+    const { name, fill = "currentColor", size = "1rem", ...rest } = props;
+
+    const cssVars = {
+        "--s-icon--size": size,
+    } as React.CSSProperties;
+
     return (
-        <div {...rest} className={buildClassName(styles.Icon, rest.className)}>
+        <div
+            {...rest}
+            className={buildClassName(
+                styles.Icon,
+                rest.className,
+                squamaComponentClass,
+            )}
+            style={{
+                ...cssVars,
+                ...rest.style,
+            }}
+        >
             <InnerElement name={name} fill={fill} />
         </div>
     );
