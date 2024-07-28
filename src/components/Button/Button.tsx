@@ -25,7 +25,6 @@ type ButtonProps = Modify<
         shape?: Shape;
         size?: Extract<ComponentSize, "s" | "m" | "l">;
 
-        type?: "button" | "submit" | "reset";
         color?: string;
 
         disabled?: boolean;
@@ -33,8 +32,15 @@ type ButtonProps = Modify<
         block?: boolean;
         loading?: boolean | "loading" | "paused" | "none";
 
+        // props for anchor
+        href?: React.ComponentProps<"a">["href"];
+        target?: React.ComponentProps<"a">["target"];
+        rel?: React.ComponentProps<"a">["rel"];
+
+        // props for button
         onClick?: React.ComponentProps<"button">["onClick"];
         onClickInLoading?: React.ComponentProps<"button">["onClick"];
+        type?: "button" | "submit" | "reset";
     }
 >;
 
@@ -46,19 +52,29 @@ export const Button = (props: ButtonProps) => {
         color = "#000",
         size = "m",
 
+        href,
+        target,
+        rel,
+        onClick,
+        onClickInLoading,
         type = "button",
 
         children,
         disabled,
         block,
         loading = false,
-        onClickInLoading,
-        onClick,
+
         ...rest
     } = props;
 
     const context = useSquamaContext();
     const theme = context.getCurrentTheme();
+
+    if (href && onClick) {
+        console.warn(
+            "Button component should not have both href and onClick props.\nprops for anchor will be used and props for button will be ignored.",
+        );
+    }
 
     const cssVars = useMemo<React.CSSProperties>(() => {
         const boxShadow = disabled
@@ -102,24 +118,8 @@ export const Button = (props: ButtonProps) => {
     const isOnLoadingProcess =
         loading === true || loading === "loading" || loading === "paused";
 
-    return (
-        <button
-            {...rest}
-            type={type}
-            disabled={disabled}
-            style={{
-                ...rest.style,
-                ...cssVars,
-            }}
-            className={buildClassName(
-                styles.Button,
-                rest.className,
-                block && styles.block,
-                isOnLoadingProcess && styles.isOnLoadingProcess,
-                squamaComponentClass,
-            )}
-            onClick={isOnLoadingProcess ? onClickInLoading : onClick}
-        >
+    const innerNode = (
+        <>
             <div className={styles.mainLayer}>
                 <div className={styles.childTextContainer}>
                     <Text typeScale="button" className={styles.childText}>
@@ -139,6 +139,53 @@ export const Button = (props: ButtonProps) => {
                     className={styles.circularLoader}
                 />
             </div>
-        </button>
+        </>
     );
+
+    if (href) {
+        return (
+            <a
+                {...rest}
+                href={href}
+                target={target}
+                rel={rel}
+                aria-disabled={disabled}
+                style={{
+                    ...rest.style,
+                    ...cssVars,
+                }}
+                className={buildClassName(
+                    styles.Button,
+                    rest.className,
+                    block && styles.block,
+                    isOnLoadingProcess && styles.isOnLoadingProcess,
+                    squamaComponentClass,
+                )}
+            >
+                {innerNode}
+            </a>
+        );
+    } else {
+        return (
+            <button
+                {...rest}
+                type={type}
+                disabled={disabled}
+                style={{
+                    ...rest.style,
+                    ...cssVars,
+                }}
+                className={buildClassName(
+                    styles.Button,
+                    rest.className,
+                    block && styles.block,
+                    isOnLoadingProcess && styles.isOnLoadingProcess,
+                    squamaComponentClass,
+                )}
+                onClick={isOnLoadingProcess ? onClickInLoading : onClick}
+            >
+                {innerNode}{" "}
+            </button>
+        );
+    }
 };

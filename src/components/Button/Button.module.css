@@ -1,5 +1,5 @@
 .Button {
-    display: inline flow-root;
+    display: inline flex;
     background-color: var(--s-button--background-color--normal, #000);
     color: var(--s-button--color--normal, #fff);
     border: var(--s-button--border--normal, none);
@@ -57,7 +57,9 @@
 
 /* Block button */
 .Button.block {
-    display: block flow-root;
+    display: block flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
 }
 
