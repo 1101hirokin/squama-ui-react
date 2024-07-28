@@ -36,6 +36,7 @@ type TextInputProps = Modify<
         pattern?: React.ComponentProps<"input">["pattern"];
         required?: React.ComponentProps<"input">["required"];
         requiredMessage?: string;
+        inputMode?: React.ComponentProps<"input">["inputMode"];
         disabled?: boolean;
         readOnly?: boolean;
     }
@@ -63,6 +64,7 @@ export const TextInput = forwardRef<HTMLDivElement, TextInputProps>(
             pattern,
             required,
             requiredMessage = "*",
+            inputMode,
             disabled,
             readOnly,
 
@@ -158,6 +160,7 @@ export const TextInput = forwardRef<HTMLDivElement, TextInputProps>(
                             disabled={disabled}
                             readOnly={readOnly}
                             required={required}
+                            inputMode={inputMode}
                         />
                     </div>
                     <div className={styles.trailingContentsContainer}>
