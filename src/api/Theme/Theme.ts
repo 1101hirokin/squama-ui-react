@@ -44,9 +44,9 @@ const defaultLightTheme: Theme = {
     },
     component: {
         border: Colors.gray[300],
-        background: Colors.gray[100],
+        background: Colors.gray[50],
     },
-    system: Colors.blue[600],
+    system: "#1143EF",
     semantic: {
         success: Colors.green,
         warning: Colors.orange,
@@ -65,7 +65,7 @@ const defaultDarkTheme: Theme = {
         background: Colors.gray[900],
         border: Colors.gray[700],
     },
-    system: Colors.blue[500],
+    system: "#5777E7",
     semantic: {
         success: Colors.green,
         warning: Colors.orange,

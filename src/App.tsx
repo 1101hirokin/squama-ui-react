@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
 import {
+    Avatar,
+    AvatarGroup,
     Button,
     Card,
     Icon,
@@ -112,7 +114,17 @@ const ComponentInApp = () => {
                         }
                     }}
                 >
-                    focus Name field.
+                    Focus "Name" field.
+                </Button>
+                <Button
+                    color="#ccccdf"
+                    block
+                    elevation={1}
+                    style={{ marginBottom: "1rem" }}
+                    href="https://google.com"
+                    target="_blank"
+                >
+                    Open Google
                 </Button>
 
                 <div>
@@ -223,7 +235,9 @@ const ComponentInApp = () => {
                     </form>
                 </div>
 
-                <div>
+                <div
+                    style={{ marginBottom: "var(--s-app--spacer--2x, .4rem)" }}
+                >
                     <IconButton
                         icon="send"
                         size="m"
@@ -237,7 +251,8 @@ const ComponentInApp = () => {
                         size="m"
                         color="#dadada"
                         shape="circular"
-                        loading
+                        href="https://google.com"
+                        target="_blank"
                         style={{
                             marginRight: "var(--s-app--spacer--1x, .4rem)",
                         }}
@@ -248,6 +263,45 @@ const ComponentInApp = () => {
                         size="m"
                         disabled
                     ></IconButton>
+                </div>
+
+                <div
+                    style={{ marginBottom: "var(--s-app--spacer--2x, .4rem)" }}
+                >
+                    <AvatarGroup size="m">
+                        <Avatar src="https://picsum.photos/seed/nakatani/200/400" />
+                        <Avatar
+                            src="https://picsum.photos/seed/hiroi/200/400"
+                            href="https://google.com"
+                            target="_blank"
+                            size="s"
+                        />
+                        <Avatar>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    width: "100%",
+                                    height: "100%",
+                                    fontSize: "1.2rem",
+                                    backgroundColor:
+                                        "var(--s-app--color--teal--600)",
+                                    color: "var(--s-app--color--teal--50)",
+                                }}
+                            >
+                                +3
+                            </div>
+                        </Avatar>
+                    </AvatarGroup>
+                    <AvatarGroup size="s" shape="rounded">
+                        <Avatar src="https://picsum.photos/seed/nakatani/200/400" />
+                        <Avatar
+                            src="https://picsum.photos/seed/hiroi/200/400"
+                            href="https://google.com"
+                            target="_blank"
+                        />
+                    </AvatarGroup>
                 </div>
             </Card>
         </div>

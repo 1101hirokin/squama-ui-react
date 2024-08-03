@@ -7,3 +7,5 @@ export * from "./Button/Button";
 export * from "./IconButton/IconButton";
 export * from "./TextInput/TextInput";
 export * from "./TextArea/TextArea";
+export * from "./Avatar/Avatar";
+export * from "./AvatarGroup/AvatarGroup";
