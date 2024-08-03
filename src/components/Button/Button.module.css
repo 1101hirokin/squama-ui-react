@@ -1,5 +1,8 @@
 .Button {
     display: inline flex;
+    justify-content: center;
+    align-items: center;
+
     background-color: var(--s-button--background-color--normal, #000);
     color: var(--s-button--color--normal, #fff);
     border: var(--s-button--border--normal, none);
