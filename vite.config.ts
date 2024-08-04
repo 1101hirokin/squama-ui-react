@@ -22,4 +22,12 @@ export default defineConfig({
             },
         },
     },
+    css: {
+        modules: {
+            generateScopedName:
+                process.env.NODE_ENV === "production"
+                    ? "[hash:base64]"
+                    : "[local]_[hash:base64:5]",
+        },
+    },
 });

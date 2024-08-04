@@ -4,7 +4,7 @@ import {
     getBoxShadowByElevation,
     Shape,
     SquamaComponentProps,
-    squamaComponentStyles,
+    squamaComponentClass,
     Variant,
 } from "../../api";
 import { buildClassName, Modify } from "../../utils";
@@ -21,7 +21,7 @@ type CardProps = Modify<
 >;
 
 export const Card = (props: CardProps) => {
-    const { shape, variant = "outlined", elevation = 0, ...rest } = props;
+    const { shape, variant, elevation = 0, ...rest } = props;
 
     const context = useSquamaContext();
     const theme = context.getCurrentTheme();
@@ -30,13 +30,12 @@ export const Card = (props: CardProps) => {
     const boxShadow = getBoxShadowByElevation(elevation);
 
     const style = {
-        "--s-card--background-color":
+        "--s-card--background":
             theme.component.background || theme.app.background,
         "--s-card--border":
             variant === "outlined"
                 ? `1px solid ${theme.component.border}`
                 : "none",
-        "--s-card--text-color": theme.component.text || theme.app.text,
 
         "--s-card--border-radius": borderRadius,
 
@@ -49,7 +48,7 @@ export const Card = (props: CardProps) => {
             className={buildClassName(
                 styles.Card,
                 rest.className,
-                squamaComponentStyles,
+                squamaComponentClass,
                 shape && styles[shape],
             )}
             style={{

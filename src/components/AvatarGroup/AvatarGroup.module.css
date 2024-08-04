@@ -1,0 +1,12 @@
+.AvatarGroup {
+}
+
+.avatarsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.avatarsContainer .Avatar:not(:first-child) {
+    outline: 3px solid var(--s-avatar-group--gap-color, #fff);
+    margin-left: calc(var(--s-app--spacer--2x) * -1);
+}
