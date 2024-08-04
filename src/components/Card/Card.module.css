@@ -3,9 +3,8 @@
     width: 100%;
 
     border: var(--s-card--border);
+    background-color: var(--s-card--background, white);
 
     border-radius: var(--s-card--border-radius, 0px);
     box-shadow: var(--s-card--box-shadow, none);
-
-    padding: 16px;
 }

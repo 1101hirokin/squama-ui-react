@@ -62,7 +62,7 @@ const defaultDarkTheme: Theme = {
         text: Colors.gray[50],
     },
     component: {
-        background: Colors.gray[900],
+        background: "#101112",
         border: Colors.gray[700],
     },
     system: "#5777E7",
