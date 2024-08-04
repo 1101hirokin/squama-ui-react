@@ -1,6 +1,9 @@
 .Button {
+    display: -webkit-inline-box;
     display: inline flex;
+    -webkit-box-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
     align-items: center;
 
     background-color: var(--s-button--background-color--normal, #000);
@@ -60,8 +63,11 @@
 
 /* Block button */
 .Button.block {
+    display: -webkit-box;
     display: block flex;
+    -webkit-box-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
     align-items: center;
     width: 100%;
 }

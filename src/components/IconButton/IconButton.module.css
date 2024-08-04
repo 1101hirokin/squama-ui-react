@@ -1,6 +1,9 @@
 .IconButton {
+    display: -webkit-inline-box;
     display: inline flex;
+    -webkit-box-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
     align-items: center;
 
     background-color: var(--s-button--background-color--normal, #000);
@@ -60,7 +63,12 @@
 
 /* Block button */
 .IconButton.block {
+    display: -webkit-box;
     display: block flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
 }
 
 /* layer */
