@@ -6,3 +6,4 @@ export * from "./Shape/Shape";
 export * from "./Component/Component";
 export * from "./Theme/Theme";
 export * from "./Typography/Typography";
+export * from "./FloatingContent/FloatingContent";
