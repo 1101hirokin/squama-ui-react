@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
     Avatar,
     AvatarGroup,
     Button,
     Card,
+    ContextMenu,
     Icon,
     IconButton,
     Text,
@@ -12,7 +13,6 @@ import {
     useSquamaContext,
 } from "./components";
 import { SquamaApp } from "./components/SquamaApp/SquamaApp";
-import { useFloatingContentContext } from "./api";
 
 const App = () => {
     return (
@@ -31,92 +31,6 @@ const ComponentInApp = () => {
     const [isLoaderCheckerLoading, setIsLoaderCheckerLoading] = useState(true);
 
     const nameFieldRef = useRef<HTMLInputElement>(null);
-
-    const floatingContentContext = useFloatingContentContext();
-
-    const openModal = (e: React.MouseEvent) => {
-        if (window === undefined) return;
-        floatingContentContext.open({
-            originPosition: {
-                x: e.clientX + window.scrollX,
-                y: e.clientY + window.scrollY,
-            },
-            positioningFn: (window, _, contentBoundingRect) => {
-                const xPosition =
-                    window.innerWidth / 2 -
-                    contentBoundingRect.width / 2 +
-                    window.scrollX;
-                const yPosition =
-                    window.innerHeight / 2 -
-                    contentBoundingRect.height / 2 +
-                    window.scrollY -
-                    24;
-
-                return { x: xPosition, y: yPosition };
-            },
-            overlay: (close) => (
-                <button
-                    style={
-                        {
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "rgba(0, 0, 0, 0.12)",
-                            outline: "none",
-                            border: "none",
-                            userSelect: "none",
-                            WebkitUserSelect: "none",
-                        } as React.CSSProperties
-                    }
-                    onClick={() => {
-                        close();
-                    }}
-                ></button>
-            ),
-            content: (close) => (
-                <Card
-                    shape="rounded"
-                    elevation={3}
-                    style={{
-                        width: "300px",
-                        maxWidth: "100%",
-                        padding: "12px 16px 16px 16px",
-                        color: theme.app.text,
-                    }}
-                >
-                    <div
-                        style={{ display: "flex", justifyContent: "flex-end" }}
-                    >
-                        <IconButton
-                            icon="close"
-                            size="s"
-                            variant="text"
-                            shape="circular"
-                            color={theme.component.text || theme.app.text}
-                            onClick={() => {
-                                close();
-                            }}
-                        ></IconButton>
-                    </div>
-                    <Text typeScale="heading.2">Modal</Text>
-                    <Text typeScale="body.1">This is a modal content.</Text>
-                    <Button
-                        color={theme.system}
-                        block
-                        style={{ marginTop: "1rem" }}
-                        onClick={() => {
-                            close();
-                        }}
-                        shape="rounded"
-                        variant="text"
-                    >
-                        Close
-                    </Button>
-                </Card>
-            ),
-            preventScroll: true,
-            closingWindowEvents: ["scroll"],
-        });
-    };
 
     return (
         <div
@@ -235,17 +149,6 @@ const ComponentInApp = () => {
                         target="_blank"
                     >
                         Open Google
-                    </Button>
-                    <Button
-                        color="#0050ff"
-                        block
-                        elevation={12}
-                        style={{ marginBottom: "1rem" }}
-                        onClick={(e) => {
-                            openModal(e);
-                        }}
-                    >
-                        Open Modal
                     </Button>
                 </div>
 
@@ -391,9 +294,9 @@ const ComponentInApp = () => {
                     style={{ marginBottom: "var(--s-app--spacer--2x, .4rem)" }}
                 >
                     <AvatarGroup size="m">
-                        <Avatar src="https://picsum.photos/seed/nakatani/200/400" />
+                        <Avatar src="/vite.svg" />
                         <Avatar
-                            src="https://picsum.photos/seed/hiroi/200/400"
+                            src="/vite.svg"
                             href="https://google.com"
                             target="_blank"
                             size="s"
@@ -417,13 +320,61 @@ const ComponentInApp = () => {
                         </Avatar>
                     </AvatarGroup>
                     <AvatarGroup size="s" shape="rounded">
-                        <Avatar src="https://picsum.photos/seed/nakatani/200/400" />
+                        <Avatar src="/vite.svg" />
                         <Avatar
-                            src="https://picsum.photos/seed/hiroi/200/400"
+                            src="/vite.svg"
                             href="https://google.com"
                             target="_blank"
                         />
                     </AvatarGroup>
+                </div>
+
+                <div style={{ paddingBottom: 1080 }}>
+                    <ContextMenu
+                        menuItems={[
+                            { label: "Menu item 1" },
+                            {
+                                label: "Menu item 2 >",
+                                subItems: [
+                                    {
+                                        label: "Sub item 1 >",
+                                        subItems: [
+                                            {
+                                                label: "Sub item 1",
+                                            },
+                                            {
+                                                label: "Sub item 2 >",
+                                                subItems: [
+                                                    { label: "Sub item 1" },
+                                                    { label: "Sub item 2" },
+                                                ],
+                                            },
+                                            { label: "Sub item 3" },
+                                            { label: "Sub item 4" },
+                                        ],
+                                    },
+                                    { label: "Sub item 2" },
+                                    { label: "Sub item 3" },
+                                    { label: "Sub item 4" },
+                                ],
+                            },
+                            {
+                                label: "Menu item 3",
+                            },
+                        ]}
+                        renderNode={(props) => (
+                            <Card
+                                variant="outlined"
+                                style={{
+                                    width: "100%",
+                                    height: 100,
+                                    backgroundColor:
+                                        "var(--s-app--color--gray--100)",
+                                }}
+                                {...props}
+                            ></Card>
+                        )}
+                    />
                 </div>
             </Card>
         </div>

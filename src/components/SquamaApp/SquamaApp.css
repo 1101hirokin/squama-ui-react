@@ -169,6 +169,14 @@
         0px 19.13px 26.782px 0px rgba(0, 0, 0, 0.18);
     --s-elevation--23: 0 2px 6px 0px rgba(0, 0, 0, 0.28),
         0px 20px 28px 0px rgba(0, 0, 0, 0.18);
+
+    --s-typography--font-size--1: 3rem;
+    --s-typography--font-size--2: 1.8rem;
+    --s-typography--font-size--3: 1.285rem;
+    --s-typography--font-size--4: 1rem;
+    --s-typography--font-size--5: 0.818rem;
+    --s-typography--font-size--6: 0.692rem;
+    --s-typography--font-size--7: 0.6rem;
 }
 
 * {
@@ -188,4 +196,9 @@ body {
 a {
     color: inherit;
     text-decoration: none;
+}
+
+button {
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }

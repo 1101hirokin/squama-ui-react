@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import {
     Elevation,
     getBorderRadiusByShape,
@@ -20,7 +21,7 @@ type CardProps = Modify<
     }
 >;
 
-export const Card = (props: CardProps) => {
+export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     const { shape, variant, elevation = 0, ...rest } = props;
 
     const context = useSquamaContext();
@@ -44,7 +45,8 @@ export const Card = (props: CardProps) => {
 
     return (
         <div
-            id={rest.id}
+            {...rest}
+            ref={ref}
             className={buildClassName(
                 styles.Card,
                 rest.className,
@@ -59,4 +61,4 @@ export const Card = (props: CardProps) => {
             {rest.children}
         </div>
     );
-};
+});

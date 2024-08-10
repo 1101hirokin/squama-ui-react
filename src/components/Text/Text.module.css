@@ -27,3 +27,22 @@
 .overline {
     font-weight: 500;
 }
+
+.l1 {
+    font-size: var(--s-typography--font-size--1, 3rem);
+}
+.l2 {
+    font-size: var(--s-typography--font-size--2, 2.25rem);
+}
+.l3 {
+    font-size: var(--s-typography--font-size--3, 1.5rem);
+}
+.l4 {
+    font-size: var(--s-typography--font-size--4, 1rem);
+}
+.l5 {
+    font-size: var(--s-typography--font-size--5, 0.875rem);
+}
+.l6 {
+    font-size: var(--s-typography--font-size--6, 0.75rem);
+}
