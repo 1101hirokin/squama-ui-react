@@ -6,6 +6,15 @@ export type SquamaComponentProps = {
     className?: string;
     style?: React.CSSProperties;
     children?: React.ReactNode;
+
+    onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+    onDoubleClick?: (e: React.MouseEvent<HTMLElement>) => void;
+    onMouseEnter?: (e: React.MouseEvent<HTMLElement>) => void;
+    onMouseLeave?: (e: React.MouseEvent<HTMLElement>) => void;
+    onMouseDown?: (e: React.MouseEvent<HTMLElement>) => void;
+    onMouseUp?: (e: React.MouseEvent<HTMLElement>) => void;
+    onContextMenu?: (e: React.MouseEvent<HTMLElement>) => void;
+    onWheel?: (e: React.WheelEvent<HTMLElement>) => void;
 };
 
 export type ComponentSize = "s" | "m" | "l" | number;

@@ -23,17 +23,20 @@ type FloatingContentOpeningProps = {
     content: React.ReactNode | ((close: () => void) => React.ReactNode);
     overlay?: React.ReactNode | ((close: () => void) => React.ReactNode);
     preventScroll?: boolean;
-    closingWindowEvents?: Array<keyof WindowEventMap>;
 };
 
 type FloatingContentContextProps = {
     open: (props: FloatingContentOpeningProps) => void;
+    close: () => void;
 };
 const notInitializedError = new Error(
     "FloatingContentContextProvider not initialized",
 );
 const defaultContext: FloatingContentContextProps = {
     open: () => {
+        throw notInitializedError;
+    },
+    close: () => {
         throw notInitializedError;
     },
 };
@@ -104,7 +107,7 @@ export const FloatingContentContextProvider = (props: {
 
     const [isScrollPrevented, setIsScrollPrevented] = useState(false);
 
-    const close = (props: FloatingContentOpeningProps) => {
+    const close = () => {
         setContent(null);
         setOverlayCloser(null);
 
@@ -112,24 +115,18 @@ export const FloatingContentContextProvider = (props: {
             document.body.style.overflow = "";
             setIsScrollPrevented(false);
         }
-
-        if (props.closingWindowEvents) {
-            props.closingWindowEvents.forEach((event) => {
-                window.removeEventListener(event, () => close(props));
-            });
-        }
     };
 
     const open = (props: FloatingContentOpeningProps) => {
         const floatingContent = (
-            <FloatingContent props={props} closeFn={() => close(props)} />
+            <FloatingContent props={props} closeFn={close} />
         ) as React.ReactNode;
 
         setContent(floatingContent);
         if (props.overlay) {
             const overlay =
                 typeof props.overlay === "function"
-                    ? props.overlay(() => close(props))
+                    ? props.overlay(close)
                     : props.overlay;
             setOverlayCloser(overlay);
         }
@@ -137,19 +134,13 @@ export const FloatingContentContextProvider = (props: {
         if (props.preventScroll) {
             document.body.style.overflow = "hidden";
         }
-
-        if (props.closingWindowEvents) {
-            props.closingWindowEvents.forEach((event) => {
-                window.addEventListener(event, () => close(props));
-                setIsScrollPrevented(true);
-            });
-        }
     };
 
     return (
         <FloatingContentContext.Provider
             value={{
                 open: open,
+                close: close,
             }}
         >
             <div

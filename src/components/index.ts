@@ -9,3 +9,4 @@ export * from "./TextInput/TextInput";
 export * from "./TextArea/TextArea";
 export * from "./Avatar/Avatar";
 export * from "./AvatarGroup/AvatarGroup";
+export * from "./ContextMenu/ContextMenu";
