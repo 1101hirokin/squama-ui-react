@@ -3,6 +3,7 @@ import {
     Alert,
     Avatar,
     AvatarGroup,
+    Badge,
     Button,
     Card,
     ContextMenu,
@@ -500,6 +501,19 @@ const ComponentInApp = () => {
                         素早い茶色の狐はのろまな犬を飛び越える。The quick brown
                         fox jumps over the lazy dog.
                     </Alert>
+                </div>
+
+                <div
+                    style={{
+                        marginBottom: "1rem",
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: "var(--s-app--spacer--1x, .2rem)",
+                    }}
+                >
+                    <Badge></Badge>
+                    <Badge>12+</Badge>
+                    <Badge color="#0050ff">999</Badge>
                 </div>
 
                 <div style={{ height: 300 }} />

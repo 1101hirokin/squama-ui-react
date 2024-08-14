@@ -1,0 +1,11 @@
+.Badge {
+    background-color: var(--s-badge--background-color);
+    color: var(--s-badge--color);
+    border-radius: var(--s-badge--border-radius);
+
+    display: block flow;
+    width: fit-content;
+
+    font-size: var(--s-typography--font-size--5, 0.815rem);
+    padding: var(--s-app--spacer--1x, 4px);
+}
