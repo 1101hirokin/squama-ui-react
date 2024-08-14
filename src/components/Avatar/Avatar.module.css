@@ -11,6 +11,8 @@
     height: var(--size);
 
     outline: none;
+
+    background-color: var(--s-app--color--gray--100, #e0e0e0);
 }
 .Avatar.hasEffect:focus-within {
     outline: -webkit-focus-ring-color auto 1px;
