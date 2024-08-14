@@ -32,6 +32,10 @@ const ComponentInApp = () => {
 
     const nameFieldRef = useRef<HTMLInputElement>(null);
 
+    const onContextMenuItemClick = (id: string) => {
+        console.log(`Clicked: ${id}`);
+    };
+
     return (
         <div
             style={{
@@ -329,50 +333,97 @@ const ComponentInApp = () => {
                     </AvatarGroup>
                 </div>
 
-                <div style={{ paddingBottom: 1080 }}>
+                <div style={{ paddingBottom: "4rem" }}>
                     <ContextMenu
                         menuItems={[
-                            { label: "Menu item 1" },
                             {
+                                id: "1",
+                                label: "Menu item 1",
+                                onClick: (_, item) => {
+                                    onContextMenuItemClick(item.id || "");
+                                },
+                            },
+                            {
+                                id: "2",
                                 label: "Menu item 2 >",
+                                onClick: (_, item) => {
+                                    onContextMenuItemClick(item.id || "");
+                                },
                                 subItems: [
                                     {
+                                        id: "2-1",
                                         label: "Sub item 1 >",
                                         subItems: [
                                             {
+                                                id: "2-1-1",
                                                 label: "Sub item 1",
                                             },
                                             {
+                                                id: "2-1-2",
                                                 label: "Sub item 2 >",
                                                 subItems: [
-                                                    { label: "Sub item 1" },
-                                                    { label: "Sub item 2" },
+                                                    {
+                                                        id: "2-1-2-1",
+                                                        label: "Sub item 1",
+                                                    },
+                                                    {
+                                                        id: "2-1-2-2",
+                                                        label: "Sub item 2",
+                                                    },
                                                 ],
                                             },
-                                            { label: "Sub item 3" },
-                                            { label: "Sub item 4" },
+                                            {
+                                                id: "2-1-3",
+                                                label: "Sub item 3",
+                                            },
+                                            {
+                                                id: "2-1-4",
+                                                label: "Sub item 4",
+                                            },
                                         ],
                                     },
-                                    { label: "Sub item 2" },
-                                    { label: "Sub item 3" },
-                                    { label: "Sub item 4" },
+                                    { id: "2-2", label: "Sub item 2" },
+                                    { id: "2-3", label: "Sub item 3" },
+                                    { id: "2-4", label: "Sub item 4" },
                                 ],
                             },
                             {
-                                label: "Menu item 3",
+                                id: "3",
+                                label: "Go to Google",
+                                href: "https://google.com",
+                                target: "_blank",
+                                leading: (
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            padding: "0 8px",
+                                            height: "100%",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <Icon name="link" size="1rem" />
+                                    </div>
+                                ),
                             },
                         ]}
                         renderNode={(props) => (
                             <Card
                                 variant="outlined"
                                 style={{
+                                    display: "flex",
                                     width: "100%",
                                     height: 100,
+                                    justifyContent: "center",
+                                    alignItems: "center",
                                     backgroundColor:
                                         "var(--s-app--color--gray--100)",
+                                    color: "var(--s-app--color--gray--300)",
                                 }}
                                 {...props}
-                            ></Card>
+                            >
+                                Right click to open context menu.
+                            </Card>
                         )}
                     />
                 </div>
