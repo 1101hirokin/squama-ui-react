@@ -17,7 +17,7 @@ type FloatingContentOpeningProps = {
             x: number;
             y: number;
         },
-        contentBoundingRect: ClientRect,
+        contentBoundingRect: DOMRect,
     ) => { x: number; y: number };
 
     content: React.ReactNode | ((close: () => void) => React.ReactNode);

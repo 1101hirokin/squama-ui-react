@@ -1,0 +1,30 @@
+.Tooltip {
+    padding: 8px 12px;
+
+    border: 1px solid var(--s-app--color--gray--800, #e0e0e0);
+    color: #fff;
+    backdrop-filter: blur(8px) brightness(0.24);
+    background-color: rgba(0, 0, 0, 0.2);
+
+    max-width: 240px;
+
+    border-radius: var(--s--tooltip--border-radius, 0);
+    box-shadow: var(--s--tooltip--box-shadow, none);
+
+    animation: fadeIn var(--s-app--anime--dur--base, 0.144s) ease-in-out;
+    transform-origin: top center;
+
+    font-size: var(--s--tooltip--font-size, 14px);
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: rotateX(-30deg) rotateY(6deg) scale(0.96);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotateX(0) rotateY(0) scale(1);
+    }
+}

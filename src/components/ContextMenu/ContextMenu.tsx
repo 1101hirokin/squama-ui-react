@@ -105,7 +105,7 @@ const ContextMenuComponent = (
                 }}
                 className={buildClassName(styles.ContextMenu, rest.className)}
                 onContextMenu={(e) => {
-                    // e.preventDefault();
+                    e.preventDefault();
                 }}
             >
                 {menuItems.map((item) => {
@@ -195,6 +195,7 @@ export const ContextMenu = (p: ContextMenuProps) => {
     const { menuItems, renderNode } = p;
 
     const floatingContentContext = useFloatingContentContext();
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const open = (e: React.MouseEvent<HTMLElement>) => {
         floatingContentContext.open({
@@ -242,9 +243,13 @@ export const ContextMenu = (p: ContextMenuProps) => {
                 return { x, y };
             },
         });
+        setIsMenuOpen(true);
     };
 
-    const close = floatingContentContext.close;
+    const close = () => {
+        floatingContentContext.close();
+        setIsMenuOpen(false);
+    };
 
     const children = renderNode({
         onContextMenu: (e) => {
@@ -263,14 +268,20 @@ export const ContextMenu = (p: ContextMenuProps) => {
             }
         };
 
-        window.addEventListener("scroll", close);
+        const closeMenu = () => {
+            if (isMenuOpen) {
+                close();
+            }
+        };
+
+        window.addEventListener("scroll", closeMenu);
         window.addEventListener("keydown", escListener);
 
         return () => {
-            window.removeEventListener("scroll", close);
+            window.removeEventListener("scroll", closeMenu);
             window.removeEventListener("keydown", escListener);
         };
-    }, []);
+    }, [isMenuOpen]);
 
     return children;
 };

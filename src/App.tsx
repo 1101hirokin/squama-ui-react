@@ -10,6 +10,7 @@ import {
     Text,
     TextArea,
     TextInput,
+    Tooltip,
     useSquamaContext,
 } from "./components";
 import { SquamaApp } from "./components/SquamaApp/SquamaApp";
@@ -333,100 +334,145 @@ const ComponentInApp = () => {
                     </AvatarGroup>
                 </div>
 
-                <div style={{ paddingBottom: "4rem" }}>
-                    <ContextMenu
-                        menuItems={[
-                            {
-                                id: "1",
-                                label: "Menu item 1",
-                                onClick: (_, item) => {
-                                    onContextMenuItemClick(item.id || "");
-                                },
-                            },
-                            {
-                                id: "2",
-                                label: "Menu item 2 >",
-                                onClick: (_, item) => {
-                                    onContextMenuItemClick(item.id || "");
-                                },
-                                subItems: [
-                                    {
-                                        id: "2-1",
-                                        label: "Sub item 1 >",
-                                        subItems: [
-                                            {
-                                                id: "2-1-1",
-                                                label: "Sub item 1",
-                                            },
-                                            {
-                                                id: "2-1-2",
-                                                label: "Sub item 2 >",
-                                                subItems: [
-                                                    {
-                                                        id: "2-1-2-1",
-                                                        label: "Sub item 1",
-                                                    },
-                                                    {
-                                                        id: "2-1-2-2",
-                                                        label: "Sub item 2",
-                                                    },
-                                                ],
-                                            },
-                                            {
-                                                id: "2-1-3",
-                                                label: "Sub item 3",
-                                            },
-                                            {
-                                                id: "2-1-4",
-                                                label: "Sub item 4",
-                                            },
-                                        ],
+                <div style={{ marginBottom: "1rem" }}>
+                    <div
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <ContextMenu
+                            menuItems={[
+                                {
+                                    id: "1",
+                                    label: "Menu item 1",
+                                    onClick: (_, item) => {
+                                        onContextMenuItemClick(item.id || "");
                                     },
-                                    { id: "2-2", label: "Sub item 2" },
-                                    { id: "2-3", label: "Sub item 3" },
-                                    { id: "2-4", label: "Sub item 4" },
-                                ],
-                            },
-                            {
-                                id: "3",
-                                label: "Go to Google",
-                                href: "https://google.com",
-                                target: "_blank",
-                                leading: (
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            padding: "0 8px",
-                                            height: "100%",
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        <Icon name="link" size="1rem" />
-                                    </div>
-                                ),
-                            },
-                        ]}
-                        renderNode={(props) => (
-                            <Card
-                                variant="outlined"
-                                style={{
-                                    display: "flex",
-                                    width: "100%",
-                                    height: 100,
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    backgroundColor:
-                                        "var(--s-app--color--gray--100)",
-                                    color: "var(--s-app--color--gray--300)",
-                                }}
-                                {...props}
-                            >
-                                Right click to open context menu.
-                            </Card>
-                        )}
-                    />
+                                },
+                                {
+                                    id: "2",
+                                    label: "Menu item 2 >",
+                                    onClick: (_, item) => {
+                                        onContextMenuItemClick(item.id || "");
+                                    },
+                                    subItems: [
+                                        {
+                                            id: "2-1",
+                                            label: "Sub item 1 >",
+                                            subItems: [
+                                                {
+                                                    id: "2-1-1",
+                                                    label: "Sub item 1",
+                                                },
+                                                {
+                                                    id: "2-1-2",
+                                                    label: "Sub item 2 >",
+                                                    subItems: [
+                                                        {
+                                                            id: "2-1-2-1",
+                                                            label: "Sub item 1",
+                                                        },
+                                                        {
+                                                            id: "2-1-2-2",
+                                                            label: "Sub item 2",
+                                                        },
+                                                    ],
+                                                },
+                                                {
+                                                    id: "2-1-3",
+                                                    label: "Sub item 3",
+                                                },
+                                                {
+                                                    id: "2-1-4",
+                                                    label: "Sub item 4",
+                                                },
+                                            ],
+                                        },
+                                        { id: "2-2", label: "Sub item 2" },
+                                        { id: "2-3", label: "Sub item 3" },
+                                        { id: "2-4", label: "Sub item 4" },
+                                    ],
+                                },
+                                {
+                                    id: "3",
+                                    label: "Go to Google",
+                                    href: "https://google.com",
+                                    target: "_blank",
+                                    leading: (
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                padding: "0 8px",
+                                                height: "100%",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Icon name="link" size="1rem" />
+                                        </div>
+                                    ),
+                                },
+                            ]}
+                            renderNode={(props) => (
+                                <Card
+                                    variant="outlined"
+                                    style={{
+                                        display: "flex",
+                                        width: "90%",
+                                        height: 100,
+                                        maxWidth: 480,
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        backgroundColor:
+                                            "var(--s-app--color--gray--100)",
+                                        color: "var(--s-app--color--gray--300)",
+                                    }}
+                                    {...props}
+                                >
+                                    Right click to open context menu.
+                                </Card>
+                            )}
+                        />
+                    </div>
                 </div>
+
+                <div style={{ marginBottom: "1rem" }}>
+                    <div
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Tooltip
+                            content="lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil harum accusantium suscipit tempora voluptatibus recusandae aspernatur nobis, hic quam neque fuga eos nemo laborum id error, blanditiis commodi laudantium consequatur!"
+                            position="bottom"
+                            renderNode={(props) => (
+                                <Card
+                                    variant="outlined"
+                                    style={{
+                                        display: "flex",
+                                        width: "80%",
+                                        height: 44,
+                                        maxWidth: 300,
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        backgroundColor:
+                                            "var(--s-app--color--gray--100)",
+                                        color: "var(--s-app--color--gray--300)",
+                                    }}
+                                    {...props}
+                                >
+                                    Hover me! (Tooltip will be shown)
+                                </Card>
+                            )}
+                        />
+                    </div>
+                </div>
+
+                <div style={{ height: 300 }} />
             </Card>
         </div>
     );
