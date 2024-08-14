@@ -2,6 +2,7 @@ import React from "react";
 import { Modify } from "../../utils";
 import {
     getBorderRadiusByShape,
+    getBoxShadowByElevation,
     Shape,
     useFloatingContentContext,
 } from "../../api";
@@ -89,9 +90,11 @@ export const Tooltip = (props: TooltipProps) => {
     const floatingContentContext = useFloatingContentContext();
 
     const borderRadius = getBorderRadiusByShape(shape || theme.shape);
+    const boxShadow = getBoxShadowByElevation(2);
 
     const cssVars = {
         "--s--tooltip--border-radius": borderRadius,
+        "--s--tooltip--box-shadow": boxShadow,
         "--s--tooltip--font-size": "var(--s-typography--font-size--5)",
     } as React.CSSProperties;
 
