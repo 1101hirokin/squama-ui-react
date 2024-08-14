@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import {
+    Alert,
     Avatar,
     AvatarGroup,
     Button,
@@ -474,6 +475,31 @@ const ComponentInApp = () => {
                             )}
                         />
                     </div>
+                </div>
+                <div
+                    style={{
+                        marginBottom: "1rem",
+                        display: "grid",
+                        gridAutoFlow: "row",
+                        gap: "var(--s-app--spacer--1x, .2rem)",
+                    }}
+                >
+                    <Alert type="success">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing
+                        elit. Eum tempora dolorem, modi neque aspernatur atque
+                        asperiores ab, excepturi ducimus odio quidem suscipit
+                        totam libero at adipisci a saepe eligendi sequi!
+                    </Alert>
+                    <Alert type="info">
+                        あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
+                    </Alert>
+                    <Alert type="warning">
+                        またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう。
+                    </Alert>
+                    <Alert type="error">
+                        素早い茶色の狐はのろまな犬を飛び越える。The quick brown
+                        fox jumps over the lazy dog.
+                    </Alert>
                 </div>
 
                 <div style={{ height: 300 }} />

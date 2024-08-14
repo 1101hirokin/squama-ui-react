@@ -8,24 +8,25 @@
 
 .heading {
     font-weight: 500;
-    line-height: 1.54;
+    line-height: var(--s-app--line-height--heading, 1.54);
 }
 .subtitle {
     font-weight: 500;
-    line-height: 1.54;
+    line-height: var(--s-app--line-height--heading, 1.54);
 }
 .body {
     font-weight: 400;
-    line-height: 1.334;
+    line-height: var(--s-app--line-height--body, 1.334);
 }
 
 .button {
     font-weight: 500;
-    line-height: 1.667;
+    line-height: var(--s-app--line-height--body, 1.334);
 }
 
 .overline {
     font-weight: 500;
+    line-height: var(--s-app--line-height--body, 1.334);
 }
 
 .l1 {

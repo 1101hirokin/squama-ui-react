@@ -177,6 +177,9 @@
     --s-typography--font-size--5: 0.818rem;
     --s-typography--font-size--6: 0.692rem;
     --s-typography--font-size--7: 0.6rem;
+
+    --s-app--line-height--heading: 1.54;
+    --s-app--line-height--body: 1.334;
 }
 
 * {

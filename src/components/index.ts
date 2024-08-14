@@ -11,3 +11,4 @@ export * from "./Avatar/Avatar";
 export * from "./AvatarGroup/AvatarGroup";
 export * from "./ContextMenu/ContextMenu";
 export * from "./Tooltip/Tooltip";
+export * from "./Alert/Alert";
