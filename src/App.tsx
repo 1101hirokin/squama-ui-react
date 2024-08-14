@@ -444,6 +444,7 @@ const ComponentInApp = () => {
                             width: "100%",
                             display: "flex",
                             justifyContent: "center",
+                            fontSize: "var(--s-typography--font-size--5)",
                         }}
                     >
                         <Tooltip
@@ -462,10 +463,13 @@ const ComponentInApp = () => {
                                         backgroundColor:
                                             "var(--s-app--color--gray--100)",
                                         color: "var(--s-app--color--gray--300)",
+                                        textAlign: "center",
                                     }}
                                     {...props}
                                 >
-                                    Hover me! (Tooltip will be shown)
+                                    Hover me!
+                                    <br />
+                                    (Tooltip will be shown)
                                 </Card>
                             )}
                         />
