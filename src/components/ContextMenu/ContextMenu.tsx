@@ -225,18 +225,16 @@ export const ContextMenu = (p: ContextMenuProps) => {
                 const y = (() => {
                     // if cursor is too close to the bottom edge of the screen
                     if (
-                        originPosition.y +
-                            contentBoundingRect.height +
-                            window.scrollY >
+                        originPosition.y + contentBoundingRect.height >
                         window.innerHeight
                     ) {
                         return (
-                            originPosition.y -
-                            contentBoundingRect.height +
-                            window.scrollY
+                            originPosition.y +
+                            window.scrollY -
+                            contentBoundingRect.height
                         );
                     } else {
-                        return originPosition.y;
+                        return originPosition.y + window.scrollY;
                     }
                 })();
 
