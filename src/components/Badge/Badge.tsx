@@ -4,6 +4,7 @@ import {
     ComponentSize,
     getBorderRadiusByShape,
     Shape,
+    squamaComponentClass,
     SquamaComponentProps,
 } from "../../api";
 import { buildClassName, Modify } from "../../utils";
@@ -57,7 +58,11 @@ export const Badge = (p: BadgeProps) => {
     return (
         <div
             {...rest}
-            className={buildClassName(styles.Badge, rest.className)}
+            className={buildClassName(
+                squamaComponentClass,
+                styles.Badge,
+                rest.className,
+            )}
             style={{
                 ...cssVars,
                 ...rest.style,

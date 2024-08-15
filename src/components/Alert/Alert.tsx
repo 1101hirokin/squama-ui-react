@@ -4,6 +4,7 @@ import {
     SquamaComponentProps,
     Colors,
     Shade,
+    squamaComponentClass,
 } from "../../api";
 import { buildClassName, Modify } from "../../utils";
 import { Icon, IconName } from "../Icon/Icon";
@@ -118,6 +119,7 @@ export const Alert = (p: AlertProps) => {
         <div
             {...rest}
             className={buildClassName(
+                squamaComponentClass,
                 styles.Alert,
                 rest.className,
                 getTypeClassName(type),

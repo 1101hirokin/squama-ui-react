@@ -1,9 +1,10 @@
 import React from "react";
-import { Modify } from "../../utils";
+import { buildClassName, Modify } from "../../utils";
 import {
     getBorderRadiusByShape,
     getBoxShadowByElevation,
     Shape,
+    squamaComponentClass,
     useFloatingContentContext,
 } from "../../api";
 
@@ -109,7 +110,10 @@ export const Tooltip = (props: TooltipProps) => {
             floatingContentContext.open({
                 content: (
                     <div
-                        className={styles.Tooltip}
+                        className={buildClassName(
+                            squamaComponentClass,
+                            styles.Tooltip,
+                        )}
                         style={{
                             ...cssVars,
                         }}

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import {
     getBorderRadiusByShape,
     getBoxShadowByElevation,
+    squamaComponentClass,
     SquamaComponentProps,
     useFloatingContentContext,
 } from "../../api";
@@ -91,6 +92,7 @@ const ContextMenuComponent = (
                 ...style,
             }}
             className={buildClassName(
+                squamaComponentClass,
                 styles.ContextMenuArea,
                 isChild && styles.child,
             )}
