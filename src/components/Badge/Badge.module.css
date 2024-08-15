@@ -6,6 +6,6 @@
     display: block flow;
     width: fit-content;
 
-    font-size: var(--s-typography--font-size--5, 0.815rem);
-    padding: var(--s-app--spacer--1x, 4px);
+    font-size: var(--s-typography--font-size--6, 0.815rem);
+    padding: var(--s-badge--padding, 4px);
 }

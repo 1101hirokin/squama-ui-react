@@ -1,6 +1,7 @@
 import {
     Color,
     Colors,
+    ComponentSize,
     getBorderRadiusByShape,
     Shape,
     SquamaComponentProps,
@@ -16,20 +17,32 @@ type BadgeProps = Modify<
         shape?: Shape;
 
         color?: string;
+        size?: ComponentSize;
     }
 >;
 
 export const Badge = (p: BadgeProps) => {
-    const { children, shape, color, ...rest } = p;
+    const { children, shape = "circular", color, size = "s", ...rest } = p;
 
     const context = useSquamaContext();
     const theme = context.getCurrentTheme();
 
-    const borderRadius = getBorderRadiusByShape(shape || "circular");
+    const borderRadius = getBorderRadiusByShape(shape);
 
     const parsedColor = Color.fromCSSString(
         color || (theme.isLight ? Colors.red[500] : Colors.red[900]),
     );
+
+    const padding = (() => {
+        switch (size) {
+            case "s":
+                return "4px";
+            case "m":
+                return "6px";
+            case "l":
+                return "8px";
+        }
+    })();
 
     const cssVars = {
         "--s-badge--background-color": parsedColor.cssString,
@@ -38,6 +51,7 @@ export const Badge = (p: BadgeProps) => {
                 ? "white"
                 : "var(--s-app--color--gray--900, black)",
         "--s-badge--border-radius": borderRadius,
+        "--s-badge--padding": padding,
     } as React.CSSProperties;
 
     return (

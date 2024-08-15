@@ -440,7 +440,9 @@ const ComponentInApp = () => {
                     </div>
                 </div>
 
-                <div style={{ marginBottom: "1rem" }}>
+                <div
+                    style={{ marginBottom: "var(--s-app--spacer--2x, .4rem)" }}
+                >
                     <div
                         style={{
                             width: "100%",
@@ -479,7 +481,7 @@ const ComponentInApp = () => {
                 </div>
                 <div
                     style={{
-                        marginBottom: "1rem",
+                        marginBottom: "var(--s-app--spacer--2x, .4rem)",
                         display: "grid",
                         gridAutoFlow: "row",
                         gap: "var(--s-app--spacer--1x, .2rem)",
@@ -504,16 +506,52 @@ const ComponentInApp = () => {
                 </div>
 
                 <div
-                    style={{
-                        marginBottom: "1rem",
-                        display: "flex",
-                        alignItems: "flex-start",
-                        gap: "var(--s-app--spacer--1x, .2rem)",
-                    }}
+                    style={{ marginBottom: "var(--s-app--spacer--2x, .4rem)" }}
                 >
-                    <Badge></Badge>
-                    <Badge>12+</Badge>
-                    <Badge color="#0050ff">999</Badge>
+                    <div
+                        style={{
+                            marginBottom: "var(--s-app--spacer--1x, .2rem)",
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "var(--s-app--spacer--1x, .2rem)",
+                        }}
+                    >
+                        <Badge></Badge>
+                        <Badge>12+</Badge>
+                        <Badge color="#0050ff">999</Badge>
+                    </div>
+                    <div
+                        style={{
+                            marginBottom: "var(--s-app--spacer--1x, .2rem)",
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "var(--s-app--spacer--1x, .2rem)",
+                        }}
+                    >
+                        <Badge color="#1b1b22" size="m" shape="square"></Badge>
+                        <Badge color="#1b1b22" size="m" shape="square">
+                            12+
+                        </Badge>
+                        <Badge color="#1b1b22" size="m" shape="square">
+                            999
+                        </Badge>
+                    </div>
+                    <div
+                        style={{
+                            marginBottom: "var(--s-app--spacer--1x, .2rem)",
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "var(--s-app--spacer--1x, .2rem)",
+                        }}
+                    >
+                        <Badge color="#1b1b22" size="l" shape="rounded"></Badge>
+                        <Badge color="#1b1b22" size="l" shape="rounded">
+                            12+
+                        </Badge>
+                        <Badge color="#1b1b22" size="l" shape="rounded">
+                            999
+                        </Badge>
+                    </div>
                 </div>
 
                 <div style={{ height: 300 }} />
