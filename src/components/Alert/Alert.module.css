@@ -1,0 +1,37 @@
+.Alert {
+    display: grid;
+    width: 100%;
+
+    grid-template-rows: auto;
+    grid-template-columns: 1rem auto;
+    grid-template-areas: "icon content";
+    gap: var(--s-app--spacer--2x, 8px);
+
+    padding: var(--s-app--spacer--3x, 8px);
+
+    font-size: var(--s-typography--font-size--5, 1rem);
+    line-height: var(--s-app--line-height--body, 1.334);
+
+    border-radius: var(--s-alert--border-radius, 0);
+    border-width: 1px;
+    border-style: solid;
+
+    background-color: var(
+        --s-alert--background-color,
+        var(--s-app--color--gray--100, #eaeaea)
+    );
+    color: var(--s-alert--color, var(--s-app--color--gray--700, #474747));
+    border-color: var(
+        --s-alert--border-color,
+        var(--s-app--color--gray--200, #d3d3d3)
+    );
+}
+
+.iconContainer {
+    grid-area: icon;
+    width: 100%;
+}
+
+.contentContainer {
+    grid-area: content;
+}

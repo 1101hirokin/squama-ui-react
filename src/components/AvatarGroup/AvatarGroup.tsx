@@ -1,5 +1,10 @@
 import { createContext, useContext } from "react";
-import { ComponentSize, Shape, SquamaComponentProps } from "../../api";
+import {
+    ComponentSize,
+    Shape,
+    squamaComponentClass,
+    SquamaComponentProps,
+} from "../../api";
 import { buildClassName, Modify } from "../../utils";
 import { useSquamaContext } from "../SquamaContext/SquamaContext";
 import styles from "./AvatarGroup.module.css";
@@ -45,7 +50,11 @@ export const AvatarGroup = (props: AvatarGroupProps) => {
         >
             <div
                 {...rest}
-                className={buildClassName(styles.AvatarGroup, rest.className)}
+                className={buildClassName(
+                    styles.AvatarGroup,
+                    rest.className,
+                    squamaComponentClass,
+                )}
                 style={{
                     ...rest.style,
                     ...cssVars,

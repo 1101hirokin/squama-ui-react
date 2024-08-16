@@ -1,15 +1,19 @@
 import { useRef, useState } from "react";
 import {
+    Alert,
     Avatar,
     AvatarGroup,
+    Badge,
     Button,
     Card,
     ContextMenu,
+    DateSelect,
     Icon,
     IconButton,
     Text,
     TextArea,
     TextInput,
+    Tooltip,
     useSquamaContext,
 } from "./components";
 import { SquamaApp } from "./components/SquamaApp/SquamaApp";
@@ -31,6 +35,10 @@ const ComponentInApp = () => {
     const [isLoaderCheckerLoading, setIsLoaderCheckerLoading] = useState(true);
 
     const nameFieldRef = useRef<HTMLInputElement>(null);
+
+    const onContextMenuItemClick = (id: string) => {
+        console.log(`Clicked: ${id}`);
+    };
 
     return (
         <div
@@ -329,53 +337,233 @@ const ComponentInApp = () => {
                     </AvatarGroup>
                 </div>
 
-                <div style={{ paddingBottom: 1080 }}>
-                    <ContextMenu
-                        menuItems={[
-                            { label: "Menu item 1" },
-                            {
-                                label: "Menu item 2 >",
-                                subItems: [
-                                    {
-                                        label: "Sub item 1 >",
-                                        subItems: [
-                                            {
-                                                label: "Sub item 1",
-                                            },
-                                            {
-                                                label: "Sub item 2 >",
-                                                subItems: [
-                                                    { label: "Sub item 1" },
-                                                    { label: "Sub item 2" },
-                                                ],
-                                            },
-                                            { label: "Sub item 3" },
-                                            { label: "Sub item 4" },
-                                        ],
+                <div style={{ marginBottom: "1rem" }}>
+                    <div
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <ContextMenu
+                            menuItems={[
+                                {
+                                    id: "1",
+                                    label: "Menu item 1",
+                                    onClick: (_, item) => {
+                                        onContextMenuItemClick(item.id || "");
                                     },
-                                    { label: "Sub item 2" },
-                                    { label: "Sub item 3" },
-                                    { label: "Sub item 4" },
-                                ],
-                            },
-                            {
-                                label: "Menu item 3",
-                            },
-                        ]}
-                        renderNode={(props) => (
-                            <Card
-                                variant="outlined"
-                                style={{
-                                    width: "100%",
-                                    height: 100,
-                                    backgroundColor:
-                                        "var(--s-app--color--gray--100)",
-                                }}
-                                {...props}
-                            ></Card>
-                        )}
-                    />
+                                },
+                                {
+                                    id: "2",
+                                    label: "Menu item 2 >",
+                                    onClick: (_, item) => {
+                                        onContextMenuItemClick(item.id || "");
+                                    },
+                                    subItems: [
+                                        {
+                                            id: "2-1",
+                                            label: "Sub item 1 >",
+                                            subItems: [
+                                                {
+                                                    id: "2-1-1",
+                                                    label: "Sub item 1",
+                                                },
+                                                {
+                                                    id: "2-1-2",
+                                                    label: "Sub item 2 >",
+                                                    subItems: [
+                                                        {
+                                                            id: "2-1-2-1",
+                                                            label: "Sub item 1",
+                                                        },
+                                                        {
+                                                            id: "2-1-2-2",
+                                                            label: "Sub item 2",
+                                                        },
+                                                    ],
+                                                },
+                                                {
+                                                    id: "2-1-3",
+                                                    label: "Sub item 3",
+                                                },
+                                                {
+                                                    id: "2-1-4",
+                                                    label: "Sub item 4",
+                                                },
+                                            ],
+                                        },
+                                        { id: "2-2", label: "Sub item 2" },
+                                        { id: "2-3", label: "Sub item 3" },
+                                        { id: "2-4", label: "Sub item 4" },
+                                    ],
+                                },
+                                {
+                                    id: "3",
+                                    label: "Go to Google",
+                                    href: "https://google.com",
+                                    target: "_blank",
+                                    leading: (
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                padding: "0 8px",
+                                                height: "100%",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Icon name="link" size="1rem" />
+                                        </div>
+                                    ),
+                                },
+                            ]}
+                            renderNode={(props) => (
+                                <Card
+                                    variant="outlined"
+                                    style={{
+                                        display: "flex",
+                                        width: "90%",
+                                        height: 100,
+                                        maxWidth: 480,
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        backgroundColor:
+                                            "var(--s-app--color--gray--100)",
+                                        color: "var(--s-app--color--gray--300)",
+                                    }}
+                                    {...props}
+                                >
+                                    Right click to open context menu.
+                                </Card>
+                            )}
+                        />
+                    </div>
                 </div>
+
+                <div
+                    style={{ marginBottom: "var(--s-app--spacer--2x, .4rem)" }}
+                >
+                    <div
+                        style={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                            fontSize: "var(--s-typography--font-size--5)",
+                        }}
+                    >
+                        <Tooltip
+                            content="lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil harum accusantium suscipit tempora voluptatibus recusandae aspernatur nobis, hic quam neque fuga eos nemo laborum id error, blanditiis commodi laudantium consequatur!"
+                            position="bottom"
+                            renderNode={(props) => (
+                                <Card
+                                    variant="outlined"
+                                    style={{
+                                        display: "flex",
+                                        width: "80%",
+                                        height: 44,
+                                        maxWidth: 300,
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        backgroundColor:
+                                            "var(--s-app--color--gray--100)",
+                                        color: "var(--s-app--color--gray--300)",
+                                        textAlign: "center",
+                                    }}
+                                    {...props}
+                                >
+                                    Hover me!
+                                    <br />
+                                    (Tooltip will be shown)
+                                </Card>
+                            )}
+                        />
+                    </div>
+                </div>
+                <div
+                    style={{
+                        marginBottom: "var(--s-app--spacer--2x, .4rem)",
+                        display: "grid",
+                        gridAutoFlow: "row",
+                        gap: "var(--s-app--spacer--1x, .2rem)",
+                    }}
+                >
+                    <Alert type="success">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing
+                        elit. Eum tempora dolorem, modi neque aspernatur atque
+                        asperiores ab, excepturi ducimus odio quidem suscipit
+                        totam libero at adipisci a saepe eligendi sequi!
+                    </Alert>
+                    <Alert type="info">
+                        あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
+                    </Alert>
+                    <Alert type="warning">
+                        またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう。
+                    </Alert>
+                    <Alert type="error">
+                        素早い茶色の狐はのろまな犬を飛び越える。The quick brown
+                        fox jumps over the lazy dog.
+                    </Alert>
+                </div>
+
+                <div
+                    style={{ marginBottom: "var(--s-app--spacer--2x, .4rem)" }}
+                >
+                    <div
+                        style={{
+                            marginBottom: "var(--s-app--spacer--1x, .2rem)",
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "var(--s-app--spacer--1x, .2rem)",
+                        }}
+                    >
+                        <Badge></Badge>
+                        <Badge>12+</Badge>
+                        <Badge color="#0050ff">999</Badge>
+                    </div>
+                    <div
+                        style={{
+                            marginBottom: "var(--s-app--spacer--1x, .2rem)",
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "var(--s-app--spacer--1x, .2rem)",
+                        }}
+                    >
+                        <Badge color="#1b1b22" size="m" shape="square"></Badge>
+                        <Badge color="#1b1b22" size="m" shape="square">
+                            12+
+                        </Badge>
+                        <Badge color="#1b1b22" size="m" shape="square">
+                            999
+                        </Badge>
+                    </div>
+                    <div
+                        style={{
+                            marginBottom: "var(--s-app--spacer--1x, .2rem)",
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "var(--s-app--spacer--1x, .2rem)",
+                        }}
+                    >
+                        <Badge color="#1b1b22" size="l" shape="rounded"></Badge>
+                        <Badge color="#1b1b22" size="l" shape="rounded">
+                            12+
+                        </Badge>
+                        <Badge color="#1b1b22" size="l" shape="rounded">
+                            999
+                        </Badge>
+                    </div>
+                </div>
+
+                <div
+                    style={{ marginBottom: "var(--s-app--spacer--2x, .4rem)" }}
+                >
+                    <Card variant="outlined">
+                        <DateSelect />
+                    </Card>
+                </div>
+
+                <div style={{ height: 300 }} />
             </Card>
         </div>
     );
