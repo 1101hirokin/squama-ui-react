@@ -5,11 +5,12 @@ import React, {
     forwardRef,
     useEffect,
     useImperativeHandle,
+    useMemo,
     useRef,
     useState,
 } from "react";
 import { squamaComponentClass, SquamaComponentProps } from "../../api";
-import { buildClassName, Modify } from "../../utils";
+import { buildClassName, generateUUIDv4, Modify } from "../../utils";
 
 import styles from "./Slider.module.css";
 
@@ -83,7 +84,7 @@ type SliderProps = Modify<
 
         onSlide?: (currentIndex: number, prevIndex: number) => void;
         gap?: number;
-        slidesPerView?: number;
+        slidesPerView?: number | "auto";
         loop?: boolean;
         autoplay?: boolean | { delay: number };
         showPagingButton?: boolean;
@@ -95,12 +96,14 @@ type SliderProps = Modify<
             | "bottom.left";
         paginationColor?: string;
         paginationInactiveColor?: string;
+
+        centered?: boolean;
     }
 >;
 
 export const Slider = forwardRef<SliderRef, SliderProps>((p, ref) => {
     const {
-        initialIndex,
+        initialIndex = 0,
         children,
 
         onSlide,
@@ -113,6 +116,7 @@ export const Slider = forwardRef<SliderRef, SliderProps>((p, ref) => {
         showPaginations = "bottom.left",
         paginationColor = "#000",
         paginationInactiveColor = "#ccc",
+        centered = true,
         ...rest
     } = p;
 
@@ -123,12 +127,17 @@ export const Slider = forwardRef<SliderRef, SliderProps>((p, ref) => {
     const context = useSquamaContext();
     const theme = context.getCurrentTheme();
 
+    const [currentIndex, setCurrentIndex] = useState(initialIndex);
+    const [slidesLength, setSlidesLength] = useState(0);
+
     const [hasPrev, setHasPrev] = useState(false);
     const [hasNext, setHasNext] = useState(false);
 
     useEffect(() => {
         if (swiperRef.current) {
             const swiper = swiperRef.current.swiper;
+
+            setSlidesLength(swiper.slides.length);
             setHasPrev(!swiper.isBeginning);
             setHasNext(!swiper.isEnd);
         }
@@ -151,22 +160,14 @@ export const Slider = forwardRef<SliderRef, SliderProps>((p, ref) => {
             slideTo: (index: number) => {
                 if (swiperRef.current) {
                     const swiper = swiperRef.current.swiper;
-                    swiper.slideTo(index);
+                    loop ? swiper.slideToLoop(index) : swiper.slideTo(index);
                 }
             },
             getSlideCount: () => {
-                if (swiperRef.current) {
-                    const swiper = swiperRef.current.swiper;
-                    return swiper.slides.length;
-                }
-                return 0;
+                return slidesLength;
             },
             getCurrentIndex: () => {
-                if (swiperRef.current) {
-                    const swiper = swiperRef.current.swiper;
-                    return swiper.activeIndex;
-                }
-                return 0;
+                return currentIndex;
             },
         },
     }));
@@ -181,23 +182,35 @@ export const Slider = forwardRef<SliderRef, SliderProps>((p, ref) => {
         >
             <div className={styles.mainLayer}>
                 <Swiper
-                    {...rest}
                     ref={swiperRef}
                     initialSlide={initialIndex}
                     className={buildClassName(styles.Slider, rest.className)}
                     style={{
                         ...rest.style,
                     }}
-                    onSlideChange={(swiper) => {
-                        onSlide?.(swiper.activeIndex, swiper.previousIndex);
-                        setHasPrev(!swiper.isBeginning);
-                        setHasNext(!swiper.isEnd);
+                    onActiveIndexChange={(swiper) => {
+                        if (!loop) {
+                            onSlide?.(swiper.activeIndex, swiper.previousIndex);
+                            setCurrentIndex(swiper.activeIndex);
+                        }
+
+                        setHasPrev(loop || !swiper.isBeginning);
+                        setHasNext(loop || !swiper.isEnd);
+                    }}
+                    onRealIndexChange={(swiper) => {
+                        if (loop) {
+                            onSlide?.(swiper.realIndex, swiper.previousIndex);
+                            setCurrentIndex(swiper.realIndex);
+                        }
+                        setHasPrev(loop || !swiper.isBeginning);
+                        setHasNext(loop || !swiper.isEnd);
                     }}
                     spaceBetween={gap}
                     slidesPerView={slidesPerView}
                     loop={loop}
                     modules={[Autoplay]}
                     autoplay={autoplay}
+                    centeredSlides={centered}
                 >
                     {children}
                 </Swiper>
@@ -255,33 +268,26 @@ export const Slider = forwardRef<SliderRef, SliderProps>((p, ref) => {
                         )}
                     >
                         {Array.from({
-                            length: (() => {
-                                if (swiperRef.current) {
-                                    const swiper = swiperRef.current.swiper;
-                                    return swiper.slides.length;
-                                }
-                                return 0;
-                            })(),
-                        }).map((_, i) => (
-                            <SliderPagination
-                                key={i}
-                                isActive={(() => {
-                                    if (swiperRef.current) {
-                                        const swiper = swiperRef.current.swiper;
-                                        return swiper.activeIndex === i;
-                                    }
-                                    return false;
-                                })()}
-                                onClick={() => {
-                                    if (swiperRef.current) {
-                                        const swiper = swiperRef.current.swiper;
-                                        swiper.slideTo(i);
-                                    }
-                                }}
-                                color={paginationColor}
-                                inactiveColor={paginationInactiveColor}
-                            />
-                        ))}
+                            length: slidesLength,
+                        }).map((_, i) => {
+                            return (
+                                <SliderPagination
+                                    key={i}
+                                    isActive={currentIndex === i}
+                                    onClick={() => {
+                                        if (swiperRef.current) {
+                                            const swiper =
+                                                swiperRef.current.swiper;
+                                            loop
+                                                ? swiper.slideToLoop(i)
+                                                : swiper.slideTo(i);
+                                        }
+                                    }}
+                                    color={paginationColor}
+                                    inactiveColor={paginationInactiveColor}
+                                />
+                            );
+                        })}
                     </div>
                 )}
             </div>

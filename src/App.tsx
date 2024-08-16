@@ -42,7 +42,7 @@ const ComponentInApp = () => {
         console.log(`Clicked: ${id}`);
     };
 
-    const sliderControllerRef = useRef<SliderRef>(null);
+    const sliderRef = useRef<SliderRef>(null);
 
     return (
         <div
@@ -429,7 +429,6 @@ const ComponentInApp = () => {
                                         display: "flex",
                                         width: "90%",
                                         height: 100,
-                                        maxWidth: 480,
                                         justifyContent: "center",
                                         alignItems: "center",
                                         backgroundColor:
@@ -565,10 +564,12 @@ const ComponentInApp = () => {
                     }}
                 >
                     <Slider
-                        ref={sliderControllerRef}
+                        ref={sliderRef}
                         onSlide={(current, prev) => {
                             console.log(`Slide: ${prev} -> ${current}`);
                         }}
+                        initialIndex={1}
+                        slidesPerView={1}
                         showPagingButton={true}
                         pagingButtonColor={theme.system}
                         showPaginations="bottom.center"
@@ -576,15 +577,19 @@ const ComponentInApp = () => {
                         paginationInactiveColor={
                             theme.component?.border || "#ccc"
                         }
+                        loop={true}
+                        centered={true}
+                        gap={0}
                         autoplay={false}
                     >
-                        <SliderItem>
+                        <SliderItem style={{}}>
                             <div
                                 style={{
                                     ...{
                                         display: "flex",
                                         justifyContent: "center",
                                         alignItems: "center",
+                                        backgroundColor: "white",
                                         width: "100%",
                                         aspectRatio: "16/9",
                                     },
@@ -600,6 +605,7 @@ const ComponentInApp = () => {
                                         display: "flex",
                                         justifyContent: "center",
                                         alignItems: "center",
+                                        backgroundColor: "thistle",
                                         width: "100%",
                                         aspectRatio: "16/9",
                                     },
@@ -615,6 +621,7 @@ const ComponentInApp = () => {
                                         display: "flex",
                                         justifyContent: "center",
                                         alignItems: "center",
+                                        backgroundColor: "cadetblue",
                                         width: "100%",
                                         aspectRatio: "16/9",
                                     },
@@ -623,13 +630,28 @@ const ComponentInApp = () => {
                                 Slide 3
                             </div>
                         </SliderItem>
+                        <SliderItem>
+                            <div
+                                style={{
+                                    ...{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        backgroundColor: "salmon",
+                                        width: "100%",
+                                        aspectRatio: "16/9",
+                                    },
+                                }}
+                            >
+                                Slide 4
+                            </div>
+                        </SliderItem>
                     </Slider>
                     <Button
                         size="s"
                         onClick={() => {
-                            if (sliderControllerRef.current) {
-                                const controller =
-                                    sliderControllerRef.current.controller;
+                            if (sliderRef.current) {
+                                const controller = sliderRef.current.controller;
                                 controller.slidePrev();
                             }
                         }}
@@ -640,9 +662,8 @@ const ComponentInApp = () => {
                     <Button
                         size="s"
                         onClick={() => {
-                            if (sliderControllerRef.current) {
-                                const controller =
-                                    sliderControllerRef.current.controller;
+                            if (sliderRef.current) {
+                                const controller = sliderRef.current.controller;
                                 controller.slideNext();
                             }
                         }}
@@ -653,9 +674,8 @@ const ComponentInApp = () => {
                     <Button
                         size="s"
                         onClick={() => {
-                            if (sliderControllerRef.current) {
-                                const controller =
-                                    sliderControllerRef.current.controller;
+                            if (sliderRef.current) {
+                                const controller = sliderRef.current.controller;
 
                                 controller.slideTo(
                                     controller.getSlideCount() - 1,
