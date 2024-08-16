@@ -7,6 +7,7 @@ import {
     Button,
     Card,
     ContextMenu,
+    DateSelect,
     Icon,
     IconButton,
     Text,
@@ -552,6 +553,14 @@ const ComponentInApp = () => {
                             999
                         </Badge>
                     </div>
+                </div>
+
+                <div
+                    style={{ marginBottom: "var(--s-app--spacer--2x, .4rem)" }}
+                >
+                    <Card variant="outlined">
+                        <DateSelect />
+                    </Card>
                 </div>
 
                 <div style={{ height: 300 }} />
