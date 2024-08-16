@@ -7,9 +7,11 @@ import {
     Button,
     Card,
     ContextMenu,
-    DateSelect,
     Icon,
     IconButton,
+    Slider,
+    SliderItem,
+    SliderRef,
     Text,
     TextArea,
     TextInput,
@@ -39,6 +41,8 @@ const ComponentInApp = () => {
     const onContextMenuItemClick = (id: string) => {
         console.log(`Clicked: ${id}`);
     };
+
+    const sliderControllerRef = useRef<SliderRef>(null);
 
     return (
         <div
@@ -556,11 +560,112 @@ const ComponentInApp = () => {
                 </div>
 
                 <div
-                    style={{ marginBottom: "var(--s-app--spacer--2x, .4rem)" }}
+                    style={{
+                        marginBottom: "var(--s-app--spacer--2x, .4rem)",
+                    }}
                 >
-                    <Card variant="outlined">
-                        <DateSelect />
-                    </Card>
+                    <Slider
+                        ref={sliderControllerRef}
+                        onSlide={(current, prev) => {
+                            console.log(`Slide: ${prev} -> ${current}`);
+                        }}
+                        showPagingButton={true}
+                        pagingButtonColor={theme.system}
+                        showPaginations="bottom.center"
+                        paginationColor={theme.system}
+                        paginationInactiveColor={
+                            theme.component?.border || "#ccc"
+                        }
+                        autoplay={false}
+                    >
+                        <SliderItem>
+                            <div
+                                style={{
+                                    ...{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        width: "100%",
+                                        aspectRatio: "16/9",
+                                    },
+                                }}
+                            >
+                                Slide 1
+                            </div>
+                        </SliderItem>
+                        <SliderItem>
+                            <div
+                                style={{
+                                    ...{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        width: "100%",
+                                        aspectRatio: "16/9",
+                                    },
+                                }}
+                            >
+                                Slide 2
+                            </div>
+                        </SliderItem>
+                        <SliderItem>
+                            <div
+                                style={{
+                                    ...{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        width: "100%",
+                                        aspectRatio: "16/9",
+                                    },
+                                }}
+                            >
+                                Slide 3
+                            </div>
+                        </SliderItem>
+                    </Slider>
+                    <Button
+                        size="s"
+                        onClick={() => {
+                            if (sliderControllerRef.current) {
+                                const controller =
+                                    sliderControllerRef.current.controller;
+                                controller.slidePrev();
+                            }
+                        }}
+                        variant="text"
+                    >
+                        Go Prev
+                    </Button>
+                    <Button
+                        size="s"
+                        onClick={() => {
+                            if (sliderControllerRef.current) {
+                                const controller =
+                                    sliderControllerRef.current.controller;
+                                controller.slideNext();
+                            }
+                        }}
+                        variant="text"
+                    >
+                        Go Next
+                    </Button>
+                    <Button
+                        size="s"
+                        onClick={() => {
+                            if (sliderControllerRef.current) {
+                                const controller =
+                                    sliderControllerRef.current.controller;
+
+                                controller.slideTo(
+                                    controller.getSlideCount() - 1,
+                                );
+                            }
+                        }}
+                        variant="text"
+                    >
+                        Go Last
+                    </Button>
                 </div>
 
                 <div style={{ height: 300 }} />
