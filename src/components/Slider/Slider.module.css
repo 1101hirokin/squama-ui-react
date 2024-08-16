@@ -1,0 +1,94 @@
+.SliderContainer {
+    width: 100%;
+
+    --s-slider--button--offset: var(--s-app--spacer--2x, 8px);
+}
+.mainLayer {
+    position: relative;
+    width: 100%;
+
+    z-index: 0;
+}
+.Slider {
+    background-color: var(--s-app--color--gray--100);
+}
+[data-theme="dark"] .Slider {
+    background-color: var(--s-app--color--gray--800);
+}
+
+.SliderItem {
+}
+
+.overlayLayer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+
+    pointer-events: none;
+    z-index: 1;
+}
+.overlayLayer > * {
+    pointer-events: auto;
+}
+
+.prevButtonContainer {
+    position: absolute;
+    top: 50%;
+    left: var(--s-slider--button--offset, 0);
+    transform: translateY(-50%);
+}
+
+.nextButtonContainer {
+    position: absolute;
+    top: 50%;
+    right: var(--s-slider--button--offset, 0);
+    transform: translateY(-50%);
+}
+
+.paginationContainer {
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    gap: var(--s-app--spacer--1x, 4px);
+}
+.paginationContainer.bottomLeft {
+    bottom: var(--s-slider--button--offset, 0);
+    left: var(--s-slider--button--offset, 0);
+    transform: none;
+}
+.paginationContainer.bottomRight {
+    bottom: var(--s-slider--button--offset, 0);
+    right: var(--s-slider--button--offset, 0);
+    transform: none;
+}
+.paginationContainer.bottomCenter {
+    bottom: var(--s-slider--button--offset, 0);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.SliderPagination {
+    --size: 6px;
+
+    width: var(--size);
+    height: var(--size);
+
+    padding: 0;
+    margin: 0;
+    border: none;
+
+    border-radius: calc(1px / 0);
+
+    background-color: var(--s-slider-pagination--color, #000);
+
+    transition: width 0.3s;
+    cursor: pointer;
+}
+.SliderPagination.inactive {
+    width: calc(var(--size) * 3);
+    background-color: var(--s-slider-pagination--color--inactive, #ccc);
+}
