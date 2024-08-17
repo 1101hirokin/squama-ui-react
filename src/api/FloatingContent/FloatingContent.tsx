@@ -81,7 +81,7 @@ const FloatingContent = (p: {
             );
             setOpacity(1);
         }
-    }, [contentRef.current, props]);
+    }, [props]);
 
     return (
         <div

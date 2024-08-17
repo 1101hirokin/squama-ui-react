@@ -1,14 +1,26 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
-    plugins: [react()],
+    plugins: [
+        react(),
+        dts({
+            // insertTypesEntry: false,
+            rollupTypes: false,
+        }),
+    ],
     build: {
         lib: {
             entry: resolve(__dirname, "src/index.ts"),
             name: "Squama UI",
             fileName: "index",
+            formats: [
+                "es",
+                /* uncomment to support IE11 */
+                // "umd",
+            ],
         },
         sourcemap: false,
         emptyOutDir: false,
