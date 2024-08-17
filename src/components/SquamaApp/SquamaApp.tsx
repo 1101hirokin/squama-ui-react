@@ -1,17 +1,22 @@
 import "./SquamaApp.css";
-import { SquamaComponentProps, squamaComponentClass } from "../../api";
+import { SquamaComponentProps, Theme, squamaComponentClass } from "../../api";
 import { buildClassName, Modify } from "../../utils";
 import styles from "./SquamaApp.module.css";
 import { SquamaContextProvider } from "../SquamaContext/SquamaContext";
 import { FloatingContentContextProvider } from "../../api/FloatingContent/FloatingContent";
 
-type SquamaAppProps = Modify<SquamaComponentProps, {}>;
+type SquamaAppProps = Modify<
+    SquamaComponentProps,
+    {
+        themes?: { [key: string]: Theme };
+    }
+>;
 
 export const SquamaApp = (props: SquamaAppProps) => {
-    const { children, ...rest } = props;
+    const { themes, children, ...rest } = props;
 
     return (
-        <SquamaContextProvider>
+        <SquamaContextProvider themes={themes}>
             <div
                 {...rest}
                 className={buildClassName(
