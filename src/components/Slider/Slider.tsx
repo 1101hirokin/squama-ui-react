@@ -5,12 +5,11 @@ import React, {
     forwardRef,
     useEffect,
     useImperativeHandle,
-    useMemo,
     useRef,
     useState,
 } from "react";
 import { squamaComponentClass, SquamaComponentProps } from "../../api";
-import { buildClassName, generateUUIDv4, Modify } from "../../utils";
+import { buildClassName, Modify } from "../../utils";
 
 import styles from "./Slider.module.css";
 
@@ -25,6 +24,8 @@ type SliderController = {
     slideTo: (index: number) => void;
     getSlideCount: () => number;
     getCurrentIndex: () => number;
+    getHasPrev: () => boolean;
+    getHasNext: () => boolean;
 };
 
 export type SliderRef = {
@@ -168,6 +169,12 @@ export const Slider = forwardRef<SliderRef, SliderProps>((p, ref) => {
             },
             getCurrentIndex: () => {
                 return currentIndex;
+            },
+            getHasPrev: () => {
+                return hasPrev;
+            },
+            getHasNext: () => {
+                return hasNext;
             },
         },
     }));

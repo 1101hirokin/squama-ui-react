@@ -138,7 +138,7 @@ export const Tooltip = (props: TooltipProps) => {
                 preventScroll: false,
             });
         },
-        onMouseLeave: (e) => {
+        onMouseLeave: () => {
             floatingContentContext.close();
         },
     });

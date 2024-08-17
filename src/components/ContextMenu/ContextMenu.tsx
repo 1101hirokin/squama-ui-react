@@ -46,7 +46,7 @@ const calcChildMenuPosition = (
     menu: HTMLElement,
     hoveredItem: HTMLElement,
     yPadding = 0,
-    toLeft: boolean,
+    _: boolean,
     toTop: boolean,
 ): {
     x: number;
