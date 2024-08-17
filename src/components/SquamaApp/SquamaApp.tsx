@@ -9,14 +9,18 @@ type SquamaAppProps = Modify<
     SquamaComponentProps,
     {
         themes?: { [key: string]: Theme };
+        initialThemeKey?: string;
     }
 >;
 
 export const SquamaApp = (props: SquamaAppProps) => {
-    const { themes, children, ...rest } = props;
+    const { themes, initialThemeKey, children, ...rest } = props;
 
     return (
-        <SquamaContextProvider themes={themes}>
+        <SquamaContextProvider
+            themes={themes}
+            initialThemeKey={initialThemeKey}
+        >
             <div
                 {...rest}
                 className={buildClassName(
