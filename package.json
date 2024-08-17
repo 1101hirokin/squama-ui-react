@@ -1,7 +1,7 @@
 {
     "name": "squama-ui-react",
     "private": false,
-    "version": "0.0.0-alpha.0",
+    "version": "0.0.0",
     "author": "Hiroki Nakatani <@1101hiroki_n>",
     "description": "Squama UI implemented with React",
     "repository": {
