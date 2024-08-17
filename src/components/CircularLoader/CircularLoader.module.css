@@ -1,0 +1,35 @@
+.CircularLoader {
+    display: block flex;
+    justify-content: center;
+    align-items: center;
+
+    width: var(--s-circular-loader--size, 100%);
+    aspect-ratio: 1 / 1;
+}
+
+.CircularLoader > .loaderSvg {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    fill: var(--s-circular-loader--color, currentColor);
+    stroke: none;
+
+    animation: rotate 0.48s linear infinite;
+    animation-play-state: paused;
+}
+.CircularLoader.isLoading > .loaderSvg {
+    animation-play-state: running;
+}
+.CircularLoader.isPaused > .loaderSvg {
+    animation-play-state: paused;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

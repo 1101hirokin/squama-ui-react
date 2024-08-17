@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { defaultDarkTheme, defaultLightTheme, Theme } from "../../api";
 
 type SquamaContextProps = {
@@ -45,6 +45,20 @@ export const SquamaContextProvider = ({
 
     const [currentThemeKey, setCurrentThemeKey] =
         useState<string>("squama-light");
+
+    useEffect(() => {
+        const currentTheme = _themes[currentThemeKey];
+
+        if (currentTheme) {
+            const body = document.querySelector("body");
+            if (body) {
+                body.setAttribute(
+                    "data-theme",
+                    currentTheme.isLight ? "light" : "dark",
+                );
+            }
+        }
+    }, [currentThemeKey]);
 
     return (
         <SquamaContext.Provider

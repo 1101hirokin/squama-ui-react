@@ -1,2 +1,3 @@
 export * from "./types";
-export * from "./buildClassName";
+export * from "./className";
+export * from "./uuid";

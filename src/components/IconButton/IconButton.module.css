@@ -1,0 +1,103 @@
+.IconButton {
+    display: -webkit-inline-box;
+    display: inline flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+
+    background-color: var(--s-button--background-color--normal, #000);
+    color: var(--s-button--color--normal, #fff);
+    border: var(--s-button--border--normal, none);
+
+    border-radius: var(--s-button--border-radius, 4px);
+
+    box-shadow: var(--s-button--box-shadow, none);
+
+    transition:
+        background-color var(--s-app--anime--dur--base)
+            var(--s-app--anime--easing--base),
+        color var(--s-app--anime--dur--base) var(--s-app--anime--easing--base),
+        border var(--s-app--anime--dur--base) var(--s-app--anime--easing--base);
+
+    --size: var(--s-button--size, 40px);
+    height: var(--size);
+    width: var(--size);
+
+    cursor: pointer;
+}
+
+/* Button states */
+.IconButton:hover {
+    background-color: var(--s-button--background-color--hover, #000);
+    color: var(--s-button--color--hover, #fff);
+    border: var(--s-button--border--hover, none);
+}
+.IconButton:focus-visible {
+    background-color: var(--s-button--background-color--hover, #000);
+    color: var(--s-button--color--hover, #fff);
+    border: var(--s-button--border--hover, none);
+}
+.IconButton:active {
+    background-color: var(--s-button--background-color--active, #000);
+    color: var(--s-button--color--active, #fff);
+    border: var(--s-button--border--active, none);
+}
+.IconButton:disabled {
+    background-color: var(--s-button--background-color--disabled, #000);
+    color: var(--s-button--color--disabled, #fff);
+    border: var(--s-button--border--disabled, none);
+
+    cursor: not-allowed;
+}
+
+.IconButton > .mainLayer {
+    opacity: 1;
+}
+.IconButton.isOnLoadingProcess > .mainLayer {
+    opacity: 0;
+}
+.IconButton.isOnLoadingProcess > .circularLoaderContainer {
+    display: inline-flex;
+}
+
+/* Block button */
+.IconButton.block {
+    display: -webkit-box;
+    display: block flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+/* layer */
+.absLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+/* Circular loader */
+.circularLoaderContainer {
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    pointer-events: none;
+}
+.circularLoaderContainer > .circularLoader {
+    width: 1rem;
+}
+
+/* Icon */
+.iconContainer {
+}
+.iconContainer > .icon {
+    width: 1rem;
+    user-select: none;
+    -webkit-user-select: none;
+}

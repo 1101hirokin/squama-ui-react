@@ -47,6 +47,7 @@ export type Elevation =
 })();
 */
 export const getBoxShadowByElevation = (elevation: Elevation): string => {
+    // if change those values, you should also change the values in component/SquamaApp/SquamaApp.css
     switch (elevation) {
         case 0:
             return "0 0px 0px 0px rgba(0, 0, 0, 0.28), 0px 0px 0px 0px rgba(0, 0, 0, 0.18)";

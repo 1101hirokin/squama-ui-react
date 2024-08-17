@@ -1,0 +1,107 @@
+.ContextMenuArea {
+    position: relative;
+}
+
+.ContextMenu {
+    isolation: isolate;
+    position: relative;
+
+    animation: fadeIn var(--s-app--anime--dur--base, 0.144s) ease-in-out;
+    transform-origin: bottom center;
+
+    padding: var(--s-context-menu--padding-y, 0) 0;
+    border-radius: var(--s-context-menu--border-radius, 4px);
+    box-shadow: var(--s-shadow--elevation--2, 0 2px 4px rgba(0, 0, 0, 0.1));
+
+    border: 1px solid var(--s-app--color--gray--800, #e0e0e0);
+    color: #fff;
+
+    -webkit-backdrop-filter: var(--s-material--smoke--backdrop-filter, none);
+    backdrop-filter: var(--s-material--smoke--backdrop-filter, none);
+    background-color: var(
+        --s-material--smoke--background-color,
+        rgba(0, 0, 0, 0.8)
+    );
+}
+
+.ContextMenuArea.child {
+    position: absolute;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: rotateX(-30deg) rotateY(6deg) scale(0.96);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotateX(0) rotateY(0) scale(1);
+    }
+}
+
+.ContextMenuItem {
+    display: block;
+    width: 180px;
+    height: auto;
+
+    list-style: none;
+
+    --s-menu-item--default-height: 28px;
+}
+.ContextMenu .mainLayer {
+    display: grid;
+    width: 100%;
+
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto;
+    grid-template-areas: "leading content trailing";
+}
+
+.ContextMenuItem .ActionTrigger {
+    display: block;
+    width: 100%;
+
+    text-decoration: none;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.itemLeadingContainer {
+    grid-area: leading;
+}
+
+.itemContentContainer {
+    grid-area: content;
+    padding: 0 12px;
+
+    display: flex;
+    width: 100%;
+    height: var(--s-menu-item--default-height, 32px);
+
+    align-items: center;
+
+    font-size: var(--s-typography--font-size--5, 16px);
+}
+.ContextMenuItem.hasLeading .itemContentContainer {
+    padding-left: 0;
+}
+.ContextMenuItem.hasTrailing .itemContentContainer {
+    padding-right: 0;
+}
+
+.itemTrailingContainer {
+    grid-area: trailing;
+}
+
+.ContextMenuItem:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.ContextMenuItem.subItemsLayer {
+    position: relative;
+}

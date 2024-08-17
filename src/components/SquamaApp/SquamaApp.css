@@ -10,6 +10,11 @@
 
     --s-app--font-size--base: 16px;
 
+    --s-app--anime--dur--base: 0.144s;
+    --s-app--anime--easing--base: cubic-bezier(0.667, 0, 0.333, 1);
+    --s-app--anime--dur--impressive: 0.256s;
+    --s-app--anime--easing--impressive: cubic-bezier(0.667, 0, 0.333, 1);
+
     --s-app--color--red--50: #fff9f6;
     --s-app--color--red--100: #ffe9e1;
     --s-app--color--red--200: #ffc9b5;
@@ -97,6 +102,87 @@
     --s-app--color--gray--700: #485362;
     --s-app--color--gray--800: #3c4551;
     --s-app--color--gray--900: #313840;
+
+    --s-app--color--system--light: #1143ef;
+    --s-app--color--system--dark: #5777e7;
+
+    --s-app--spacer--0x: 0;
+    --s-app--spacer--1x: 4px;
+    --s-app--spacer--2x: 8px;
+    --s-app--spacer--3x: 12px;
+    --s-app--spacer--4x: 16px;
+    --s-app--spacer--5x: 20px;
+    --s-app--spacer--6x: 24px;
+    --s-app--spacer--7x: 28px;
+    --s-app--spacer--8x: 32px;
+    --s-app--spacer--9x: 36px;
+    --s-app--spacer--10x: 40px;
+    --s-app--spacer--11x: 44px;
+    --s-app--spacer--12x: 48px;
+
+    /* if change those values, you should also change the values in api/Elevation */
+    --s-elevation--0: 0 0px 0px 0px rgba(0, 0, 0, 0.28),
+        0px 0px 0px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--1: 0 0.086px 0.26px 0px rgba(0, 0, 0, 0.28),
+        0px 0.869px 1.217px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--2: 0 0.173px 0.521px 0px rgba(0, 0, 0, 0.28),
+        0px 1.739px 2.434px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--3: 0 0.26px 0.782px 0px rgba(0, 0, 0, 0.28),
+        0px 2.608px 3.652px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--4: 0 0.347px 1.043px 0px rgba(0, 0, 0, 0.28),
+        0px 3.478px 4.869px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--5: 0 0.434px 1.304px 0px rgba(0, 0, 0, 0.28),
+        0px 4.347px 6.086px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--6: 0 0.521px 1.565px 0px rgba(0, 0, 0, 0.28),
+        0px 5.217px 7.304px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--7: 0 0.608px 1.826px 0px rgba(0, 0, 0, 0.28),
+        0px 6.086px 8.521px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--8: 0 0.695px 2.086px 0px rgba(0, 0, 0, 0.28),
+        0px 6.956px 9.739px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--9: 0 0.782px 2.347px 0px rgba(0, 0, 0, 0.28),
+        0px 7.826px 10.956px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--10: 0 0.869px 2.608px 0px rgba(0, 0, 0, 0.28),
+        0px 8.695px 12.173px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--11: 0 0.956px 2.869px 0px rgba(0, 0, 0, 0.28),
+        0px 9.565px 13.391px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--12: 0 1.043px 3.13px 0px rgba(0, 0, 0, 0.28),
+        0px 10.434px 14.608px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--13: 0 1.13px 3.391px 0px rgba(0, 0, 0, 0.28),
+        0px 11.304px 15.826px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--14: 0 1.217px 3.652px 0px rgba(0, 0, 0, 0.28),
+        0px 12.173px 17.043px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--15: 0 1.304px 3.913px 0px rgba(0, 0, 0, 0.28),
+        0px 13.043px 18.26px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--16: 0 1.391px 4.173px 0px rgba(0, 0, 0, 0.28),
+        0px 13.913px 19.478px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--17: 0 1.478px 4.434px 0px rgba(0, 0, 0, 0.28),
+        0px 14.782px 20.695px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--18: 0 1.565px 4.695px 0px rgba(0, 0, 0, 0.28),
+        0px 15.652px 21.913px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--19: 0 1.652px 4.956px 0px rgba(0, 0, 0, 0.28),
+        0px 16.521px 23.13px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--20: 0 1.739px 5.217px 0px rgba(0, 0, 0, 0.28),
+        0px 17.391px 24.347px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--21: 0 1.826px 5.478px 0px rgba(0, 0, 0, 0.28),
+        0px 18.26px 25.565px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--22: 0 1.913px 5.739px 0px rgba(0, 0, 0, 0.28),
+        0px 19.13px 26.782px 0px rgba(0, 0, 0, 0.18);
+    --s-elevation--23: 0 2px 6px 0px rgba(0, 0, 0, 0.28),
+        0px 20px 28px 0px rgba(0, 0, 0, 0.18);
+
+    --s-typography--font-size--1: 3rem;
+    --s-typography--font-size--2: 1.8rem;
+    --s-typography--font-size--3: 1.285rem;
+    --s-typography--font-size--4: 1rem;
+    --s-typography--font-size--5: 0.818rem;
+    --s-typography--font-size--6: 0.692rem;
+    --s-typography--font-size--7: 0.6rem;
+
+    --s-app--line-height--heading: 1.54;
+    --s-app--line-height--body: 1.334;
+
+    --s-material--smoke--backdrop-filter: blur(8px) brightness(0.24);
+    --s-material--smoke--background-color: rgba(0, 0, 0, 0.2);
 }
 
 * {
@@ -109,11 +195,16 @@ body {
 
 body {
     margin: 0;
-    font-family: var(--s-app--font-family-normal);
+    font-family: var(--s-app--font-family--normal);
     font-size: var(--s-app--font-size--base, 14px);
 }
 
 a {
     color: inherit;
     text-decoration: none;
+}
+
+button {
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }

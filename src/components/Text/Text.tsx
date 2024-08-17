@@ -1,7 +1,6 @@
 import {
-    getTextLevelByTypeScale,
-    getTypographyFontSizeByLevel,
     SquamaComponentProps,
+    squamaComponentClass,
     TypeScale,
 } from "../../api";
 import { buildClassName, Modify } from "../../utils";
@@ -21,6 +20,16 @@ type TextProps = Modify<
             | "h4"
             | "h5"
             | "h6";
+        custom?: {
+            level?: number;
+            type?:
+                | "heading"
+                | "subtitle"
+                | "body"
+                | "button"
+                | "caption"
+                | "overline";
+        };
     }
 >;
 
@@ -48,43 +57,43 @@ const getTextClassNamesByTypeScale = (typeScale: TypeScale): string[] => {
 
     switch (typeScale) {
         case "heading.1":
-            classNames.push(styles.h_1, styles.heading);
+            classNames.push(styles.l1, styles.heading);
             break;
         case "heading.2":
-            classNames.push(styles.h_2, styles.heading);
+            classNames.push(styles.l2, styles.heading);
             break;
         case "heading.3":
-            classNames.push(styles.h_3, styles.heading);
+            classNames.push(styles.l3, styles.heading);
             break;
         case "heading.4":
-            classNames.push(styles.h_4, styles.heading);
+            classNames.push(styles.l4, styles.heading);
             break;
         case "heading.5":
-            classNames.push(styles.h_5, styles.heading);
+            classNames.push(styles.l5, styles.heading);
             break;
         case "heading.6":
-            classNames.push(styles.h_6, styles.heading);
+            classNames.push(styles.l6, styles.heading);
             break;
         case "subtitle.1":
-            classNames.push(styles.subtitle_1, styles.subtitle);
+            classNames.push(styles.l3, styles.subtitle);
             break;
         case "subtitle.2":
-            classNames.push(styles.subtitle_2, styles.subtitle);
+            classNames.push(styles.l4, styles.subtitle);
             break;
         case "body.1":
-            classNames.push(styles.body_1, styles.body);
+            classNames.push(styles.l4, styles.body);
             break;
         case "body.2":
-            classNames.push(styles.body_2, styles.body);
+            classNames.push(styles.l5, styles.body);
             break;
         case "button":
-            classNames.push(styles.button);
+            classNames.push(styles.l4, styles.button);
             break;
         case "caption":
-            classNames.push(styles.caption);
+            classNames.push(styles.l4, styles.caption);
             break;
         case "overline":
-            classNames.push(styles.overline);
+            classNames.push(styles.l5, styles.overline);
             break;
         default:
             break;
@@ -93,27 +102,75 @@ const getTextClassNamesByTypeScale = (typeScale: TypeScale): string[] => {
 };
 
 export const Text = (props: TextProps) => {
-    const { typeScale = "body.1", element, ...rest } = props;
+    const { typeScale = "body.1", element, custom, ...rest } = props;
 
     const Element =
         element ||
         (convertTypeScaleToElement(typeScale) as React.ElementType<TextProps>);
 
-    const classNames = getTextClassNamesByTypeScale(typeScale);
+    const classNames = custom
+        ? (() => {
+              const classNames: string[] = [];
+              switch (custom.type) {
+                  case "heading":
+                      classNames.push(styles.heading);
+                      break;
+                  case "subtitle":
+                      classNames.push(styles.subtitle);
+                      break;
+                  case "body":
+                      classNames.push(styles.body);
+                      break;
+                  case "button":
+                      classNames.push(styles.button);
+                      break;
+                  case "caption":
+                      classNames.push(styles.caption);
+                      break;
+                  case "overline":
+                      classNames.push(styles.overline);
+                      break;
+                  default:
+                      break;
+              }
 
-    const level = getTextLevelByTypeScale(typeScale);
-    const fontSize = getTypographyFontSizeByLevel(level);
+              switch (custom.level) {
+                  case 1:
+                      classNames.push(styles.l1);
+                      break;
+                  case 2:
+                      classNames.push(styles.l2);
+                      break;
+                  case 3:
+                      classNames.push(styles.l3);
+                      break;
+                  case 4:
+                      classNames.push(styles.l4);
+                      break;
+                  case 5:
+                      classNames.push(styles.l5);
+                      break;
+                  case 6:
+                      classNames.push(styles.l6);
+                      break;
+                  default:
+                      break;
+              }
 
-    const cssVars = {
-        "--s-text--font-size": `${fontSize}rem`,
-    } as React.CSSProperties;
+              return classNames;
+          })()
+        : getTextClassNamesByTypeScale(typeScale);
 
     return (
         <Element
             {...rest}
-            className={buildClassName(classNames, rest.className, styles.Text)}
+            className={buildClassName(
+                squamaComponentClass,
+                classNames,
+                rest.className,
+                styles.Text,
+            )}
             style={{
-                ...cssVars,
                 ...rest.style,
             }}
         />
