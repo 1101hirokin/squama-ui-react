@@ -6,7 +6,7 @@ import {
     SquamaComponentProps,
     useFloatingContentContext,
 } from "../../api";
-import { buildClassName, generateUUIDv4, Modify } from "../../utils";
+import { buildClassName, Modify } from "../../utils";
 
 import styles from "./ContextMenu.module.css";
 import { Text } from "../Text/Text";
@@ -32,15 +32,12 @@ export type ContextMenuItemProps = {
     buttonType?: "button" | "submit" | "reset";
 };
 
-type ContextMenuProps = Modify<
-    {},
-    {
-        menuItems: ContextMenuItemProps[];
-        renderNode: (props: {
-            onContextMenu: (e: React.MouseEvent<HTMLElement>) => void;
-        }) => React.ReactNode;
-    }
->;
+type ContextMenuProps = {
+    menuItems: ContextMenuItemProps[];
+    renderNode: (props: {
+        onContextMenu: (e: React.MouseEvent<HTMLElement>) => void;
+    }) => React.ReactNode;
+};
 
 const calcChildMenuPosition = (
     menu: HTMLElement,
@@ -110,14 +107,10 @@ const ContextMenuComponent = (
                     e.preventDefault();
                 }}
             >
-                {menuItems.map((item) => {
-                    const uuid = React.useMemo(() => {
-                        return item.id || generateUUIDv4();
-                    }, []);
+                {menuItems.map((item, i) => {
                     return (
                         <ContextMenuItem
-                            key={uuid}
-                            id={uuid}
+                            key={item.id || i}
                             {...item}
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -300,7 +293,7 @@ export const ContextMenu = (p: ContextMenuProps) => {
             window.removeEventListener("scroll", closeMenu);
             window.removeEventListener("keydown", escListener);
         };
-    }, [isMenuOpen]);
+    }, [close, isMenuOpen]);
 
     return children;
 };
