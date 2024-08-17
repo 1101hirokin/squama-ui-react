@@ -180,6 +180,9 @@
 
     --s-app--line-height--heading: 1.54;
     --s-app--line-height--body: 1.334;
+
+    --s-material--smoke--backdrop-filter: blur(8px) brightness(0.24);
+    --s-material--smoke--background-color: rgba(0, 0, 0, 0.2);
 }
 
 * {

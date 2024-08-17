@@ -7,6 +7,7 @@ import {
     Button,
     Card,
     ContextMenu,
+    DateSelect,
     Icon,
     IconButton,
     Slider,
@@ -563,90 +564,98 @@ const ComponentInApp = () => {
                         marginBottom: "var(--s-app--spacer--2x, .4rem)",
                     }}
                 >
-                    <Slider
-                        ref={sliderRef}
-                        onSlide={(current, prev) => {
-                            console.log(`Slide: ${prev} -> ${current}`);
+                    <div
+                        style={{
+                            width: "100%",
+                            maxWidth: 400,
+                            margin: "0 auto",
                         }}
-                        initialIndex={1}
-                        slidesPerView={1}
-                        showPagingButton={true}
-                        pagingButtonColor={theme.system}
-                        showPaginations="bottom.center"
-                        paginationColor={theme.system}
-                        paginationInactiveColor={
-                            theme.component?.border || "#ccc"
-                        }
-                        loop={true}
-                        centered={true}
-                        gap={0}
-                        autoplay={false}
                     >
-                        <SliderItem style={{}}>
-                            <div
-                                style={{
-                                    ...{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        backgroundColor: "white",
-                                        width: "100%",
-                                        aspectRatio: "16/9",
-                                    },
-                                }}
-                            >
-                                Slide 1
-                            </div>
-                        </SliderItem>
-                        <SliderItem>
-                            <div
-                                style={{
-                                    ...{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        backgroundColor: "thistle",
-                                        width: "100%",
-                                        aspectRatio: "16/9",
-                                    },
-                                }}
-                            >
-                                Slide 2
-                            </div>
-                        </SliderItem>
-                        <SliderItem>
-                            <div
-                                style={{
-                                    ...{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        backgroundColor: "cadetblue",
-                                        width: "100%",
-                                        aspectRatio: "16/9",
-                                    },
-                                }}
-                            >
-                                Slide 3
-                            </div>
-                        </SliderItem>
-                        <SliderItem>
-                            <div
-                                style={{
-                                    ...{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        backgroundColor: "salmon",
-                                        width: "100%",
-                                        aspectRatio: "16/9",
-                                    },
-                                }}
-                            >
-                                Slide 4
-                            </div>
-                        </SliderItem>
-                    </Slider>
+                        <Slider
+                            ref={sliderRef}
+                            onSlide={(current, prev) => {
+                                console.log(`Slide: ${prev} -> ${current}`);
+                            }}
+                            initialIndex={1}
+                            slidesPerView={1}
+                            showPagingButton={true}
+                            pagingButtonColor={theme.system}
+                            showPaginations="bottom.center"
+                            paginationColor={theme.system}
+                            paginationInactiveColor={
+                                theme.component?.border || "#ccc"
+                            }
+                            loop={true}
+                            centered={true}
+                            gap={0}
+                            autoplay={false}
+                        >
+                            <SliderItem style={{}}>
+                                <div
+                                    style={{
+                                        ...{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            backgroundColor: "white",
+                                            width: "100%",
+                                            aspectRatio: "16/9",
+                                        },
+                                    }}
+                                >
+                                    Slide 1
+                                </div>
+                            </SliderItem>
+                            <SliderItem>
+                                <div
+                                    style={{
+                                        ...{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            backgroundColor: "thistle",
+                                            width: "100%",
+                                            aspectRatio: "16/9",
+                                        },
+                                    }}
+                                >
+                                    Slide 2
+                                </div>
+                            </SliderItem>
+                            <SliderItem>
+                                <div
+                                    style={{
+                                        ...{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            backgroundColor: "cadetblue",
+                                            width: "100%",
+                                            aspectRatio: "16/9",
+                                        },
+                                    }}
+                                >
+                                    Slide 3
+                                </div>
+                            </SliderItem>
+                            <SliderItem>
+                                <div
+                                    style={{
+                                        ...{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            backgroundColor: "salmon",
+                                            width: "100%",
+                                            aspectRatio: "16/9",
+                                        },
+                                    }}
+                                >
+                                    Slide 4
+                                </div>
+                            </SliderItem>
+                        </Slider>
+                    </div>
                     <Button
                         size="s"
                         onClick={() => {
@@ -686,6 +695,14 @@ const ComponentInApp = () => {
                     >
                         Go Last
                     </Button>
+                </div>
+
+                <div
+                    style={{
+                        marginBottom: "var(--s-app--spacer--2x, .4rem)",
+                    }}
+                >
+                    <DateSelect />
                 </div>
 
                 <div style={{ height: 300 }} />

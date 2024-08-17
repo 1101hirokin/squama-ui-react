@@ -3,8 +3,13 @@
 
     border: 1px solid var(--s-app--color--gray--800, #e0e0e0);
     color: #fff;
-    backdrop-filter: blur(8px) brightness(0.24);
-    background-color: rgba(0, 0, 0, 0.2);
+
+    -webkit-backdrop-filter: var(--s-material--smoke--backdrop-filter, none);
+    backdrop-filter: var(--s-material--smoke--backdrop-filter, none);
+    background-color: var(
+        --s-material--smoke--background-color,
+        rgba(0, 0, 0, 0.8)
+    );
 
     max-width: 240px;
 

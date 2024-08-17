@@ -46,7 +46,7 @@ const calcChildMenuPosition = (
     menu: HTMLElement,
     hoveredItem: HTMLElement,
     yPadding = 0,
-    toLeft: boolean,
+    _: boolean,
     toTop: boolean,
 ): {
     x: number;
@@ -242,6 +242,25 @@ export const ContextMenu = (p: ContextMenuProps) => {
 
                 return { x, y };
             },
+            overlay: (
+                <button
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        background: "transparent",
+                        width: "100vw",
+                        height: "100vh",
+                        outline: "none",
+                        border: "none",
+                    }}
+                    onContextMenu={(e) => {
+                        e.preventDefault();
+                        close();
+                    }}
+                    onClick={close}
+                />
+            ),
         });
         setIsMenuOpen(true);
     };

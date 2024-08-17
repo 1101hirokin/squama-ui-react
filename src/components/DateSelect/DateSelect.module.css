@@ -3,6 +3,13 @@
 }
 
 .MonthContainer {
+    width: 100%;
+}
+
+.monthTitleContainer {
+}
+
+.dateContainer {
     display: grid;
     width: 100%;
     max-width: 100%;
