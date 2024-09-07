@@ -13,15 +13,8 @@
     border-radius: var(--s-context-menu--border-radius, 4px);
     box-shadow: var(--s-shadow--elevation--2, 0 2px 4px rgba(0, 0, 0, 0.1));
 
-    border: 1px solid var(--s-app--color--gray--800, #e0e0e0);
-    color: #fff;
-
-    -webkit-backdrop-filter: var(--s-material--smoke--backdrop-filter, none);
-    backdrop-filter: var(--s-material--smoke--backdrop-filter, none);
-    background-color: var(
-        --s-material--smoke--background-color,
-        rgba(0, 0, 0, 0.8)
-    );
+    background-color: var(--s-context-menu--background, #1e1e1e);
+    color: var(--s-context-menu--color, #fff);
 }
 
 .ContextMenuArea.child {
@@ -31,12 +24,12 @@
 @keyframes fadeIn {
     0% {
         opacity: 0;
-        transform: rotateX(-30deg) rotateY(6deg) scale(0.96);
+        transform: rotateY(6deg) scale(0.96);
     }
 
     100% {
         opacity: 1;
-        transform: rotateX(0) rotateY(0) scale(1);
+        transform: rotateY(0) scale(1);
     }
 }
 
@@ -99,7 +92,10 @@
 }
 
 .ContextMenuItem:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(
+        --s-context-menu-item--background--hover,
+        rgba(255, 255, 255, 0.1)
+    );
 }
 
 .ContextMenuItem.subItemsLayer {

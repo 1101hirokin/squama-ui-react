@@ -13,6 +13,5 @@ export * from "./ContextMenu/ContextMenu";
 export * from "./Tooltip/Tooltip";
 export * from "./Alert/Alert";
 export * from "./Badge/Badge";
-export * from "./Slider/Slider";
 export * from "./CircularLoader/CircularLoader";
 export * from "./SkeletonLoader/SkeletonLoader";
