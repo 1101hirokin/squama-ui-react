@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, forwardRef, useContext } from "react";
 import {
     ComponentSize,
     Shape,
@@ -31,37 +31,40 @@ type AvatarGroupProps = Modify<
         shape?: Shape;
     }
 >;
-export const AvatarGroup = (props: AvatarGroupProps) => {
-    const { children, size, shape, ...rest } = props;
+export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
+    (props, ref) => {
+        const { children, size, shape, ...rest } = props;
 
-    const context = useSquamaContext();
-    const theme = context.getCurrentTheme();
+        const context = useSquamaContext();
+        const theme = context.getCurrentTheme();
 
-    const cssVars = {
-        "--s-avatar-group--gap-color": theme.app.background,
-    } as React.CSSProperties;
+        const cssVars = {
+            "--s-avatar-group--gap-color": theme.app.background,
+        } as React.CSSProperties;
 
-    return (
-        <AvatarGroupContext.Provider
-            value={{
-                size: size,
-                shape: shape,
-            }}
-        >
-            <div
-                {...rest}
-                className={buildClassName(
-                    styles.AvatarGroup,
-                    rest.className,
-                    squamaComponentClass,
-                )}
-                style={{
-                    ...rest.style,
-                    ...cssVars,
+        return (
+            <AvatarGroupContext.Provider
+                value={{
+                    size: size,
+                    shape: shape,
                 }}
             >
-                <div className={styles.avatarsContainer}>{children}</div>
-            </div>
-        </AvatarGroupContext.Provider>
-    );
-};
+                <div
+                    ref={ref}
+                    {...rest}
+                    className={buildClassName(
+                        styles.AvatarGroup,
+                        rest.className,
+                        squamaComponentClass,
+                    )}
+                    style={{
+                        ...rest.style,
+                        ...cssVars,
+                    }}
+                >
+                    <div className={styles.avatarsContainer}>{children}</div>
+                </div>
+            </AvatarGroupContext.Provider>
+        );
+    },
+);

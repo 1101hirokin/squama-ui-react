@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import {
     Color,
     Colors,
@@ -22,8 +23,8 @@ type BadgeProps = Modify<
     }
 >;
 
-export const Badge = (p: BadgeProps) => {
-    const { children, shape = "circular", color, size = "s", ...rest } = p;
+export const Badge = forwardRef<HTMLDivElement, BadgeProps>((props, ref) => {
+    const { children, shape = "circular", color, size = "s", ...rest } = props;
 
     const context = useSquamaContext();
     const theme = context.getCurrentTheme();
@@ -57,6 +58,7 @@ export const Badge = (p: BadgeProps) => {
 
     return (
         <div
+            ref={ref}
             {...rest}
             className={buildClassName(
                 squamaComponentClass,
@@ -71,4 +73,4 @@ export const Badge = (p: BadgeProps) => {
             {children}
         </div>
     );
-};
+});

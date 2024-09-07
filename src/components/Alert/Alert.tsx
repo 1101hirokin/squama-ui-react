@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import {
     getBorderRadiusByShape,
     Shape,
@@ -95,8 +96,8 @@ const getColorByType = (type: AlertProps["type"]) => {
     }
 };
 
-export const Alert = (p: AlertProps) => {
-    const { type, icon, shape, children, ...rest } = p;
+export const Alert = forwardRef<HTMLDivElement, AlertProps>((props, ref) => {
+    const { type, icon, shape, children, ...rest } = props;
 
     const iconName = icon || getIconNameByType(type);
 
@@ -117,6 +118,7 @@ export const Alert = (p: AlertProps) => {
 
     return (
         <div
+            ref={ref}
             {...rest}
             className={buildClassName(
                 squamaComponentClass,
@@ -135,4 +137,4 @@ export const Alert = (p: AlertProps) => {
             <div className={styles.contentContainer}>{children}</div>
         </div>
     );
-};
+});
