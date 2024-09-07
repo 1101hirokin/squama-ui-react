@@ -8,7 +8,7 @@ import {
     squamaComponentClass,
     SquamaComponentProps,
 } from "../../api";
-import { buildClassName, generateUUIDv4, Modify } from "../../utils";
+import { buildClassName, Modify } from "../../utils";
 import { useSquamaContext } from "../SquamaContext/SquamaContext";
 import styles from "./TextInput.module.css";
 import { Text } from "../Text/Text";
@@ -78,8 +78,6 @@ export const TextInput = forwardRef<HTMLDivElement, TextInputProps>(
             ...rest
         } = props;
 
-        const _inputId = inputId ?? generateUUIDv4();
-
         const context = useSquamaContext();
         const theme = context.getCurrentTheme();
 
@@ -131,7 +129,7 @@ export const TextInput = forwardRef<HTMLDivElement, TextInputProps>(
             >
                 {labelText && (
                     <div className={styles.labelContainer}>
-                        <label htmlFor={_inputId}>
+                        <label htmlFor={inputId}>
                             <Text element="span" typeScale="overline">
                                 {labelText}
                                 {required && (
@@ -149,7 +147,7 @@ export const TextInput = forwardRef<HTMLDivElement, TextInputProps>(
                     </div>
                     <div className={styles.inputContainer}>
                         <input
-                            id={_inputId}
+                            id={inputId}
                             ref={inputRef}
                             name={name}
                             className={styles.input}

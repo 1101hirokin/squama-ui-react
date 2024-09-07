@@ -32,14 +32,16 @@ type ButtonProps = Modify<
         block?: boolean;
         loading?: boolean | "loading" | "paused" | "none";
 
+        element?: "button" | "a" | "div" | "auto";
+
         // props for anchor
         href?: React.ComponentProps<"a">["href"];
         target?: React.ComponentProps<"a">["target"];
         rel?: React.ComponentProps<"a">["rel"];
 
         // props for button
-        onClick?: React.ComponentProps<"button">["onClick"];
-        onClickInLoading?: React.ComponentProps<"button">["onClick"];
+        onClick?: React.EventHandler<React.MouseEvent>;
+        onClickInLoading?: React.EventHandler<React.MouseEvent>;
         type?: "button" | "submit" | "reset";
     }
 >;
@@ -52,6 +54,7 @@ export const Button = (props: ButtonProps) => {
         color = "#000",
         size = "m",
 
+        element = "auto",
         href,
         target,
         rel,
@@ -142,7 +145,9 @@ export const Button = (props: ButtonProps) => {
         </>
     );
 
-    if (href) {
+    const elm = element === "auto" ? (href ? "a" : "button") : element;
+
+    if (elm === "a") {
         return (
             <a
                 {...rest}
@@ -165,12 +170,13 @@ export const Button = (props: ButtonProps) => {
                 {innerNode}
             </a>
         );
-    } else {
+    } else if (elm === "button") {
         return (
             <button
                 {...rest}
                 type={type}
                 disabled={disabled}
+                role={href ? "link" : undefined}
                 style={{
                     ...rest.style,
                     ...cssVars,
@@ -186,6 +192,28 @@ export const Button = (props: ButtonProps) => {
             >
                 {innerNode}{" "}
             </button>
+        );
+    } else {
+        return (
+            <div
+                {...rest}
+                aria-disabled={disabled}
+                role={href ? "link" : undefined}
+                style={{
+                    ...rest.style,
+                    ...cssVars,
+                }}
+                className={buildClassName(
+                    styles.Button,
+                    rest.className,
+                    block && styles.block,
+                    isOnLoadingProcess && styles.isOnLoadingProcess,
+                    squamaComponentClass,
+                )}
+                onClick={isOnLoadingProcess ? onClickInLoading : onClick}
+            >
+                {innerNode}{" "}
+            </div>
         );
     }
 };
