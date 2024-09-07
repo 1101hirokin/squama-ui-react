@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styles from "./Icon.module.css";
 import { Modify, buildClassName } from "../../utils";
 import { squamaComponentClass, SquamaComponentProps } from "../../api";
@@ -224,7 +224,7 @@ type IconProps = Modify<
     }
 >;
 
-export const Icon = (props: IconProps) => {
+export const Icon = forwardRef<HTMLDivElement, IconProps>((props, ref) => {
     const InnerElement = (props: {
         name: IconName;
         fill?: React.SVGAttributes<SVGElement>["fill"];
@@ -1519,6 +1519,7 @@ export const Icon = (props: IconProps) => {
 
     return (
         <div
+            ref={ref}
             {...rest}
             className={buildClassName(
                 styles.Icon,
@@ -1533,4 +1534,4 @@ export const Icon = (props: IconProps) => {
             <InnerElement name={name} fill={fill} />
         </div>
     );
-};
+});

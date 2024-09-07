@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import {
     SquamaComponentProps,
     squamaComponentClass,
@@ -101,12 +102,10 @@ const getTextClassNamesByTypeScale = (typeScale: TypeScale): string[] => {
     return classNames;
 };
 
-export const Text = (props: TextProps) => {
+export const Text = forwardRef<HTMLElement, TextProps>((props, ref) => {
     const { typeScale = "body.1", element, custom, ...rest } = props;
 
-    const Element =
-        element ||
-        (convertTypeScaleToElement(typeScale) as React.ElementType<TextProps>);
+    const elm = element || convertTypeScaleToElement(typeScale);
 
     const classNames = custom
         ? (() => {
@@ -161,18 +160,40 @@ export const Text = (props: TextProps) => {
           })()
         : getTextClassNamesByTypeScale(typeScale);
 
-    return (
-        <Element
-            {...rest}
-            className={buildClassName(
-                squamaComponentClass,
-                classNames,
-                rest.className,
-                styles.Text,
-            )}
-            style={{
-                ...rest.style,
-            }}
-        />
-    );
-};
+    const elmProps = {
+        ref: ref as any,
+        ...rest,
+        className: buildClassName(
+            squamaComponentClass,
+            classNames,
+            rest.className,
+            styles.Text,
+        ),
+        style: {
+            ...rest.style,
+        },
+    };
+
+    return (() => {
+        switch (elm) {
+            case "p":
+                return <p {...elmProps} />;
+            case "div":
+                return <div {...elmProps} />;
+            case "h1":
+                return <h1 {...elmProps} />;
+            case "h2":
+                return <h2 {...elmProps} />;
+            case "h3":
+                return <h3 {...elmProps} />;
+            case "h4":
+                return <h4 {...elmProps} />;
+            case "h5":
+                return <h5 {...elmProps} />;
+            case "h6":
+                return <h6 {...elmProps} />;
+            default:
+                return <span {...elmProps} />;
+        }
+    })();
+});

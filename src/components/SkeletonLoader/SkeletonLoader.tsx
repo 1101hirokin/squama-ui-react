@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { getBorderRadiusByShape, Shape, SquamaComponentProps } from "../../api";
 import { Modify } from "../../utils";
 import styles from "./SkeletonLoader.module.css";
-import React from "react";
+import React, { forwardRef } from "react";
 import { useSquamaContext } from "../SquamaContext/SquamaContext";
 
 type SkeletonLoaderProps = Modify<
@@ -60,56 +60,59 @@ const getLoaderColorSet = (
     };
 };
 
-export const SkeletonLoader = (props: SkeletonLoaderProps) => {
-    const {
-        type = "rect",
-        shape = "square",
-        textLines,
-        lineHeight = 1,
-        lastLineWidth = "100%",
-        duration = 1.44,
-        delay = 0,
-        dark,
-        ...rest
-    } = props;
+export const SkeletonLoader = forwardRef<HTMLDivElement, SkeletonLoaderProps>(
+    (props, ref) => {
+        const {
+            type = "rect",
+            shape = "square",
+            textLines,
+            lineHeight = 1,
+            lastLineWidth = "100%",
+            duration = 1.44,
+            delay = 0,
+            dark,
+            ...rest
+        } = props;
 
-    const context = useSquamaContext();
-    const theme = context.getCurrentTheme();
+        const context = useSquamaContext();
+        const theme = context.getCurrentTheme();
 
-    const _dark = typeof dark === "boolean" ? dark : !theme.isLight;
+        const _dark = typeof dark === "boolean" ? dark : !theme.isLight;
 
-    const { lighter, base } = getLoaderColorSet(_dark);
+        const { lighter, base } = getLoaderColorSet(_dark);
 
-    const borderRadius = getBorderRadiusByShape(shape);
+        const borderRadius = getBorderRadiusByShape(shape);
 
-    const cssVars = {
-        "--s-skeleton-loader--border-radius": borderRadius,
+        const cssVars = {
+            "--s-skeleton-loader--border-radius": borderRadius,
 
-        "--s-skeleton-loader--line-height":
-            lineHeight && lineHeight > 0 ? `${lineHeight}em` : "1em",
-        "--s-skeleton-loader--last-line-width": lastLineWidth,
+            "--s-skeleton-loader--line-height":
+                lineHeight && lineHeight > 0 ? `${lineHeight}em` : "1em",
+            "--s-skeleton-loader--last-line-width": lastLineWidth,
 
-        "--s-skeleton-loader--duration": `${duration}s`,
-        "--s-skeleton-loader--delay": `${delay}s`,
+            "--s-skeleton-loader--duration": `${duration}s`,
+            "--s-skeleton-loader--delay": `${delay}s`,
 
-        "--s-skeleton-loader--color--lighter": lighter,
-        "--s-skeleton-loader--color--base": base,
-    } as React.CSSProperties;
+            "--s-skeleton-loader--color--lighter": lighter,
+            "--s-skeleton-loader--color--base": base,
+        } as React.CSSProperties;
 
-    return (
-        <div
-            {...rest}
-            className={styles.SkeletonLoader}
-            style={{
-                ...cssVars,
-                ...rest.style,
-            }}
-        >
-            <Loader
-                type={type}
-                loaderClassName={styles.loader}
-                textLines={textLines}
-            />
-        </div>
-    );
-};
+        return (
+            <div
+                ref={ref}
+                {...rest}
+                className={styles.SkeletonLoader}
+                style={{
+                    ...cssVars,
+                    ...rest.style,
+                }}
+            >
+                <Loader
+                    type={type}
+                    loaderClassName={styles.loader}
+                    textLines={textLines}
+                />
+            </div>
+        );
+    },
+);
