@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
 import {
+    Elevation,
     getBorderRadiusByShape,
     getBoxShadowByElevation,
     squamaComponentClass,
     SquamaComponentProps,
+    Theme,
     useFloatingContentContext,
 } from "../../api";
 import { buildClassName, Modify } from "../../utils";
 
 import styles from "./ContextMenu.module.css";
 import { Text } from "../Text/Text";
+import { useSquamaContext } from "../SquamaContext/SquamaContext";
 
 export type ContextMenuItemProps = {
     id?: string;
@@ -34,9 +37,12 @@ export type ContextMenuItemProps = {
 
 type ContextMenuProps = {
     menuItems: ContextMenuItemProps[];
+    theme?: Theme;
+    elevation?: Elevation;
     renderNode: (props: {
         onContextMenu: (e: React.MouseEvent<HTMLElement>) => void;
     }) => React.ReactNode;
+    onClose?: () => void;
 };
 
 const calcChildMenuPosition = (
@@ -68,25 +74,56 @@ const ContextMenuComponent = (
 
             toLeft?: boolean;
             toTop?: boolean;
+
+            theme?: Theme;
+            elevation?: Elevation;
         }
     >,
 ) => {
-    const { menuItems, isChild = false, toTop, toLeft, style, ...rest } = props;
+    const {
+        menuItems,
+        isChild = false,
+        toTop,
+        toLeft,
+        style,
+        theme,
+        elevation = 20,
+        ...rest
+    } = props;
+
+    const context = useSquamaContext();
+    const usedTheme = theme || context.getCurrentTheme();
 
     const [childMenu, setChildMenu] = React.useState<React.ReactNode>(null);
 
-    const boxShadow = getBoxShadowByElevation(20);
+    const boxShadow = getBoxShadowByElevation(elevation);
     const borderRadius = getBorderRadiusByShape("rounded");
 
     const menuRef = React.useRef<HTMLDivElement>(null);
 
     const yPadding = 8;
 
+    const cssVars = {
+        "--s-context-menu--background":
+            usedTheme.component.background || usedTheme.app.background,
+        "--s-context-menu--color":
+            usedTheme.component.text || usedTheme.app.text,
+
+        "--s-context-menu--box-shadow": boxShadow,
+        "--s-context-menu--padding-y": `${yPadding}px`,
+        "--s-context-menu--border-radius": borderRadius,
+
+        "--s-context-menu-item--background--hover": usedTheme.isLight
+            ? "rgba(0, 0, 0, 0.1)"
+            : "rgba(255, 255, 255, 0.1)",
+    } as React.CSSProperties;
+
     return (
         <div
             ref={menuRef}
             style={{
                 ...style,
+                ...cssVars,
             }}
             className={buildClassName(
                 squamaComponentClass,
@@ -95,13 +132,6 @@ const ContextMenuComponent = (
             )}
         >
             <div
-                style={{
-                    ...({
-                        "--s-context-menu--box-shadow": boxShadow,
-                        "--s-context-menu--padding-y": `${yPadding}px`,
-                        "--s-context-menu--border-radius": borderRadius,
-                    } as React.CSSProperties),
-                }}
                 className={buildClassName(styles.ContextMenu, rest.className)}
                 onContextMenu={(e) => {
                     e.preventDefault();
@@ -187,7 +217,7 @@ const ContextMenuComponent = (
 };
 
 export const ContextMenu = (p: ContextMenuProps) => {
-    const { menuItems, renderNode } = p;
+    const { menuItems, theme, elevation, onClose, renderNode } = p;
 
     const floatingContentContext = useFloatingContentContext();
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -196,7 +226,13 @@ export const ContextMenu = (p: ContextMenuProps) => {
         floatingContentContext.open({
             originPosition: { x: e.clientX, y: e.clientY },
             content: (() => {
-                return <ContextMenuComponent menuItems={menuItems} />;
+                return (
+                    <ContextMenuComponent
+                        menuItems={menuItems}
+                        theme={theme}
+                        elevation={elevation}
+                    />
+                );
             })(),
             positioningFn: (window, originPosition, contentBoundingRect) => {
                 const x = (() => {
@@ -261,6 +297,7 @@ export const ContextMenu = (p: ContextMenuProps) => {
     const close = () => {
         floatingContentContext.close();
         setIsMenuOpen(false);
+        onClose?.();
     };
 
     const children = renderNode({

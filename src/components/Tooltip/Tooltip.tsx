@@ -1,6 +1,7 @@
 import React from "react";
 import { buildClassName, Modify } from "../../utils";
 import {
+    Elevation,
     getBorderRadiusByShape,
     getBoxShadowByElevation,
     Shape,
@@ -20,6 +21,7 @@ type TooltipProps = Modify<
         content: string;
         renderNode: (props: TooltipRenderNodeProps) => React.ReactNode;
         position?: "top" | "bottom" | "left" | "right";
+        elevation?: Elevation;
     }
 >;
 
@@ -83,7 +85,7 @@ const getPosition = (
 };
 
 export const Tooltip = (props: TooltipProps) => {
-    const { shape, content, renderNode } = props;
+    const { shape, content, elevation = 2, renderNode } = props;
 
     const context = useSquamaContext();
     const theme = context.getCurrentTheme();
@@ -91,12 +93,12 @@ export const Tooltip = (props: TooltipProps) => {
     const floatingContentContext = useFloatingContentContext();
 
     const borderRadius = getBorderRadiusByShape(shape || theme.shape);
-    const boxShadow = getBoxShadowByElevation(2);
+    const boxShadow = getBoxShadowByElevation(elevation);
 
     const cssVars = {
         "--s--tooltip--border-radius": borderRadius,
         "--s--tooltip--box-shadow": boxShadow,
-        "--s--tooltip--font-size": "var(--s-typography--font-size--5)",
+        "--s--tooltip--font-size": "var(--s-typography--font-size--6)",
     } as React.CSSProperties;
 
     const offset = 4;
