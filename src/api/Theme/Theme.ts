@@ -33,6 +33,14 @@ export type Theme = {
             [key in Shade]: string;
         };
     };
+
+    brand?: {
+        primary: string;
+        secondary: string;
+        tertiary?: string;
+
+        accent?: string;
+    };
 };
 
 const defaultLightTheme: Theme = {

@@ -7,9 +7,9 @@ import {
     Button,
     Card,
     ContextMenu,
-    DateSelect,
     Icon,
     IconButton,
+    SkeletonLoader,
     Slider,
     SliderItem,
     SliderRef,
@@ -702,7 +702,25 @@ const ComponentInApp = () => {
                         marginBottom: "var(--s-app--spacer--2x, .4rem)",
                     }}
                 >
-                    <DateSelect />
+                    <SkeletonLoader
+                        type="text"
+                        textLines={3}
+                        lastLineWidth="80%"
+                        style={{
+                            marginBottom: "var(--s-app--spacer--4x, .2rem)",
+                        }}
+                        duration={1}
+                    />
+
+                    <SkeletonLoader
+                        type="rect"
+                        shape="circular"
+                        style={{
+                            width: "100%",
+                            height: 200,
+                        }}
+                        delay={1}
+                    />
                 </div>
 
                 <div style={{ height: 300 }} />

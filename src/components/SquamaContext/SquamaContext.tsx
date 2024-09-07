@@ -30,13 +30,13 @@ const defaultSquamaContext: SquamaContextProps = {
 
 const SquamaContext = createContext<SquamaContextProps>(defaultSquamaContext);
 
-export const SquamaContextProvider = ({
-    children,
-    themes,
-}: {
+export const SquamaContextProvider = (p: {
     children: React.ReactNode;
     themes?: { [key: string]: Theme };
+    initialThemeKey?: string;
 }) => {
+    const { children, themes, initialThemeKey = "squama-light" } = p;
+
     const _themes: { [key: string]: Theme } = {
         "squama-light": defaultLightTheme,
         "squama-dark": defaultDarkTheme,
@@ -44,7 +44,7 @@ export const SquamaContextProvider = ({
     };
 
     const [currentThemeKey, setCurrentThemeKey] =
-        useState<string>("squama-light");
+        useState<string>(initialThemeKey);
 
     useEffect(() => {
         const currentTheme = _themes[currentThemeKey];
