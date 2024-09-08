@@ -1,3 +1,4 @@
+"use client";
 import { createContext, forwardRef, useContext } from "react";
 import {
     ComponentSize,

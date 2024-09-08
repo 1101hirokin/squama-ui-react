@@ -1,3 +1,4 @@
+"use client";
 import React, { forwardRef } from "react";
 import styles from "./Icon.module.css";
 import { Modify, buildClassName } from "../../utils";

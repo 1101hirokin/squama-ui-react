@@ -25,67 +25,78 @@
     padding: 0 16px;
 
     cursor: pointer;
-}
 
-/* Button states */
-.Button:hover {
-    background-color: var(--s-button--background-color--hover, #000);
-    color: var(--s-button--color--hover, #fff);
-    border: var(--s-button--border--hover, none);
-}
-.Button:focus-visible {
-    background-color: var(--s-button--background-color--hover, #000);
-    color: var(--s-button--color--hover, #fff);
-    border: var(--s-button--border--hover, none);
-}
-.Button:active {
-    background-color: var(--s-button--background-color--active, #000);
-    color: var(--s-button--color--active, #fff);
-    border: var(--s-button--border--active, none);
-}
-.Button:disabled {
-    background-color: var(--s-button--background-color--disabled, #000);
-    color: var(--s-button--color--disabled, #fff);
-    border: var(--s-button--border--disabled, none);
+    /* fit parent height */
+    &.fitParentHeight {
+        height: 100%;
+        min-height: unset;
+        overflow: hidden;
+    }
 
-    cursor: not-allowed;
-}
+    /* state */
+    &:hover,
+    &:focus-visible {
+        background-color: var(--s-button--background-color--hover, #000);
+        color: var(--s-button--color--hover, #fff);
+        border: var(--s-button--border--hover, none);
+    }
+    &:active {
+        background-color: var(--s-button--background-color--active, #000);
+        color: var(--s-button--color--active, #fff);
+        border: var(--s-button--border--active, none);
+    }
+    &:disabled {
+        background-color: var(--s-button--background-color--disabled, #000);
+        color: var(--s-button--color--disabled, #fff);
+        border: var(--s-button--border--disabled, none);
 
-.Button > .mainLayer {
-    opacity: 1;
-}
-.Button.isOnLoadingProcess > .mainLayer {
-    opacity: 0;
-}
-.Button.isOnLoadingProcess > .circularLoaderContainer {
-    display: flex;
-}
+        cursor: not-allowed;
+    }
 
-/* Block button */
-.Button.block {
-    display: -webkit-box;
-    display: block flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    width: 100%;
-}
+    /* Block button */
+    &.block {
+        display: -webkit-box;
+        display: block flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+        width: 100%;
+    }
 
-/* layer */
-.absLayer {
-    position: absolute;
-    top: 0;
-    left: 0;
+    /* main layer */
+    & > .mainLayer {
+        opacity: 1;
+    }
 
-    width: 100%;
-    height: 100%;
+    &.isOnLoadingProcess {
+        & > .mainLayer {
+            opacity: 0;
+        }
+        & > .circularLoaderContainer {
+            display: -webkit-box;
+            display: flex;
+        }
+    }
+
+    /* absolute layer */
+    & > .absLayer {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+    }
 }
 
 /* Circular loader */
 .circularLoaderContainer {
     display: none;
+
+    -webkit-box-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
     align-items: center;
 
     pointer-events: none;

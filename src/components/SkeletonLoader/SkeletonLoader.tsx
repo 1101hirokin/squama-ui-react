@@ -1,3 +1,4 @@
+"use client";
 import clsx from "clsx";
 import { getBorderRadiusByShape, Shape, SquamaComponentProps } from "../../api";
 import { Modify } from "../../utils";

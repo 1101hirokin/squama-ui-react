@@ -1,3 +1,4 @@
+"use client";
 import "./SquamaApp.css";
 import { SquamaComponentProps, Theme, squamaComponentClass } from "../../api";
 import { buildClassName, Modify } from "../../utils";
