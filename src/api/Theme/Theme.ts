@@ -51,7 +51,7 @@ const defaultLightTheme: Theme = {
         text: Colors.gray[900],
     },
     component: {
-        border: Colors.gray[300],
+        border: Colors.gray[200],
         background: Colors.gray[50],
     },
     system: "#1143EF",
