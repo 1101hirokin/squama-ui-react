@@ -15,7 +15,6 @@
     grid-template-columns: auto 1fr auto;
     grid-template-areas: "leading input trailing";
 
-    border: 1px solid var(--s-textinput--border-color, "transparent");
     background-color: var(--s-textinput--background-color, #fff);
 
     border-radius: var(--s-textinput--border-radius, 0px);

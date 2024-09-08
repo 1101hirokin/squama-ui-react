@@ -72,10 +72,12 @@
     grid-area: content;
     padding: 0 12px;
 
+    display: -webkit-box;
     display: flex;
     width: 100%;
     height: var(--s-menu-item--default-height, 32px);
 
+    -webkit-box-pack: start;
     align-items: center;
 
     font-size: var(--s-typography--font-size--5, 16px);

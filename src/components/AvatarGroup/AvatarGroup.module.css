@@ -2,8 +2,11 @@
 }
 
 .avatarsContainer {
+    display: -webkit-box;
     display: flex;
+    -webkit-box-pack: start;
     flex-direction: row;
+    -webkit-box-align: center;
     align-items: center;
 }
 .avatarsContainer .Avatar:not(:first-child) {
