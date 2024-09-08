@@ -580,6 +580,20 @@ const ComponentInApp = () => {
                     />
                 </div>
 
+                <div style={{ height: 16 }}>
+                    <IconButton
+                        fitParentHeight
+                        icon="send"
+                        size="m"
+                        color="#1b1b1b"
+                    />
+                </div>
+                <div style={{ height: 16 }}>
+                    <Button fitParentHeight color="#1b1b1b" block elevation={1}>
+                        fit parent
+                    </Button>
+                </div>
+
                 <div style={{ height: 300 }} />
             </Card>
         </div>

@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+"use client";
+import React, { forwardRef, useMemo } from "react";
 import {
     ComponentSize,
     Elevation,
@@ -24,6 +25,7 @@ type ButtonProps = Modify<
         variant?: Variant;
         shape?: Shape;
         size?: Extract<ComponentSize, "s" | "m" | "l">;
+        fitParentHeight?: boolean;
 
         color?: string;
 
@@ -46,13 +48,14 @@ type ButtonProps = Modify<
     }
 >;
 
-export const Button = (props: ButtonProps) => {
+export const Button = forwardRef<HTMLElement, ButtonProps>((props, ref) => {
     const {
         elevation = 0,
         variant = "filled",
         shape = "rounded",
         color = "#000",
         size = "m",
+        fitParentHeight = false,
 
         element = "auto",
         href,
@@ -72,12 +75,6 @@ export const Button = (props: ButtonProps) => {
 
     const context = useSquamaContext();
     const theme = context.getCurrentTheme();
-
-    if (href && onClick) {
-        console.warn(
-            "Button component should not have both href and onClick props.\nprops for anchor will be used and props for button will be ignored.",
-        );
-    }
 
     const cssVars = useMemo<React.CSSProperties>(() => {
         const boxShadow = disabled
@@ -150,6 +147,7 @@ export const Button = (props: ButtonProps) => {
     if (elm === "a") {
         return (
             <a
+                ref={ref as any}
                 {...rest}
                 href={href}
                 target={target}
@@ -164,6 +162,7 @@ export const Button = (props: ButtonProps) => {
                     rest.className,
                     block && styles.block,
                     isOnLoadingProcess && styles.isOnLoadingProcess,
+                    fitParentHeight && styles.fitParentHeight,
                     squamaComponentClass,
                 )}
             >
@@ -173,10 +172,10 @@ export const Button = (props: ButtonProps) => {
     } else if (elm === "button") {
         return (
             <button
+                ref={ref as any}
                 {...rest}
                 type={type}
                 disabled={disabled}
-                role={href ? "link" : undefined}
                 style={{
                     ...rest.style,
                     ...cssVars,
@@ -186,6 +185,7 @@ export const Button = (props: ButtonProps) => {
                     rest.className,
                     block && styles.block,
                     isOnLoadingProcess && styles.isOnLoadingProcess,
+                    fitParentHeight && styles.fitParentHeight,
                     squamaComponentClass,
                 )}
                 onClick={isOnLoadingProcess ? onClickInLoading : onClick}
@@ -196,9 +196,10 @@ export const Button = (props: ButtonProps) => {
     } else {
         return (
             <div
+                ref={ref as any}
                 {...rest}
                 aria-disabled={disabled}
-                role={href ? "link" : undefined}
+                role={href ? "link" : onClick ? "button" : undefined}
                 style={{
                     ...rest.style,
                     ...cssVars,
@@ -208,6 +209,7 @@ export const Button = (props: ButtonProps) => {
                     rest.className,
                     block && styles.block,
                     isOnLoadingProcess && styles.isOnLoadingProcess,
+                    fitParentHeight && styles.fitParentHeight,
                     squamaComponentClass,
                 )}
                 onClick={isOnLoadingProcess ? onClickInLoading : onClick}
@@ -216,4 +218,4 @@ export const Button = (props: ButtonProps) => {
             </div>
         );
     }
-};
+});

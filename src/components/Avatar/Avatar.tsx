@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+"use client";
+import React, { forwardRef, useMemo } from "react";
 import {
     ComponentSize,
     Elevation,
@@ -36,7 +37,7 @@ type AvatarProps = Modify<
     }
 >;
 
-export const Avatar = (props: AvatarProps) => {
+export const Avatar = forwardRef<HTMLDivElement, AvatarProps>((props, ref) => {
     const {
         children,
 
@@ -126,6 +127,7 @@ export const Avatar = (props: AvatarProps) => {
 
     return (
         <div
+            ref={ref}
             {...rest}
             className={buildClassName(
                 styles.Avatar,
@@ -142,4 +144,4 @@ export const Avatar = (props: AvatarProps) => {
             <div className={styles.childrenContainer}>{_children}</div>
         </div>
     );
-};
+});
