@@ -15,7 +15,6 @@
     grid-template-columns: auto 1fr auto;
     grid-template-areas: "leading textarea trailing";
 
-    border: 1px solid var(--s-textarea--border-color, "transparent");
     background-color: var(--s-textarea--background-color, #fff);
 
     border-radius: var(--s-textarea--border-radius, 0px);

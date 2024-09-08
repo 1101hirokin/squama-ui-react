@@ -122,7 +122,11 @@ export const Button = forwardRef<HTMLElement, ButtonProps>((props, ref) => {
         <>
             <div className={styles.mainLayer}>
                 <div className={styles.childTextContainer}>
-                    <Text typeScale="button" className={styles.childText}>
+                    <Text
+                        typeScale="button"
+                        className={styles.childText}
+                        element="div"
+                    >
                         {children}
                     </Text>
                 </div>
