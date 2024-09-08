@@ -37,13 +37,16 @@ export type ContextMenuItemProps = {
 };
 
 type ContextMenuProps = {
-    menuItems: ContextMenuItemProps[];
     theme?: Theme;
     elevation?: Elevation;
     renderNode: (props: {
         onContextMenu: (e: React.MouseEvent<HTMLElement>) => void;
     }) => React.ReactNode;
+    onContextMenu?: (e: React.MouseEvent<HTMLElement>) => void;
     onClose?: () => void;
+
+    contextMenu?: React.ReactNode;
+    menuItems: ContextMenuItemProps[];
 };
 
 const calcChildMenuPosition = (
@@ -65,7 +68,6 @@ const calcChildMenuPosition = (
 
     return { x, y };
 };
-
 const ContextMenuComponent = (
     props: Modify<
         SquamaComponentProps,
@@ -217,126 +219,7 @@ const ContextMenuComponent = (
     );
 };
 
-export const ContextMenu = (p: ContextMenuProps) => {
-    const { menuItems, theme, elevation, onClose, renderNode } = p;
-
-    const floatingContentContext = useFloatingContentContext();
-    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-    const open = (e: React.MouseEvent<HTMLElement>) => {
-        floatingContentContext.open({
-            originPosition: { x: e.clientX, y: e.clientY },
-            content: (() => {
-                return (
-                    <ContextMenuComponent
-                        menuItems={menuItems}
-                        theme={theme}
-                        elevation={elevation}
-                    />
-                );
-            })(),
-            positioningFn: (window, originPosition, contentBoundingRect) => {
-                const x = (() => {
-                    // if cursor is too close to the right edge of the screen
-                    if (
-                        originPosition.x +
-                            contentBoundingRect.width +
-                            window.scrollX >
-                        window.innerWidth
-                    ) {
-                        return (
-                            originPosition.x -
-                            contentBoundingRect.width +
-                            window.scrollX
-                        );
-                    } else {
-                        return originPosition.x;
-                    }
-                })();
-
-                const y = (() => {
-                    // if cursor is too close to the bottom edge of the screen
-                    if (
-                        originPosition.y + contentBoundingRect.height >
-                        window.innerHeight
-                    ) {
-                        return (
-                            originPosition.y +
-                            window.scrollY -
-                            contentBoundingRect.height
-                        );
-                    } else {
-                        return originPosition.y + window.scrollY;
-                    }
-                })();
-
-                return { x, y };
-            },
-            overlay: (
-                <button
-                    style={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        background: "transparent",
-                        width: "100vw",
-                        height: "100vh",
-                        outline: "none",
-                        border: "none",
-                    }}
-                    onContextMenu={(e) => {
-                        e.preventDefault();
-                        close();
-                    }}
-                    onClick={close}
-                />
-            ),
-        });
-        setIsMenuOpen(true);
-    };
-
-    const close = () => {
-        floatingContentContext.close();
-        setIsMenuOpen(false);
-        onClose?.();
-    };
-
-    const children = renderNode({
-        onContextMenu: (e) => {
-            e.preventDefault();
-            close();
-            setTimeout(() => {
-                open(e);
-            }, 50);
-        },
-    });
-
-    useEffect(() => {
-        const escListener = (e: KeyboardEvent) => {
-            if (e.key === "Escape") {
-                close();
-            }
-        };
-
-        const closeMenu = () => {
-            if (isMenuOpen) {
-                close();
-            }
-        };
-
-        window.addEventListener("scroll", closeMenu);
-        window.addEventListener("keydown", escListener);
-
-        return () => {
-            window.removeEventListener("scroll", closeMenu);
-            window.removeEventListener("keydown", escListener);
-        };
-    }, [close, isMenuOpen]);
-
-    return children;
-};
-
-export const ContextMenuItem = (
+const ContextMenuItem = (
     p: Modify<SquamaComponentProps, ContextMenuItemProps>,
 ) => {
     const {
@@ -416,4 +299,136 @@ export const ContextMenuItem = (
             </li>
         );
     }
+};
+
+export const ContextMenu = (p: ContextMenuProps) => {
+    const {
+        theme,
+        elevation,
+        onClose,
+        onContextMenu,
+        renderNode,
+        menuItems,
+        contextMenu,
+    } = p;
+
+    const floatingContentContext = useFloatingContentContext();
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+    const contextMenuNode = contextMenu ? (
+        contextMenu
+    ) : (
+        <ContextMenuComponent
+            menuItems={menuItems}
+            theme={theme}
+            elevation={elevation}
+        />
+    );
+
+    const open = (e: React.MouseEvent<HTMLElement>) => {
+        floatingContentContext.open({
+            originPosition: { x: e.clientX, y: e.clientY },
+            content: (() => {
+                return contextMenuNode;
+            })(),
+            positioningFn: (window, originPosition, contentBoundingRect) => {
+                const x = (() => {
+                    // if cursor is too close to the right edge of the screen
+                    if (
+                        originPosition.x +
+                            contentBoundingRect.width +
+                            window.scrollX >
+                        window.innerWidth
+                    ) {
+                        return (
+                            originPosition.x -
+                            contentBoundingRect.width +
+                            window.scrollX
+                        );
+                    } else {
+                        return originPosition.x;
+                    }
+                })();
+
+                const y = (() => {
+                    // if cursor is too close to the bottom edge of the screen
+                    if (
+                        originPosition.y + contentBoundingRect.height >
+                        window.innerHeight
+                    ) {
+                        return (
+                            originPosition.y +
+                            window.scrollY -
+                            contentBoundingRect.height
+                        );
+                    } else {
+                        return originPosition.y + window.scrollY;
+                    }
+                })();
+
+                return { x, y };
+            },
+            overlay: (
+                <button
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        background: "transparent",
+                        width: "100vw",
+                        height: "100vh",
+                        outline: "none",
+                        border: "none",
+                    }}
+                    onContextMenu={(e) => {
+                        e.preventDefault();
+                        close();
+                    }}
+                    onClick={close}
+                />
+            ),
+        });
+        setIsMenuOpen(true);
+    };
+
+    const close = () => {
+        floatingContentContext.close();
+        setIsMenuOpen(false);
+        onClose?.();
+    };
+
+    const children = renderNode({
+        onContextMenu: (e) => {
+            e.preventDefault();
+            close();
+            setTimeout(() => {
+                onContextMenu?.(e);
+                open(e);
+            }, 50);
+        },
+    });
+
+    useEffect(() => {
+        const escListener = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                close();
+            }
+        };
+
+        const closeMenu = () => {
+            if (isMenuOpen) {
+                close();
+            }
+        };
+
+        window.addEventListener("scroll", closeMenu);
+        window.addEventListener("keydown", escListener);
+
+        return () => {
+            window.removeEventListener("scroll", closeMenu);
+            window.removeEventListener("keydown", escListener);
+        };
+    }, [close, isMenuOpen]);
+
+    return children;
 };
