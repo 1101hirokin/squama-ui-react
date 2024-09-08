@@ -1,7 +1,7 @@
 {
     "name": "squama-ui-react",
     "private": false,
-    "version": "0.0.0-alpha.10",
+    "version": "0.0.0-alpha.11",
     "author": "Hiroki Nakatani <@1101hiroki_n>",
     "description": "Squama UI implemented with React",
     "repository": {
@@ -48,6 +48,8 @@
         "eslint": "^8.57.0",
         "eslint-plugin-react-hooks": "^4.6.2",
         "eslint-plugin-react-refresh": "^0.4.7",
+        "postcss": "^8.4.45",
+        "postcss-nesting": "^13.0.0",
         "prettier": "^3.3.3",
         "typescript": "^5.2.2",
         "vite": "^5.3.4",
