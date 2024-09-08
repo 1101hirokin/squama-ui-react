@@ -24,7 +24,7 @@
     "scripts": {
         "dev": "vite --host",
         "tsc": "tsc --p ./tsconfig.app.json aceResolution",
-        "build": "tsc --p ./tsconfig.app.json && vite build",
+        "build": "vite build & tsc --build --force",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "format": "prettier --write .",
         "preview": "vite preview"
