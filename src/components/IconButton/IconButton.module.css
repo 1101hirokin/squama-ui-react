@@ -25,66 +25,79 @@
     width: var(--size);
 
     cursor: pointer;
-}
 
-/* Button states */
-.IconButton:hover {
-    background-color: var(--s-button--background-color--hover, #000);
-    color: var(--s-button--color--hover, #fff);
-    border: var(--s-button--border--hover, none);
-}
-.IconButton:focus-visible {
-    background-color: var(--s-button--background-color--hover, #000);
-    color: var(--s-button--color--hover, #fff);
-    border: var(--s-button--border--hover, none);
-}
-.IconButton:active {
-    background-color: var(--s-button--background-color--active, #000);
-    color: var(--s-button--color--active, #fff);
-    border: var(--s-button--border--active, none);
-}
-.IconButton:disabled {
-    background-color: var(--s-button--background-color--disabled, #000);
-    color: var(--s-button--color--disabled, #fff);
-    border: var(--s-button--border--disabled, none);
+    /* fit parent height */
+    &.fitParentHeight {
+        height: 100%;
+        width: auto;
+        aspect-ratio: 1/1;
+        padding: 0;
+        overflow: hidden;
+    }
 
-    cursor: not-allowed;
-}
+    /* state */
+    &:hover,
+    &:focus-visible {
+        background-color: var(--s-button--background-color--hover, #000);
+        color: var(--s-button--color--hover, #fff);
+        border: var(--s-button--border--hover, none);
+    }
+    &:active {
+        background-color: var(--s-button--background-color--active, #000);
+        color: var(--s-button--color--active, #fff);
+        border: var(--s-button--border--active, none);
+    }
+    &:disabled {
+        background-color: var(--s-button--background-color--disabled, #000);
+        color: var(--s-button--color--disabled, #fff);
+        border: var(--s-button--border--disabled, none);
 
-.IconButton > .mainLayer {
-    opacity: 1;
-}
-.IconButton.isOnLoadingProcess > .mainLayer {
-    opacity: 0;
-}
-.IconButton.isOnLoadingProcess > .circularLoaderContainer {
-    display: inline-flex;
-}
+        cursor: not-allowed;
+    }
 
-/* Block button */
-.IconButton.block {
-    display: -webkit-box;
-    display: block flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-}
+    /* Block button */
+    &.block {
+        display: -webkit-box;
+        display: block flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+    }
 
-/* layer */
-.absLayer {
-    position: absolute;
-    top: 0;
-    left: 0;
+    /* main layer */
+    & > .mainLayer {
+        opacity: 1;
+    }
 
-    width: 100%;
-    height: 100%;
+    &.isOnLoadingProcess {
+        & > .mainLayer {
+            opacity: 0;
+        }
+        & > .circularLoaderContainer {
+            display: -webkit-box;
+            display: flex;
+        }
+    }
+
+    /* absolute layer */
+
+    & .absLayer {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+    }
 }
 
 /* Circular loader */
 .circularLoaderContainer {
     display: none;
+    -webkit-box-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
     align-items: center;
 
     pointer-events: none;

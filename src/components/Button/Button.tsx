@@ -1,3 +1,4 @@
+"use client";
 import React, { forwardRef, useMemo } from "react";
 import {
     ComponentSize,
@@ -24,6 +25,7 @@ type ButtonProps = Modify<
         variant?: Variant;
         shape?: Shape;
         size?: Extract<ComponentSize, "s" | "m" | "l">;
+        fitParentHeight?: boolean;
 
         color?: string;
 
@@ -53,6 +55,7 @@ export const Button = forwardRef<HTMLElement, ButtonProps>((props, ref) => {
         shape = "rounded",
         color = "#000",
         size = "m",
+        fitParentHeight = false,
 
         element = "auto",
         href,
@@ -159,6 +162,7 @@ export const Button = forwardRef<HTMLElement, ButtonProps>((props, ref) => {
                     rest.className,
                     block && styles.block,
                     isOnLoadingProcess && styles.isOnLoadingProcess,
+                    fitParentHeight && styles.fitParentHeight,
                     squamaComponentClass,
                 )}
             >
@@ -181,6 +185,7 @@ export const Button = forwardRef<HTMLElement, ButtonProps>((props, ref) => {
                     rest.className,
                     block && styles.block,
                     isOnLoadingProcess && styles.isOnLoadingProcess,
+                    fitParentHeight && styles.fitParentHeight,
                     squamaComponentClass,
                 )}
                 onClick={isOnLoadingProcess ? onClickInLoading : onClick}
@@ -204,6 +209,7 @@ export const Button = forwardRef<HTMLElement, ButtonProps>((props, ref) => {
                     rest.className,
                     block && styles.block,
                     isOnLoadingProcess && styles.isOnLoadingProcess,
+                    fitParentHeight && styles.fitParentHeight,
                     squamaComponentClass,
                 )}
                 onClick={isOnLoadingProcess ? onClickInLoading : onClick}

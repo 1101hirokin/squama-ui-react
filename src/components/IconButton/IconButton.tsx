@@ -1,3 +1,4 @@
+"use client";
 import React, { forwardRef, useMemo } from "react";
 import styles from "./IconButton.module.css";
 import {
@@ -26,6 +27,7 @@ type IconButtonProps = Modify<
         variant?: Variant;
         shape?: Shape;
         size?: Extract<ComponentSize, "s" | "m" | "l">;
+        fitParentHeight?: boolean;
 
         color?: string;
 
@@ -60,6 +62,7 @@ export const IconButton = forwardRef<HTMLElement, IconButtonProps>(
             shape = "rounded",
             color = "#000",
             size = "m",
+            fitParentHeight = false,
 
             element = "auto",
             href,
@@ -165,6 +168,7 @@ export const IconButton = forwardRef<HTMLElement, IconButtonProps>(
                         rest.className,
                         block && styles.block,
                         isOnLoadingProcess && styles.isOnLoadingProcess,
+                        fitParentHeight && styles.fitParentHeight,
                         squamaComponentClass,
                     )}
                 >
@@ -187,6 +191,7 @@ export const IconButton = forwardRef<HTMLElement, IconButtonProps>(
                         rest.className,
                         block && styles.block,
                         isOnLoadingProcess && styles.isOnLoadingProcess,
+                        fitParentHeight && styles.fitParentHeight,
                         squamaComponentClass,
                     )}
                     onClick={isOnLoadingProcess ? onClickInLoading : onClick}
@@ -208,6 +213,8 @@ export const IconButton = forwardRef<HTMLElement, IconButtonProps>(
                         styles.IconButton,
                         rest.className,
                         block && styles.block,
+                        isOnLoadingProcess && styles.isOnLoadingProcess,
+                        fitParentHeight && styles.fitParentHeight,
                         squamaComponentClass,
                     )}
                     onClick={onClick}

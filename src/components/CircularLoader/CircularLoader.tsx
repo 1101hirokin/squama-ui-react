@@ -1,3 +1,4 @@
+"use client";
 import React, { forwardRef } from "react";
 import { SquamaComponentProps, squamaComponentClass } from "../../api";
 import { buildClassName, Modify } from "../../utils";
