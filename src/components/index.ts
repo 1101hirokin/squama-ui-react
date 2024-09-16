@@ -10,6 +10,7 @@ export * from "./TextArea/TextArea";
 export * from "./Avatar/Avatar";
 export * from "./AvatarGroup/AvatarGroup";
 export * from "./ContextMenu/ContextMenu";
+export * from "./ContextMenuElement/ContextMenuElement";
 export * from "./Tooltip/Tooltip";
 export * from "./Alert/Alert";
 export * from "./Badge/Badge";
