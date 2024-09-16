@@ -1,5 +1,5 @@
 "use client";
-import React, { CSSProperties, memo, useMemo } from "react";
+import React, { memo, useMemo } from "react";
 import {
     Elevation,
     getBorderRadiusByShape,
