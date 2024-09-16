@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { CSSProperties, memo, useMemo } from "react";
 import {
     Elevation,
     getBorderRadiusByShape,
@@ -16,6 +16,7 @@ import { useSquamaContext } from "../SquamaContext/SquamaContext";
 
 export type ContextMenuItemProps = {
     id?: string;
+
     label: React.ReactNode;
 
     leading?: React.ReactNode;
@@ -54,235 +55,245 @@ const calcChildMenuPosition = (
 
     return { x, y };
 };
-const ContextMenuItem = (
-    p: Modify<SquamaComponentProps, ContextMenuItemProps>,
-) => {
-    const {
-        label,
-        leading,
-        trailing,
-        subItems,
+const ContextMenuItem = memo(
+    (p: Modify<SquamaComponentProps, ContextMenuItemProps>) => {
+        const {
+            label,
+            leading,
+            trailing,
+            subItems,
 
-        onClick,
-        buttonType,
+            onClick,
+            buttonType,
 
-        href,
-        target,
-        rel,
+            href,
+            target,
+            rel,
 
-        ...rest
-    } = p;
+            ...rest
+        } = p;
 
-    const InnerElement = () => {
-        return (
-            <div className={styles.mainLayer}>
-                <div className={styles.itemLeadingContainer}>{leading}</div>
-                <div className={styles.itemContentContainer}>
-                    <Text custom={{ level: 5 }} element="span">
-                        {label}
-                    </Text>
+        const InnerElement = () => {
+            return (
+                <div className={styles.mainLayer}>
+                    <div className={styles.itemLeadingContainer}>{leading}</div>
+                    <div className={styles.itemContentContainer}>
+                        <Text custom={{ level: 5 }} element="span">
+                            {label}
+                        </Text>
+                    </div>
+                    <div className={styles.itemTrailingContainer}>
+                        {trailing}
+                    </div>
                 </div>
-                <div className={styles.itemTrailingContainer}>{trailing}</div>
-            </div>
-        );
-    };
+            );
+        };
 
-    const isAnchor = href !== undefined;
+        const isAnchor = href !== undefined;
 
-    const hasLeading = leading !== undefined;
-    const hasTrailing = trailing !== undefined;
+        const hasLeading = leading !== undefined;
+        const hasTrailing = trailing !== undefined;
 
-    if (isAnchor) {
-        return (
-            <li
-                {...rest}
-                className={buildClassName(
-                    styles.ContextMenuItem,
-                    hasLeading && styles.hasLeading,
-                    hasTrailing && styles.hasTrailing,
-                    rest.className,
-                )}
-            >
-                <a
-                    className={styles.ActionTrigger}
-                    href={href}
-                    target={target}
-                    rel={rel}
+        if (isAnchor) {
+            return (
+                <li
+                    {...rest}
+                    className={buildClassName(
+                        styles.ContextMenuItem,
+                        hasLeading && styles.hasLeading,
+                        hasTrailing && styles.hasTrailing,
+                        rest.className,
+                    )}
                 >
-                    <InnerElement />
-                </a>
-            </li>
-        );
-    } else {
-        return (
-            <li
-                {...rest}
-                className={buildClassName(
-                    styles.ContextMenuItem,
-                    rest.className,
-                )}
-            >
-                <button
-                    className={styles.ActionTrigger}
-                    onClick={(e) => {
-                        onClick?.(e, p);
-                    }}
-                    type={buttonType || "button"}
+                    <a
+                        className={styles.ActionTrigger}
+                        href={href}
+                        target={target}
+                        rel={rel}
+                    >
+                        <InnerElement />
+                    </a>
+                </li>
+            );
+        } else {
+            return (
+                <li
+                    {...rest}
+                    className={buildClassName(
+                        styles.ContextMenuItem,
+                        rest.className,
+                    )}
                 >
-                    <InnerElement />
-                </button>
-            </li>
-        );
-    }
-};
-
-export const ContextMenuElement = (
-    props: Modify<
-        SquamaComponentProps,
-        {
-            menuItems: ContextMenuItemProps[];
-            isChild?: boolean;
-
-            toLeft?: boolean;
-            toTop?: boolean;
-
-            theme?: Theme;
-            elevation?: Elevation;
+                    <button
+                        className={styles.ActionTrigger}
+                        onClick={(e) => {
+                            onClick?.(e, p);
+                        }}
+                        type={buttonType || "button"}
+                    >
+                        <InnerElement />
+                    </button>
+                </li>
+            );
         }
-    >,
-) => {
-    const {
-        menuItems,
-        isChild = false,
-        toTop,
-        toLeft,
-        style,
-        theme,
-        elevation = 20,
-        ...rest
-    } = props;
+    },
+);
 
-    const context = useSquamaContext();
-    const usedTheme = theme || context.getCurrentTheme();
+export const ContextMenuElement = memo(
+    (
+        props: Modify<
+            SquamaComponentProps,
+            {
+                menuItems: ContextMenuItemProps[];
+                isChild?: boolean;
 
-    const [childMenu, setChildMenu] = React.useState<React.ReactNode>(null);
+                toLeft?: boolean;
+                toTop?: boolean;
 
-    const boxShadow = getBoxShadowByElevation(elevation);
-    const borderRadius = getBorderRadiusByShape("rounded");
+                theme?: Theme;
+                elevation?: Elevation;
+            }
+        >,
+    ) => {
+        const {
+            menuItems,
+            isChild = false,
+            toTop,
+            toLeft,
+            style,
+            theme,
+            elevation = 20,
+            ...rest
+        } = props;
 
-    const menuRef = React.useRef<HTMLDivElement>(null);
+        const context = useSquamaContext();
+        const usedTheme = useMemo(
+            () => theme || context.getCurrentTheme(),
+            [context, theme],
+        );
 
-    const yPadding = 8;
+        const [childMenu, setChildMenu] = React.useState<React.ReactNode>(null);
 
-    const cssVars = {
-        "--s-context-menu--background":
-            usedTheme.component.background || usedTheme.app.background,
-        "--s-context-menu--color":
-            usedTheme.component.text || usedTheme.app.text,
+        const boxShadow = getBoxShadowByElevation(elevation);
+        const borderRadius = getBorderRadiusByShape("rounded");
 
-        "--s-context-menu--box-shadow": boxShadow,
-        "--s-context-menu--padding-y": `${yPadding}px`,
-        "--s-context-menu--border-radius": borderRadius,
+        const menuRef = React.useRef<HTMLDivElement>(null);
 
-        "--s-context-menu-item--background--hover": usedTheme.isLight
-            ? "rgba(0, 0, 0, 0.1)"
-            : "rgba(255, 255, 255, 0.1)",
-    } as React.CSSProperties;
+        const yPadding = 8;
 
-    return (
-        <div
-            ref={menuRef}
-            style={{
-                ...style,
-                ...cssVars,
-            }}
-            className={buildClassName(
-                squamaComponentClass,
-                styles.ContextMenuArea,
-                isChild && styles.child,
-            )}
-        >
+        const cssVars = {
+            "--s-context-menu--background":
+                usedTheme.component.background || usedTheme.app.background,
+            "--s-context-menu--color":
+                usedTheme.component.text || usedTheme.app.text,
+
+            "--s-context-menu--box-shadow": boxShadow,
+            "--s-context-menu--padding-y": `${yPadding}px`,
+            "--s-context-menu--border-radius": borderRadius,
+
+            "--s-context-menu-item--background--hover": usedTheme.isLight
+                ? "rgba(0, 0, 0, 0.1)"
+                : "rgba(255, 255, 255, 0.1)",
+        } as React.CSSProperties;
+
+        return (
             <div
-                className={buildClassName(styles.ContextMenu, rest.className)}
-                onContextMenu={(e) => {
-                    e.preventDefault();
+                ref={menuRef}
+                style={{
+                    ...style,
+                    ...cssVars,
                 }}
+                className={buildClassName(
+                    squamaComponentClass,
+                    styles.ContextMenuArea,
+                    isChild && styles.child,
+                )}
             >
-                {menuItems.map((item, i) => {
-                    return (
-                        <ContextMenuItem
-                            key={item.id || i}
-                            {...item}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                item.onClick?.(e, item);
-                            }}
-                            onMouseEnter={(e) => {
-                                e.stopPropagation();
+                <div
+                    className={buildClassName(
+                        styles.ContextMenu,
+                        rest.className,
+                    )}
+                    onContextMenu={(e) => {
+                        e.preventDefault();
+                    }}
+                >
+                    {menuItems.map((item, i) => {
+                        return (
+                            <ContextMenuItem
+                                key={item.id || i}
+                                {...item}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    item.onClick?.(e, item);
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.stopPropagation();
 
-                                setChildMenu(null);
+                                    setChildMenu(null);
 
-                                // サブアイテムを持っているとき、サブメニューを生成
-                                if (item.subItems && menuRef.current) {
-                                    const menuBoundingRect =
-                                        menuRef.current.getBoundingClientRect();
+                                    // サブアイテムを持っているとき、サブメニューを生成
+                                    if (item.subItems && menuRef.current) {
+                                        const menuBoundingRect =
+                                            menuRef.current.getBoundingClientRect();
 
-                                    // サブメニューを上方向に配置するか否か： toTopの値が上位から与えられていないとき（ルートメニューのとき）、画面上部にあるか下部にあるかで判定
-                                    const currentToTop =
-                                        toTop === undefined
-                                            ? menuBoundingRect.top >
-                                              window.innerHeight / 2
-                                            : toTop;
+                                        // サブメニューを上方向に配置するか否か： toTopの値が上位から与えられていないとき（ルートメニューのとき）、画面上部にあるか下部にあるかで判定
+                                        const currentToTop =
+                                            toTop === undefined
+                                                ? menuBoundingRect.top >
+                                                  window.innerHeight / 2
+                                                : toTop;
 
-                                    // サブメニューを左方向に配置するか否か： toLeftの値が与えられていないとき（ルートメニューのとき）、画面
-                                    const currentToLeft =
-                                        toLeft === undefined
-                                            ? menuBoundingRect.left >
-                                              window.innerWidth / 2
-                                            : toLeft;
+                                        // サブメニューを左方向に配置するか否か： toLeftの値が与えられていないとき（ルートメニューのとき）、画面
+                                        const currentToLeft =
+                                            toLeft === undefined
+                                                ? menuBoundingRect.left >
+                                                  window.innerWidth / 2
+                                                : toLeft;
 
-                                    const { x, y } = calcChildMenuPosition(
-                                        menuRef.current,
-                                        e.currentTarget,
-                                        yPadding,
-                                        currentToLeft,
-                                        currentToTop,
-                                    );
+                                        const { x, y } = calcChildMenuPosition(
+                                            menuRef.current,
+                                            e.currentTarget,
+                                            yPadding,
+                                            currentToLeft,
+                                            currentToTop,
+                                        );
 
-                                    const child = (
-                                        <ContextMenuElement
-                                            style={{
-                                                top: currentToTop
-                                                    ? undefined
-                                                    : y,
-                                                bottom: currentToTop
-                                                    ? y
-                                                    : undefined,
-                                                left: currentToLeft
-                                                    ? x
-                                                    : undefined,
-                                                right: currentToLeft
-                                                    ? undefined
-                                                    : x,
-                                            }}
-                                            menuItems={item.subItems}
-                                            isChild
-                                            toTop={currentToTop}
-                                            toLeft={currentToLeft}
-                                        />
-                                    );
+                                        const child = (
+                                            <ContextMenuElement
+                                                style={{
+                                                    top: currentToTop
+                                                        ? undefined
+                                                        : y,
+                                                    bottom: currentToTop
+                                                        ? y
+                                                        : undefined,
+                                                    left: currentToLeft
+                                                        ? x
+                                                        : undefined,
+                                                    right: currentToLeft
+                                                        ? undefined
+                                                        : x,
+                                                }}
+                                                menuItems={item.subItems}
+                                                isChild
+                                                toTop={currentToTop}
+                                                toLeft={currentToLeft}
+                                            />
+                                        );
 
-                                    setChildMenu(child);
-                                }
-                            }}
-                            onMouseLeave={(e) => {
-                                e.stopPropagation();
-                            }}
-                        />
-                    );
-                })}
+                                        setChildMenu(child);
+                                    }
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.stopPropagation();
+                                }}
+                            />
+                        );
+                    })}
+                </div>
+                {childMenu}
             </div>
-            {childMenu}
-        </div>
-    );
-};
+        );
+    },
+);

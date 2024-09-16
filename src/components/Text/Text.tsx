@@ -1,5 +1,5 @@
 "use client";
-import { forwardRef } from "react";
+import { forwardRef, memo } from "react";
 import {
     SquamaComponentProps,
     squamaComponentClass,
@@ -103,98 +103,100 @@ const getTextClassNamesByTypeScale = (typeScale: TypeScale): string[] => {
     return classNames;
 };
 
-export const Text = forwardRef<HTMLElement, TextProps>((props, ref) => {
-    const { typeScale = "body.1", element, custom, ...rest } = props;
+export const Text = memo(
+    forwardRef<HTMLElement, TextProps>((props, ref) => {
+        const { typeScale = "body.1", element, custom, ...rest } = props;
 
-    const elm = element || convertTypeScaleToElement(typeScale);
+        const elm = element || convertTypeScaleToElement(typeScale);
 
-    const classNames = custom
-        ? (() => {
-              const classNames: string[] = [];
-              switch (custom.type) {
-                  case "heading":
-                      classNames.push(styles.heading);
-                      break;
-                  case "subtitle":
-                      classNames.push(styles.subtitle);
-                      break;
-                  case "body":
-                      classNames.push(styles.body);
-                      break;
-                  case "button":
-                      classNames.push(styles.button);
-                      break;
-                  case "caption":
-                      classNames.push(styles.caption);
-                      break;
-                  case "overline":
-                      classNames.push(styles.overline);
-                      break;
-                  default:
-                      break;
-              }
+        const classNames = custom
+            ? (() => {
+                  const classNames: string[] = [];
+                  switch (custom.type) {
+                      case "heading":
+                          classNames.push(styles.heading);
+                          break;
+                      case "subtitle":
+                          classNames.push(styles.subtitle);
+                          break;
+                      case "body":
+                          classNames.push(styles.body);
+                          break;
+                      case "button":
+                          classNames.push(styles.button);
+                          break;
+                      case "caption":
+                          classNames.push(styles.caption);
+                          break;
+                      case "overline":
+                          classNames.push(styles.overline);
+                          break;
+                      default:
+                          break;
+                  }
 
-              switch (custom.level) {
-                  case 1:
-                      classNames.push(styles.l1);
-                      break;
-                  case 2:
-                      classNames.push(styles.l2);
-                      break;
-                  case 3:
-                      classNames.push(styles.l3);
-                      break;
-                  case 4:
-                      classNames.push(styles.l4);
-                      break;
-                  case 5:
-                      classNames.push(styles.l5);
-                      break;
-                  case 6:
-                      classNames.push(styles.l6);
-                      break;
-                  default:
-                      break;
-              }
+                  switch (custom.level) {
+                      case 1:
+                          classNames.push(styles.l1);
+                          break;
+                      case 2:
+                          classNames.push(styles.l2);
+                          break;
+                      case 3:
+                          classNames.push(styles.l3);
+                          break;
+                      case 4:
+                          classNames.push(styles.l4);
+                          break;
+                      case 5:
+                          classNames.push(styles.l5);
+                          break;
+                      case 6:
+                          classNames.push(styles.l6);
+                          break;
+                      default:
+                          break;
+                  }
 
-              return classNames;
-          })()
-        : getTextClassNamesByTypeScale(typeScale);
+                  return classNames;
+              })()
+            : getTextClassNamesByTypeScale(typeScale);
 
-    const elmProps = {
-        ref: ref as any,
-        ...rest,
-        className: buildClassName(
-            squamaComponentClass,
-            classNames,
-            rest.className,
-            styles.Text,
-        ),
-        style: {
-            ...rest.style,
-        },
-    };
+        const elmProps = {
+            ref: ref as any,
+            ...rest,
+            className: buildClassName(
+                squamaComponentClass,
+                classNames,
+                rest.className,
+                styles.Text,
+            ),
+            style: {
+                ...rest.style,
+            },
+        };
 
-    return (() => {
-        switch (elm) {
-            case "p":
-                return <p {...elmProps} />;
-            case "div":
-                return <div {...elmProps} />;
-            case "h1":
-                return <h1 {...elmProps} />;
-            case "h2":
-                return <h2 {...elmProps} />;
-            case "h3":
-                return <h3 {...elmProps} />;
-            case "h4":
-                return <h4 {...elmProps} />;
-            case "h5":
-                return <h5 {...elmProps} />;
-            case "h6":
-                return <h6 {...elmProps} />;
-            default:
-                return <span {...elmProps} />;
-        }
-    })();
-});
+        return (() => {
+            switch (elm) {
+                case "p":
+                    return <p {...elmProps} />;
+                case "div":
+                    return <div {...elmProps} />;
+                case "h1":
+                    return <h1 {...elmProps} />;
+                case "h2":
+                    return <h2 {...elmProps} />;
+                case "h3":
+                    return <h3 {...elmProps} />;
+                case "h4":
+                    return <h4 {...elmProps} />;
+                case "h5":
+                    return <h5 {...elmProps} />;
+                case "h6":
+                    return <h6 {...elmProps} />;
+                default:
+                    return <span {...elmProps} />;
+            }
+        })();
+    }),
+);

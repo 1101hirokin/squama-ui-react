@@ -1,9 +1,14 @@
+export type ColorName =
+    | "red"
+    | "orange"
+    | "yellow"
+    | "green"
+    | "teal"
+    | "blue"
+    | "purple"
+    | "gray";
 export type Shade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
-export const Colors: {
-    [key: string]: {
-        [key in Shade]: string;
-    };
-} = {
+export const Colors: Record<ColorName, Record<Shade, string>> = {
     red: {
         50: "#FFF9F6",
         100: "#FFE9E1",

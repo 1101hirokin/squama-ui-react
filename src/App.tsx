@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
     Alert,
     Avatar,
@@ -30,7 +30,7 @@ const App = () => {
 
 const ComponentInApp = () => {
     const context = useSquamaContext();
-    const theme = context.getCurrentTheme();
+    const theme = useMemo(() => context.getCurrentTheme(), [context]);
 
     const [isLoaderCheckerLoading, setIsLoaderCheckerLoading] = useState(true);
 
