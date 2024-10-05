@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useMemo } from "react";
 import {
     Colors,
     ComponentSize,
@@ -26,6 +26,7 @@ type TextInputProps = Modify<
 
         inputId?: string;
         inputRef?: React.ForwardedRef<HTMLInputElement>;
+        type?: React.ComponentProps<"input">["type"];
         name?: string;
         placeholder?: React.ComponentProps<"input">["placeholder"];
         defaultValue?: React.ComponentProps<"input">["defaultValue"];
@@ -55,6 +56,7 @@ export const TextInput = forwardRef<HTMLDivElement, TextInputProps>(
 
             inputId,
             inputRef,
+            type = "text",
             name,
             placeholder,
             defaultValue,
@@ -85,30 +87,33 @@ export const TextInput = forwardRef<HTMLDivElement, TextInputProps>(
         const borderRadius = getBorderRadiusByShape(shape ?? theme.shape);
         const _height = getPixelFromComponentSize(height);
 
-        const cssVars = {
-            "--s-textinput--height": _height,
+        const cssVars = useMemo(() => {
+            return {
+                "--s-textinput--height": _height,
 
-            "--s-textinput--border-radius": borderRadius,
+                "--s-textinput--border-radius": borderRadius,
 
-            "--s-textinput--border-color": theme.component.border,
+                "--s-textinput--border-color": theme.component.border,
 
-            "--s-textinput--text-color": theme.component.text ?? theme.app.text,
-            "--s-textinput--text-color--disabled": theme.isLight
-                ? Colors.gray[300]
-                : Colors.gray[700],
-            "--s-textinput--placeholder-color": Colors.gray[400],
-            "--s-textinput--placeholder-color--disabled": theme.isLight
-                ? Colors.gray[300]
-                : Colors.gray[500],
-            "--s-textinput--background-color":
-                theme.component.background ?? theme.app.background,
-            "--s-textinput--background-color--disabled": theme.isLight
-                ? Colors.gray[100]
-                : Colors.gray[900],
-            "--s-textinput--required-message--color": theme.isLight
-                ? Colors.red[500]
-                : Colors.red[300],
-        } as React.CSSProperties;
+                "--s-textinput--text-color":
+                    theme.component.text ?? theme.app.text,
+                "--s-textinput--text-color--disabled": theme.isLight
+                    ? Colors.gray[300]
+                    : Colors.gray[700],
+                "--s-textinput--placeholder-color": Colors.gray[400],
+                "--s-textinput--placeholder-color--disabled": theme.isLight
+                    ? Colors.gray[300]
+                    : Colors.gray[500],
+                "--s-textinput--background-color":
+                    theme.component.background ?? theme.app.background,
+                "--s-textinput--background-color--disabled": theme.isLight
+                    ? Colors.gray[100]
+                    : Colors.gray[900],
+                "--s-textinput--required-message--color": theme.isLight
+                    ? Colors.red[500]
+                    : Colors.red[300],
+            } as React.CSSProperties;
+        }, [_height, borderRadius, theme]);
 
         return (
             <div
@@ -150,6 +155,7 @@ export const TextInput = forwardRef<HTMLDivElement, TextInputProps>(
                         <input
                             id={inputId}
                             ref={inputRef}
+                            type={type}
                             name={name}
                             className={styles.input}
                             placeholder={placeholder}

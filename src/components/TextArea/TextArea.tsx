@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useMemo } from "react";
 import {
     Colors,
     getBorderRadiusByShape,
@@ -81,28 +81,31 @@ export const TextArea = forwardRef<HTMLDivElement, TextAreaProps>(
 
         const borederRadius = getBorderRadiusByShape(shape ?? theme.shape);
 
-        const cssVars = {
-            "--s-textarea--border-radius": borederRadius,
+        const cssVars = useMemo(() => {
+            return {
+                "--s-textarea--border-radius": borederRadius,
 
-            "--s-textarea--border-color": theme.component.border,
+                "--s-textarea--border-color": theme.component.border,
 
-            "--s-textarea--text-color": theme.component.text ?? theme.app.text,
-            "--s-textarea--text-color--disabled": theme.isLight
-                ? Colors.gray[300]
-                : Colors.gray[700],
-            "--s-textarea--placeholder-color": Colors.gray[400],
-            "--s-textarea--placeholder-color--disabled": theme.isLight
-                ? Colors.gray[300]
-                : Colors.gray[500],
-            "--s-textarea--background-color":
-                theme.component.background ?? theme.app.background,
-            "--s-textarea--background-color--disabled": theme.isLight
-                ? Colors.gray[100]
-                : Colors.gray[900],
-            "--s-textarea--required-message--color": theme.isLight
-                ? Colors.red[500]
-                : Colors.red[300],
-        } as React.CSSProperties;
+                "--s-textarea--text-color":
+                    theme.component.text ?? theme.app.text,
+                "--s-textarea--text-color--disabled": theme.isLight
+                    ? Colors.gray[300]
+                    : Colors.gray[700],
+                "--s-textarea--placeholder-color": Colors.gray[400],
+                "--s-textarea--placeholder-color--disabled": theme.isLight
+                    ? Colors.gray[300]
+                    : Colors.gray[500],
+                "--s-textarea--background-color":
+                    theme.component.background ?? theme.app.background,
+                "--s-textarea--background-color--disabled": theme.isLight
+                    ? Colors.gray[100]
+                    : Colors.gray[900],
+                "--s-textarea--required-message--color": theme.isLight
+                    ? Colors.red[500]
+                    : Colors.red[300],
+            } as React.CSSProperties;
+        }, [borederRadius, theme]);
 
         return (
             <div
